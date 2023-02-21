@@ -4,12 +4,12 @@ import { Box, SimpleGrid } from "@chakra-ui/react";
 
 import Card from "components/card/Card";
 
+import AdminLayout from "layouts/admin";
+
 import {
   getData,
   formatRowData,
 } from "../../views/admin/customTables/variables/data";
-
-import AdminLayout from "layouts/admin";
 
 import Table from "../../views/admin/customTables/components/Table";
 import { columns } from "views/admin/customTables/variables/columnsData";
