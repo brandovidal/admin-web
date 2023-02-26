@@ -5,7 +5,7 @@ import { MdUpgrade } from "react-icons/md";
 export function ItemContent(props:{info:string}) {
   const textColor = useColorModeValue("navy.700", "white");
   return (
-    <>
+    <div>
       <Flex
         justify='center'
         align='center'
@@ -35,6 +35,6 @@ export function ItemContent(props:{info:string}) {
           </Text>
         </Flex>
       </Flex>
-    </>
+    </div>
   );
 }

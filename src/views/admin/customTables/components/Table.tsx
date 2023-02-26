@@ -19,7 +19,7 @@ const CustomTable = ({
   const textColor = useColorModeValue("secondaryGray.900", "white");
 
   return (
-    <>
+    <div>
       <Flex px="25px" justify="space-between" mb="20px" align="center">
         <Text
           color={textColor}
@@ -44,7 +44,7 @@ const CustomTable = ({
         pageSizeChangeHandler={pageSizeChangeHandler}
         emptyDataMessage="No hay datos disponibles"
       />
-    </>
+    </div>
   );
 };
 

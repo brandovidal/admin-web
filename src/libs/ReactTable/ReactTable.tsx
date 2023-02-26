@@ -30,13 +30,13 @@ const ReactTable = ({
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
 
   return (
-    <>
+    <div>
       {isLoading ? (
         <Flex justifyContent="center" alignItems="center" py="10">
           <Text color="gray.500">Loading...</Text>
         </Flex>
       ) : (
-        <>
+        <div>
           <Table
             {...getTableProps()}
             variant="simple"
@@ -97,9 +97,9 @@ const ReactTable = ({
           >
             {emptyDataMessage}
           </Center>
-        </>
+        </div>
       )}
-    </>
+    </div>
   );
 };
 

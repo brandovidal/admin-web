@@ -1,38 +1,40 @@
-import dynamic from 'next/dist/shared/lib/dynamic'
-import React from 'react'
-import { isWindowAvailable } from 'utils/navigation'
-import { ChartProps, ChartState } from './LineAreaChart'
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
+import { useEffect, useState } from "react";
 
-class ColumnChart extends React.Component<ChartProps, ChartState> {
-  constructor (props: ChartState) {
-    super(props)
-    this.state = {
-      chartData: [],
-      chartOptions: {}
-    }
-  }
+import { ChartProps, ChartState } from "./LineAreaChart";
 
-  componentDidMount () {
-    this.setState({
-      chartData: this.props.chartData,
-      chartOptions: this.props.chartOptions
-    })
-  }
+import { isWindowAvailable } from "utils/navigation";
 
-  render () {
-    if (!isWindowAvailable()) return <></>
+const ColumnChart = (props: ChartProps) => {
+  const [Chart, setChart] = useState<any>();
+  const [chartData, setChartData] = useState<ChartState["chartData"]>([]);
+  const [chartOptions, setChartOptions] = useState<ChartState["chartOptions"]>(
+    {}
+  );
 
-    return (
+  useEffect(() => {
+    import("react-apexcharts").then((mod) => {
+      setChart(() => mod.default);
+    });
+  }, []);
+
+  useEffect(() => {
+    setChartData(props.chartData);
+    setChartOptions(props.chartOptions);
+  }, [props]);
+
+  if (!isWindowAvailable()) return <></>;
+
+  return (
+    Chart && (
       <Chart
-        options={this.state.chartOptions}
-        series={this.state.chartData}
-        type='bar'
-        width='100%'
-        height='100%'
+        options={chartOptions}
+        series={chartData}
+        type="bar"
+        width="100%"
+        height="100%"
       />
     )
-  }
-}
+  );
+};
 
-export default ColumnChart
+export default ColumnChart;

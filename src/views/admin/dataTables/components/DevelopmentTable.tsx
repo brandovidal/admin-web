@@ -61,7 +61,7 @@ export default function DevelopmentTable(props: TableProps) {
     setIsMounted(true);
   }, [isMounted]);
 
-  if (!isMounted) return <></>;
+  if (!isMounted) return <div></div>;
 
   return (
     <Card

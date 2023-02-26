@@ -87,12 +87,12 @@ export interface TableProps {
   emptyDataMessage?: string;
 
   isLoading?: boolean;
-  totalRows: number;
-  rowsPerPage: number;
+  totalRows?: number;
+  rowsPerPage?: number;
 
-  currentPage: number;
-  pageChangeHandler: Function;
+  currentPage?: number;
+  pageChangeHandler?: Function;
 
-  pageSize: number;
-  pageSizeChangeHandler: Function;
+  pageSize?: number;
+  pageSizeChangeHandler?: Function;
 }

@@ -1,47 +1,49 @@
-import { ApexOptions } from 'apexcharts'
-import dynamic from 'next/dist/shared/lib/dynamic'
-import React from 'react'
-import { isWindowAvailable } from 'utils/navigation'
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
+import { useEffect, useState } from "react";
+
+import { ApexOptions } from "apexcharts";
+
+import { isWindowAvailable } from "utils/navigation";
 
 export type ChartState = {
-  chartData: ApexAxisChartSeries | ApexNonAxisChartSeries
-  chartOptions: ApexOptions
-}
+  chartData: ApexAxisChartSeries | ApexNonAxisChartSeries;
+  chartOptions: ApexOptions;
+};
 
 export type ChartProps = ChartState & {
-  [x: string]: any
-}
+  [x: string]: any;
+};
 
-class LineChart extends React.Component<ChartProps, ChartState> {
-  state: ChartState = {
-    chartData: [],
-    chartOptions: {}
-  }
+const LineChart = (props: ChartProps) => {
+  const [Chart, setChart] = useState<any>();
+  const [chartData, setChartData] = useState<ChartState["chartData"]>([]);
+  const [chartOptions, setChartOptions] = useState<ChartState["chartOptions"]>(
+    {}
+  );
 
-  constructor (props: ChartProps) {
-    super(props)
-  }
+  useEffect(() => {
+    import("react-apexcharts").then((mod) => {
+      setChart(() => mod.default);
+    });
+  }, []);
 
-  componentDidMount () {
-    this.setState({
-      chartData: this.props.chartData,
-      chartOptions: this.props.chartOptions
-    })
-  }
+  useEffect(() => {
+    setChartData(props.chartData);
+    setChartOptions(props.chartOptions);
+  }, [props]);
 
-  render () {
-    if (!isWindowAvailable()) return <></>
-    return (
+  if (!isWindowAvailable()) return <></>;
+
+  return (
+    Chart && (
       <Chart
-        options={this.state.chartOptions}
-        series={this.state.chartData}
-        type='area'
-        width='100%'
-        height='100%'
+        options={chartOptions}
+        series={chartData}
+        type="area"
+        width="100%"
+        height="100%"
       />
     )
-  }
-}
+  );
+};
 
-export default LineChart
+export default LineChart;

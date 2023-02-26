@@ -49,13 +49,13 @@ const Table = ({
   );
 
   return (
-    <>
+    <div>
       {isLoading ? (
         <Flex justifyContent="center" alignItems="center" py="10">
           <Text color={textColor}>Loading...</Text>
         </Flex>
       ) : (
-        <>
+        <div>
           <Flex
             flexDirection={["column", "column", "row", "row"]}
             justifyContent="space-between"
@@ -90,9 +90,9 @@ const Table = ({
             pageChangeHandler={pageChangeHandler}
             rowsPerPage={rowsPerPage}
           />
-        </>
+        </div>
       )}
-    </>
+    </div>
   );
 };
 

@@ -1,38 +1,39 @@
-import dynamic from 'next/dist/shared/lib/dynamic'
-import React from 'react'
-import { isWindowAvailable } from 'utils/navigation'
-import { ChartProps, ChartState } from './LineAreaChart'
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
+import { useEffect, useState } from "react";
 
-class PieChart extends React.Component<ChartProps, ChartState> {
-  state: ChartState = {
-    chartData: [],
-    chartOptions: {}
-  }
+import { ChartProps, ChartState } from "./LineAreaChart";
+import { isWindowAvailable } from "utils/navigation";
 
-  constructor (props: ChartProps) {
-    super(props)
-  }
+const PieChart = (props: ChartProps) => {
+  const [Chart, setChart] = useState<any>();
+  const [chartData, setChartData] = useState<ChartState["chartData"]>([]);
+  const [chartOptions, setChartOptions] = useState<ChartState["chartOptions"]>(
+    {}
+  );
 
-  componentDidMount () {
-    this.setState({
-      chartData: this.props.chartData,
-      chartOptions: this.props.chartOptions
-    })
-  }
+  useEffect(() => {
+    import("react-apexcharts").then((mod) => {
+      setChart(() => mod.default);
+    });
+  }, []);
 
-  render () {
-    if (!isWindowAvailable()) return <></>
-    return (
+  useEffect(() => {
+    setChartData(props.chartData);
+    setChartOptions(props.chartOptions);
+  }, [props]);
+
+  if (!isWindowAvailable()) return <></>;
+
+  return (
+    Chart && (
       <Chart
-        options={this.state.chartOptions}
-        series={this.state.chartData}
-        type='pie'
-        width='100%'
-        height='55%'
+        options={chartOptions}
+        series={chartData}
+        type="pie"
+        width="100%"
+        height="55%"
       />
     )
-  }
-}
+  );
+};
 
-export default PieChart
+export default PieChart;
