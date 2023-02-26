@@ -55,7 +55,7 @@ const Table = ({
           <Text color={textColor}>Loading...</Text>
         </Flex>
       ) : (
-        <div>
+        <>
           <Flex
             flexDirection={["column", "column", "row", "row"]}
             justifyContent="space-between"
@@ -90,7 +90,7 @@ const Table = ({
             pageChangeHandler={pageChangeHandler}
             rowsPerPage={rowsPerPage}
           />
-        </div>
+        </>
       )}
     </div>
   );
