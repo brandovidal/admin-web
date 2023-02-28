@@ -8,36 +8,37 @@ import {
   Th,
   Thead,
   Tr,
-  useColorModeValue,
-} from "@chakra-ui/react";
-import React, { useEffect, useMemo, useState } from "react";
+  useColorModeValue
+} from '@chakra-ui/react'
+import React, { useEffect, useMemo, useState } from 'react'
 import {
   useGlobalFilter,
   usePagination,
   useSortBy,
-  useTable,
-} from "react-table";
+  useTable
+} from 'react-table'
 
 // Custom components
-import Card from "components/card/Card";
-import Menu from "components/menu/MainMenu";
-import { TableProps } from "views/admin/default/variables/columnsData";
-import { isWindowAvailable } from "utils/navigation";
-export default function CheckTable(props: TableProps) {
-  const { columnsData, tableData } = props;
+import Card from '@/components/card/Card'
+import Menu from '@/components/menu/MainMenu'
+import { type TableProps } from '@/views/admin/default/variables/columnsData'
+import { isWindowAvailable } from '@utils/navigation'
 
-  const columns = useMemo(() => columnsData, [columnsData]);
-  const data = useMemo(() => tableData, [tableData]);
+export default function CheckTable (props: TableProps): JSX.Element {
+  const { columnsData, tableData } = props
+
+  const columns = useMemo(() => columnsData, [columnsData])
+  const data = useMemo(() => tableData, [tableData])
 
   const tableInstance = useTable(
     {
       columns,
-      data,
+      data
     },
     useGlobalFilter,
     useSortBy,
     usePagination
-  );
+  )
 
   const {
     getTableProps,
@@ -45,27 +46,27 @@ export default function CheckTable(props: TableProps) {
     headerGroups,
     page,
     prepareRow,
-    initialState,
-  } = tableInstance;
-  initialState.pageSize = 11;
+    initialState
+  } = tableInstance
+  initialState.pageSize = 11
 
-  const textColor = useColorModeValue("secondaryGray.900", "white");
-  const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
-  const [isMounted, setIsMounted] = useState(false);
+  const textColor = useColorModeValue('secondaryGray.900', 'white')
+  const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100')
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
-    if (isMounted) return;
-    setIsMounted(true);
-  }, [isMounted]);
+    if (isMounted) return
+    setIsMounted(true)
+  }, [isMounted])
 
-  if (!isMounted) return <div></div>;
+  if (!isMounted) return <div></div>
 
   return (
     <Card
       flexDirection="column"
       w="100%"
       px="0px"
-      overflowX={{ sm: "scroll", lg: "hidden" }}
+      overflowX={{ sm: 'scroll', lg: 'hidden' }}
     >
       <Flex px="25px" justify="space-between" mb="20px" align="center">
         <Text
@@ -94,10 +95,10 @@ export default function CheckTable(props: TableProps) {
                     <Flex
                       justify="space-between"
                       align="center"
-                      fontSize={{ sm: "10px", lg: "12px" }}
+                      fontSize={{ sm: '10px', lg: '12px' }}
                       color="gray.400"
                     >
-                      {column.render("Header")}
+                      {column.render('Header')}
                     </Flex>
                   </Th>
                 ))}
@@ -106,12 +107,12 @@ export default function CheckTable(props: TableProps) {
           </Thead>
           <Tbody {...getTableBodyProps()}>
             {page.map((row, index) => {
-              prepareRow(row);
+              prepareRow(row)
               return (
                 <Tr {...row.getRowProps()} key={index}>
                   {row.cells.map((cell, index) => {
-                    let data;
-                    if (cell.column.Header === "NAME") {
+                    let data
+                    if (cell.column.Header === 'NAME') {
                       data = (
                         <Flex align="center">
                           <Checkbox
@@ -127,8 +128,8 @@ export default function CheckTable(props: TableProps) {
                             {cell.value[0]}
                           </Text>
                         </Flex>
-                      );
-                    } else if (cell.column.Header === "PROGRESS") {
+                      )
+                    } else if (cell.column.Header === 'PROGRESS') {
                       data = (
                         <Flex align="center">
                           <Text
@@ -140,38 +141,38 @@ export default function CheckTable(props: TableProps) {
                             {cell.value}%
                           </Text>
                         </Flex>
-                      );
-                    } else if (cell.column.Header === "QUANTITY") {
+                      )
+                    } else if (cell.column.Header === 'QUANTITY') {
                       data = (
                         <Text color={textColor} fontSize="sm" fontWeight="700">
                           {cell.value}
                         </Text>
-                      );
-                    } else if (cell.column.Header === "DATE") {
+                      )
+                    } else if (cell.column.Header === 'DATE') {
                       data = (
                         <Text color={textColor} fontSize="sm" fontWeight="700">
                           {cell.value}
                         </Text>
-                      );
+                      )
                     }
                     return (
                       <Td
                         {...cell.getCellProps()}
                         key={index}
-                        fontSize={{ sm: "14px" }}
-                        minW={{ sm: "150px", md: "200px", lg: "auto" }}
+                        fontSize={{ sm: '14px' }}
+                        minW={{ sm: '150px', md: '200px', lg: 'auto' }}
                         borderColor="transparent"
                       >
                         {data}
                       </Td>
-                    );
+                    )
                   })}
                 </Tr>
-              );
+              )
             })}
           </Tbody>
         </Table>
       )}
     </Card>
-  );
+  )
 }

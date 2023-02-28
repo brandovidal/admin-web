@@ -1,13 +1,13 @@
-export const formatRowData = (rawData: any) =>
+export const formatRowData = (rawData: any): any =>
   rawData.map((info: any) => ({
     name: info.name,
-    trips: info.trips,
-  }));
+    trips: info.trips
+  }))
 
-export const getData = async (page = 1, size = 10) => {
+export const getData = async (page = 1, size = 10): Promise<any> => {
   const response = await fetch(
     `https://api.instantwebtools.net/v1/passenger?page=${page}&size=${size}`
-  );
+  )
   // `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${pageSize}`
-  return await response.json();
-};
+  return await response.json()
+}

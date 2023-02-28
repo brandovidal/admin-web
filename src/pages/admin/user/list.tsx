@@ -1,71 +1,71 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 
-import { Box, SimpleGrid } from "@chakra-ui/react";
+import { Box, SimpleGrid } from '@chakra-ui/react'
 
-import Card from "components/card/Card";
+import Card from '@/components/card/Card'
 
-import AdminLayout from "layouts/admin";
+import AdminLayout from '@/layouts/admin'
 
 import {
   getData,
-  formatRowData,
-} from "../../../views/admin/customTables/variables/data";
+  formatRowData
+} from '../../../views/admin/customTables/variables/data'
 
-import Table from "../../../views/admin/customTables/components/Table";
-import { columns } from "views/admin/customTables/variables/columnsData";
+import Table from '../../../views/admin/customTables/components/Table'
+import { columns } from '@/views/admin/customTables/variables/columnsData'
 
-export default function UserListPage() {
+export default function UserListPage (): JSX.Element {
   const [pageData, setPageData] = useState({
     rowData: [],
     isLoading: false,
     totalPages: 0,
-    totalRows: 0,
-  });
+    totalRows: 0
+  })
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
 
   useEffect(() => {
     setPageData((prevState) => ({
       ...prevState,
       rowData: [],
-      isLoading: true,
-    }));
+      isLoading: true
+    }))
 
     getData(currentPage, pageSize)
       .then((info) => {
-        const { totalPages, totalPassengers = 0, data } = info;
+        const { totalPages, data } = info
 
         setPageData({
           isLoading: false,
           rowData: formatRowData(data),
           totalPages,
-          totalRows: 100,
-        });
+          totalRows: 100
+        })
       })
-      .catch((error) => {
+      .catch(() => {
         setPageData({
           isLoading: false,
           rowData: [],
           totalPages: 0,
-          totalRows: 0,
-        });
-      });
-  }, [currentPage, pageSize]);
+          totalRows: 0
+        })
+      })
+  }, [currentPage, pageSize])
 
   return (
     <AdminLayout>
-      <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
+      <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
         <SimpleGrid
           mb="20px"
           columns={{ sm: 1, md: 1 }}
-          spacing={{ base: "20px", xl: "20px" }}
+          spacing={{ base: '20px', xl: '20px' }}
         >
           <Card
             flexDirection="column"
             w="100%"
             px="0px"
-            overflowX={{ sm: "scroll", lg: "hidden" }}
+            overflowX={{ sm: 'scroll', lg: 'hidden' }}
           >
             <Table
               columnsData={columns}
@@ -82,5 +82,5 @@ export default function UserListPage() {
         </SimpleGrid>
       </Box>
     </AdminLayout>
-  );
+  )
 }

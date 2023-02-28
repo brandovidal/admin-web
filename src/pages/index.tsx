@@ -1,10 +1,10 @@
-import Router from "next/router";
-import React, { useEffect } from "react";
+import Router from 'next/router'
+import React, { useEffect } from 'react'
 
-export default function Home() {
+export default function Home (): JSX.Element {
   useEffect(() => {
-    Router.push("/admin/default");
-  });
+    void Router.push('/admin/default')
+  })
 
-  return <div></div>;
+  return <div></div>
 }

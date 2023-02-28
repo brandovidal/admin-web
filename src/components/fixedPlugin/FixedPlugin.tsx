@@ -3,20 +3,22 @@ import { Button, Icon, useColorMode } from '@chakra-ui/react'
 // Custom Icons
 import { IoMdMoon, IoMdSunny } from 'react-icons/io'
 import React, { useEffect } from 'react'
-import { isWindowAvailable } from 'utils/navigation'
+import { isWindowAvailable } from '@utils/navigation'
 
-export default function FixedPlugin (props: { [x: string]: any }) {
+export default function FixedPlugin (props: { [key: string]: any }): JSX.Element {
   const { ...rest } = props
   const { colorMode, toggleColorMode } = useColorMode()
-  let bgButton = 'linear-gradient(135deg, #868CFF 0%, #4318FF 100%)'
+  const bgButton = 'linear-gradient(135deg, #868CFF 0%, #4318FF 100%)'
 
   let left = ''
   let right = '35px'
+
   useEffect(() => {
-    if (isWindowAvailable() || window.document.documentElement.dir !== 'rtl')
+    if (isWindowAvailable() || window.document.documentElement.dir !== 'rtl') {
       return
-    ;[left, right] = [right, left]
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }[left, right] = [right, left]
+  }, [])
 
   return (
     <Button
@@ -39,12 +41,7 @@ export default function FixedPlugin (props: { [x: string]: any }) {
       alignItems='center'
       justifyContent='center'
     >
-      <Icon
-        h='24px'
-        w='24px'
-        color='white'
-        as={colorMode === 'light' ? IoMdMoon : IoMdSunny}
-      />
+      <Icon h='24px' w='24px' color='white' as={colorMode === 'light' ? IoMdMoon : IoMdSunny} />
     </Button>
   )
 }

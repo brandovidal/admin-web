@@ -1,98 +1,98 @@
-import { Column, HeaderGroup, Row } from "react-table";
+import { type Column, type HeaderGroup, type Row } from 'react-table'
 
 export const columnsDataCheck = [
   {
-    Header: "NAME",
-    accessor: "name",
+    Header: 'NAME',
+    accessor: 'name'
   },
   {
-    Header: "PROGRESS",
-    accessor: "progress",
+    Header: 'PROGRESS',
+    accessor: 'progress'
   },
   {
-    Header: "QUANTITY",
-    accessor: "quantity",
+    Header: 'QUANTITY',
+    accessor: 'quantity'
   },
   {
-    Header: "DATE",
-    accessor: "date",
-  },
-];
+    Header: 'DATE',
+    accessor: 'date'
+  }
+]
 export const columnsDataComplex = [
   {
-    Header: "NAME",
-    accessor: "name",
+    Header: 'NAME',
+    accessor: 'name'
   },
   {
-    Header: "STATUS",
-    accessor: "status",
+    Header: 'STATUS',
+    accessor: 'status'
   },
   {
-    Header: "DATE",
-    accessor: "date",
+    Header: 'DATE',
+    accessor: 'date'
   },
   {
-    Header: "PROGRESS",
-    accessor: "progress",
-  },
-];
+    Header: 'PROGRESS',
+    accessor: 'progress'
+  }
+]
 
-export type ColumnData = Column[];
+export type ColumnData = Column[]
 
 export type TableData = Column<{
-  name: (string | boolean)[];
-  date: string;
-  progress: number;
-  quantity?: number;
-  status?: string;
-  artworks?: string;
-  rating?: number;
-}>;
+  name: Array<string | boolean>
+  date: string
+  progress: number
+  quantity?: number
+  status?: string
+  artworks?: string
+  rating?: number
+}>
 
-export type PageSizeFilterProps = {
-  pageSize: number;
-  pageSizes?: number[];
-  setPageSize: Function;
-};
+export interface PageSizeFilterProps {
+  pageSize: number
+  pageSizes?: number[]
+  setPageSize: any
+}
 
-export type GlobalFilterProps = {
-  globalFilter: string;
-  setGlobalFilter: Function;
-  placeholder?: string;
-};
+export interface GlobalFilterProps {
+  globalFilter: string
+  setGlobalFilter: any
+  placeholder?: string
+}
 
-export type ReactTableProps = {
-  getTableProps: Function;
-  getTableBodyProps: Function;
-  headerGroups: HeaderGroup[];
-  prepareRow: Function;
-  rows: Row[];
+export interface ReactTableProps {
+  getTableProps: any
+  getTableBodyProps: any
+  headerGroups: HeaderGroup[]
+  prepareRow: any
+  rows: Row[]
 
-  isLoading?: boolean;
-  emptyDataMessage?: string;
-};
+  isLoading?: boolean
+  emptyDataMessage?: string
+}
 
-export type PaginationProps = {
-  currentPage: number;
-  pageChangeHandler: Function;
-  totalRows: number;
-  rowsPerPage: number;
-  isLoading?: boolean;
-};
+export interface PaginationProps {
+  currentPage: number
+  pageChangeHandler: any
+  totalRows: number
+  rowsPerPage: number
+  isLoading?: boolean
+}
 
 export interface TableProps {
-  columnsData: ColumnData;
-  tableData: TableData[];
-  manualPagination?: boolean;
-  emptyDataMessage?: string;
+  columnsData: ColumnData
+  tableData: TableData[]
+  manualPagination?: boolean
+  emptyDataMessage?: string
 
-  isLoading?: boolean;
-  totalRows?: number;
-  rowsPerPage?: number;
+  isLoading?: boolean
+  totalRows?: number
+  rowsPerPage?: number
 
-  currentPage?: number;
-  pageChangeHandler?: Function;
+  currentPage?: number
+  pageChangeHandler?: any
 
-  pageSize?: number;
-  pageSizeChangeHandler?: Function;
+  pageSize?: number
+  pageSizeChangeHandler?: any
 }

@@ -1,7 +1,7 @@
 // Chakra imports
 import { Box, Flex, Text, useColorModeValue } from '@chakra-ui/react'
-import Card from 'components/card/Card'
-import { NextAvatar } from 'components/image/Avatar'
+import Card from '@/components/card/Card'
+import { NextAvatar } from '@/components/image/Avatar'
 
 export default function Banner (props: {
   banner: string
@@ -12,7 +12,7 @@ export default function Banner (props: {
   followers: number | string
   following: number | string
   [x: string]: any
-}) {
+}): JSX.Element {
   const {
     banner,
     avatar,

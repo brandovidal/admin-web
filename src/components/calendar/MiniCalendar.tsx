@@ -4,12 +4,12 @@ import { Text, Icon } from '@chakra-ui/react'
 // Chakra imports
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 // Custom components
-import Card from 'components/card/Card'
+import Card from '@/components/card/Card'
 
 export default function MiniCalendar (props: {
   selectRange: boolean
   [x: string]: any
-}) {
+}): JSX.Element {
   const { selectRange, ...rest } = props
   const [value, onChange] = useState(new Date())
   return (

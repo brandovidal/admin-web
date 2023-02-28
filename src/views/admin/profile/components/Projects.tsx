@@ -5,10 +5,10 @@ import Project1 from 'img/profile/Project1.png'
 import Project2 from 'img/profile/Project2.png'
 import Project3 from 'img/profile/Project3.png'
 // Custom components
-import Card from 'components/card/Card'
-import Project from 'views/admin/profile/components/Project'
+import Card from '@/components/card/Card'
+import Project from '@/views/admin/profile/components/Project'
 
-export default function Projects (props: { [x: string]: any }) {
+export default function Projects (props: { [key: string]: any }): JSX.Element {
   const { ...rest } = props
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white')

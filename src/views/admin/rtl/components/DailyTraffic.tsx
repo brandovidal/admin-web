@@ -1,20 +1,20 @@
 // Chakra imports
-import { Box, Flex, Icon, Text, useColorModeValue } from '@chakra-ui/react';
-import BarChart from 'components/charts/BarChart';
+import { Box, Flex, Icon, Text, useColorModeValue } from '@chakra-ui/react'
+import BarChart from '@/components/charts/BarChart'
 
 // Custom components
-import Card from 'components/card/Card';
-import { barChartDataDailyTraffic, barChartOptionsDailyTraffic } from 'variables/charts';
+import Card from '@/components/card/Card'
+import { barChartDataDailyTraffic, barChartOptionsDailyTraffic } from '@variables/charts'
 
 // Assets
-import { RiArrowUpSFill } from 'react-icons/ri';
+import { RiArrowUpSFill } from 'react-icons/ri'
 
-export default function DailyTraffic(props: { [x: string]: any }) {
-	const { ...rest } = props;
+export default function DailyTraffic (props: { [key: string]: any }): JSX.Element {
+  const { ...rest } = props
 
-	// Chakra Color Mode
-	const textColor = useColorModeValue('secondaryGray.900', 'white');
-	return (
+  // Chakra Color Mode
+  const textColor = useColorModeValue('secondaryGray.900', 'white')
+  return (
 		<Card alignItems='center' flexDirection='column' w='100%' {...rest}>
 			<Flex justify='space-between' align='start' px='10px' pt='5px'>
 				<Flex flexDirection='column' align='start' me='20px'>
@@ -41,5 +41,5 @@ export default function DailyTraffic(props: { [x: string]: any }) {
 				<BarChart chartData={barChartDataDailyTraffic} chartOptions={barChartOptionsDailyTraffic} />
 			</Box>
 		</Card>
-	);
+  )
 }

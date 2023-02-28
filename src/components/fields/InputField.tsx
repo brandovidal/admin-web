@@ -3,7 +3,7 @@ import {
   Flex,
   FormLabel,
   Input,
-  SpaceProps,
+  type SpaceProps,
   Text,
   useColorModeValue
 } from '@chakra-ui/react'
@@ -16,13 +16,13 @@ export default function Default (props: {
   placeholder: string
   type: string
   mb: SpaceProps['mb']
-}) {
+}): JSX.Element {
   const { id, label, extra, placeholder, type, mb, ...rest } = props
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue('secondaryGray.900', 'white')
 
   return (
-    <Flex direction='column' mb={mb ? mb : '30px'}>
+    <Flex direction='column' mb={mb ?? '30px'}>
       <FormLabel
         display='flex'
         ms='10px'

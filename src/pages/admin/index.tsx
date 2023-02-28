@@ -1,9 +1,9 @@
 import Router from 'next/router'
 import React, { useEffect } from 'react'
 
-export default function Admin () {
+export default function Admin (): JSX.Element {
   useEffect(() => {
-    Router.push('/admin/default')
+    void Router.push('/admin/default')
   })
 
   return <div />

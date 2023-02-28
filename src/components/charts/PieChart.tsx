@@ -1,27 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
-import { ChartProps, ChartState } from "./LineAreaChart";
-import { isWindowAvailable } from "utils/navigation";
+import { type ChartProps, type ChartState } from './LineAreaChart'
+import { isWindowAvailable } from '@utils/navigation'
 
-const PieChart = (props: ChartProps) => {
-  const [Chart, setChart] = useState<any>();
-  const [chartData, setChartData] = useState<ChartState["chartData"]>([]);
-  const [chartOptions, setChartOptions] = useState<ChartState["chartOptions"]>(
+const PieChart = (props: ChartProps): any => {
+  const [Chart, setChart] = useState<any>()
+  const [chartData, setChartData] = useState<ChartState['chartData']>([])
+  const [chartOptions, setChartOptions] = useState<ChartState['chartOptions']>(
     {}
-  );
+  )
 
   useEffect(() => {
-    import("react-apexcharts").then((mod) => {
-      setChart(() => mod.default);
-    });
-  }, []);
+    import('react-apexcharts').then((mod) => {
+      setChart(() => mod.default)
+    }).catch((err) => {
+      console.error('Failed to load ApexCharts', err)
+    })
+  }, [])
 
   useEffect(() => {
-    setChartData(props.chartData);
-    setChartOptions(props.chartOptions);
-  }, [props]);
+    setChartData(props.chartData)
+    setChartOptions(props.chartOptions)
+  }, [props])
 
-  if (!isWindowAvailable()) return <></>;
+  if (!isWindowAvailable()) return <></>
 
   return (
     Chart && (
@@ -33,7 +35,7 @@ const PieChart = (props: ChartProps) => {
         height="55%"
       />
     )
-  );
-};
+  )
+}
 
-export default PieChart;
+export default PieChart

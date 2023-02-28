@@ -1,11 +1,11 @@
 // Chakra imports
 import { Button, Flex, Link, Text } from '@chakra-ui/react'
-import styles from 'styles/Banner.module.css'
+import styles from '@/styles/Banner.module.css'
 
 // Assets
 // import banner from 'img/nfts/NftBanner1.png'
 
-export default function Banner () {
+export default function Banner (): JSX.Element {
   // Chakra Color Mode
   return (
     <Flex
@@ -49,8 +49,7 @@ export default function Banner () {
         mb='40px'
         lineHeight='28px'
       >
-        Enter in this creative world. Discover now the latest NFTs or start
-        creating your own!
+        Enter in this creative world. Discover now the latest NFTs or start creating your own!
       </Text>
       <Flex align='center'>
         <Button

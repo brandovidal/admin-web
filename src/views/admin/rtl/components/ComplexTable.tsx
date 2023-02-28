@@ -1,39 +1,22 @@
-import {
-  Flex,
-  Table,
-  Progress,
-  Icon,
-  Tbody,
-  Td,
-  Text,
-  Th,
-  Thead,
-  Tr,
-  useColorModeValue
-} from '@chakra-ui/react'
+import { Flex, Table, Progress, Icon, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react'
 import { useMemo } from 'react'
-import {
-  useGlobalFilter,
-  usePagination,
-  useSortBy,
-  useTable
-} from 'react-table'
+import { useGlobalFilter, usePagination, useSortBy, useTable } from 'react-table'
 
 // Custom components
-import Card from 'components/card/Card'
-import Menu from 'components/menu/MainMenu'
+import Card from '@/components/card/Card'
+import Menu from '@/components/menu/MainMenu'
 
 // Assets
 import { MdCheckCircle, MdCancel, MdOutlineError } from 'react-icons/md'
-import { TableProps } from 'views/admin/default/variables/columnsData'
+import { type TableProps } from '@/views/admin/default/variables/columnsData'
 
-export default function CheckTable (props: TableProps) {
+export default function CheckTable (props: TableProps): JSX.Element {
   const { columnsData, tableData } = props
 
   const columns = useMemo(() => columnsData, [columnsData])
   const data = useMemo(() => tableData, [tableData])
 
-  let tableInstance = useTable(
+  const tableInstance = useTable(
     {
       columns,
       data
@@ -43,32 +26,15 @@ export default function CheckTable (props: TableProps) {
     usePagination
   )
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-    initialState
-  } = tableInstance
+  const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow, initialState } = tableInstance
   initialState.pageSize = 5
 
   const textColor = useColorModeValue('secondaryGray.900', 'white')
   const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100')
   return (
-    <Card
-      flexDirection='column'
-      w='100%'
-      px='0px'
-      overflowX={{ sm: 'scroll', lg: 'hidden' }}
-    >
+    <Card flexDirection='column' w='100%' px='0px' overflowX={{ sm: 'scroll', lg: 'hidden' }}>
       <Flex px='25px' justify='space-between' mb='10px' align='center'>
-        <Text
-          color={textColor}
-          fontSize='22px'
-          fontWeight='700'
-          lineHeight='100%'
-        >
+        <Text color={textColor} fontSize='22px' fontWeight='700' lineHeight='100%'>
           Complex Table
         </Text>
         <Menu />
@@ -78,18 +44,8 @@ export default function CheckTable (props: TableProps) {
           {headerGroups.map((headerGroup, index) => (
             <Tr {...headerGroup.getHeaderGroupProps()} key={index}>
               {headerGroup.headers.map((column, index) => (
-                <Th
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                  pe='10px'
-                  key={index}
-                  borderColor={borderColor}
-                >
-                  <Flex
-                    justify='space-between'
-                    align='center'
-                    fontSize={{ sm: '10px', lg: '12px' }}
-                    color='gray.400'
-                  >
+                <Th {...column.getHeaderProps(column.getSortByToggleProps())} pe='10px' key={index} borderColor={borderColor}>
+                  <Flex justify='space-between' align='center' fontSize={{ sm: '10px', lg: '12px' }} color='gray.400'>
                     {column.render('Header')}
                   </Flex>
                 </Th>
@@ -117,24 +73,8 @@ export default function CheckTable (props: TableProps) {
                           w='24px'
                           h='24px'
                           me='5px'
-                          color={
-                            cell.value === 'Approved'
-                              ? 'green.500'
-                              : cell.value === 'Disable'
-                              ? 'red.500'
-                              : cell.value === 'Error'
-                              ? 'orange.500'
-                              : null
-                          }
-                          as={
-                            cell.value === 'Approved'
-                              ? MdCheckCircle
-                              : cell.value === 'Disable'
-                              ? MdCancel
-                              : cell.value === 'Error'
-                              ? MdOutlineError
-                              : null
-                          }
+                          color={cell.value === 'Approved' ? 'green.500' : cell.value === 'Disable' ? 'red.500' : cell.value === 'Error' ? 'orange.500' : ''}
+                          as={cell.value === 'Approved' ? MdCheckCircle : cell.value === 'Disable' ? MdCancel : cell.value === 'Error' ? MdOutlineError : undefined}
                         />
                         <Text color={textColor} fontSize='sm' fontWeight='700'>
                           {cell.value}
@@ -150,13 +90,7 @@ export default function CheckTable (props: TableProps) {
                   } else if (cell.column.Header === 'PROGRESS') {
                     data = (
                       <Flex align='center'>
-                        <Progress
-                          variant='table'
-                          colorScheme='brandScheme'
-                          h='8px'
-                          w='108px'
-                          value={cell.value}
-                        />
+                        <Progress variant='table' colorScheme='brandScheme' h='8px' w='108px' value={cell.value} />
                       </Flex>
                     )
                   }

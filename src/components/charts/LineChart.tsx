@@ -1,21 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
-import { ChartProps } from "./LineAreaChart";
+import { type ChartProps } from './LineAreaChart'
 
-import { isWindowAvailable } from "utils/navigation";
+import { isWindowAvailable } from '@utils/navigation'
 
 interface LineChartProps extends ChartProps {}
 
-export default function LineChart({ chartOptions, chartData }: LineChartProps) {
-  const [Chart, setChart] = useState<any>();
+export default function LineChart ({ chartOptions, chartData }: LineChartProps): any {
+  const [Chart, setChart] = useState<any>()
 
   useEffect(() => {
-    import("react-apexcharts").then((mod) => {
-      setChart(() => mod.default);
-    });
-  }, []);
+    import('react-apexcharts').then((mod) => {
+      setChart(() => mod.default)
+    }).catch((err) => {
+      console.error('Failed to load ApexCharts', err)
+    })
+  }, [])
 
-  if (!isWindowAvailable()) return <></>;
+  if (!isWindowAvailable()) return <></>
 
   return (
     Chart && (
@@ -27,5 +29,5 @@ export default function LineChart({ chartOptions, chartData }: LineChartProps) {
         height="100%"
       />
     )
-  );
+  )
 }

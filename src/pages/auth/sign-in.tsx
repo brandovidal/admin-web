@@ -38,16 +38,18 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+
 // Custom components
-import { HSeparator } from "components/separator/Separator";
-import DefaultAuthLayout from "layouts/auth/Default";
+import { HSeparator } from "@/components/separator/Separator";
+import DefaultAuthLayout from "@/layouts/auth/Default";
+
 // Assets
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
 
-export default function SignIn() {
+export default function SignIn(): JSX.Element {
   // Chakra color mode
   const textColor = useColorModeValue("navy.700", "white");
   const textColorSecondary = "gray.400";

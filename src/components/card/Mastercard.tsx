@@ -1,7 +1,7 @@
 // Chakra imports
 import { Flex, Box, Icon, Text, Spacer } from '@chakra-ui/react'
 // Custom components
-import Card from 'components/card/Card'
+import Card from '@/components/card/Card'
 
 // Assets
 import bgMastercard from 'img/dashboards/Debit.png'
@@ -11,7 +11,7 @@ export default function Banner (props: {
   exp: string
   cvv: string
   number: string
-}) {
+}): JSX.Element {
   const { exp, cvv, number, ...rest } = props
 
   // Chakra Color Mode

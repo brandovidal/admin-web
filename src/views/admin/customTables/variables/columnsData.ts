@@ -1,17 +1,17 @@
 interface IColumnHeader {
-  Header: string;
-  accessor: string;
+  Header: string
+  accessor: string
 }
 
-type Columns = IColumnHeader[];
+type Columns = IColumnHeader[]
 
 export const columns: Columns = [
   {
-    Header: "Passenger name",
-    accessor: "name",
+    Header: 'Passenger name',
+    accessor: 'name'
   },
   {
-    Header: "Total trips",
-    accessor: "trips",
-  },
-];
+    Header: 'Total trips',
+    accessor: 'trips'
+  }
+]

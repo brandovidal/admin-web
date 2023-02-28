@@ -1,22 +1,22 @@
-import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Text, useColorModeValue } from '@chakra-ui/react'
 
-import Table from "common/Table";
+import Table from '@common/Table'
 
-import { TableProps } from "views/admin/default/variables/columnsData";
+import { type TableProps } from '@/views/admin/default/variables/columnsData'
 
 const UserList = ({
   columnsData,
   tableData,
-  totalRows,
+  totalRows = 0,
   isLoading,
   manualPagination = false,
   rowsPerPage,
   currentPage,
   pageChangeHandler,
   pageSize,
-  pageSizeChangeHandler,
-}: TableProps) => {
-  const textColor = useColorModeValue("secondaryGray.900", "white");
+  pageSizeChangeHandler
+}: TableProps): JSX.Element => {
+  const textColor = useColorModeValue('secondaryGray.900', 'white')
 
   return (
     <div>
@@ -27,8 +27,8 @@ const UserList = ({
           fontWeight="700"
           lineHeight="100%"
         >
-          Custom Table{" "}
-          <small>({`${totalRows} registros` || "Loading..."})</small>
+          Custom Table{' '}
+          <small>({`${totalRows} registros` || 'Loading...'})</small>
         </Text>
       </Flex>
       <Table
@@ -45,7 +45,7 @@ const UserList = ({
         emptyDataMessage="No hay datos disponibles"
       />
     </div>
-  );
-};
+  )
+}
 
-export default UserList;
+export default UserList

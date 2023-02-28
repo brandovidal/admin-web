@@ -1,5 +1,6 @@
 import { chakra, useColorMode } from '@chakra-ui/system'
-import { ComponentProps } from 'react'
+import isEmpty from 'just-is-empty'
+import { type ComponentProps } from 'react'
 import { Image } from './Image'
 
 interface AvatarImageProps extends ComponentProps<typeof Image> {
@@ -12,13 +13,13 @@ export function NextAvatar ({
   alt,
   style,
   ...props
-}: AvatarImageProps) {
+}: AvatarImageProps): JSX.Element {
   const { colorMode } = useColorMode()
 
   return (
     <Image
       {...props}
-      {...(showBorder
+      {...(isEmpty(showBorder)
         ? {
             border: '2px',
             borderColor: colorMode === 'dark' ? 'navy.700' : 'white'

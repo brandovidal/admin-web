@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint-fix": "next lint --fix",
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build"
   },
@@ -48,7 +49,11 @@
     "@types/react-table": "7.7.14",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.1",
-    "gh-pages": "5.0.0"
+    "eslint-config-prettier": "8.6.0",
+    "eslint-config-standard-with-typescript": "34.0.0",
+    "gh-pages": "5.0.0",
+    "just-is-empty": "3.3.0",
+    "prettier": "2.8.4"
   },
   "browserslist": {
     "production": [
@@ -60,6 +65,16 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "ts-standard": {
+    "project": "./tsconfig.json",
+    "ignore": [
+      "dist/",
+      "node_modules/",
+      "src/**/*.js",
+      "src/**/*.d.ts",
+      "**/*.config.ts"
     ]
   }
 }
