@@ -51,7 +51,7 @@ const Table = ({
 
   return (
     <div>
-      {isEmpty(isLoading)
+      {isLoading
         ? (
         <Flex justifyContent="center" alignItems="center" py="10">
           <Text color={textColor}>Loading...</Text>
