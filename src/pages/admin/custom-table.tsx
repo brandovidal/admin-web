@@ -6,15 +6,20 @@ import Card from '@/components/card/Card'
 
 import AdminLayout from '@/layouts/admin'
 
-import {
-  getData,
-  formatRowData
-} from '@/views/admin/customTables/variables/data'
+import { getData, formatRowData } from '@/views/admin/customTables/variables/data'
+import type { DataProps } from '@/views/admin/customTables/variables/data'
 import Table from '@/views/admin/customTables/components/Table'
 import { columns } from '@/views/admin/customTables/variables/columnsData'
 
+interface PageData {
+  rowData: DataProps[]
+  isLoading: boolean
+  totalPages: number
+  totalRows: number
+}
+
 export default function CustomTable (): JSX.Element {
-  const [pageData, setPageData] = useState({
+  const [pageData, setPageData] = useState<PageData>({
     rowData: [],
     isLoading: false,
     totalPages: 0,
@@ -25,14 +30,14 @@ export default function CustomTable (): JSX.Element {
   const [pageSize, setPageSize] = useState(10)
 
   useEffect(() => {
-    setPageData((prevState) => ({
+    setPageData(prevState => ({
       ...prevState,
       rowData: [],
       isLoading: true
     }))
 
     getData(currentPage, pageSize)
-      .then((info) => {
+      .then(info => {
         const { totalPages, data } = info
 
         setPageData({
@@ -55,17 +60,8 @@ export default function CustomTable (): JSX.Element {
   return (
     <AdminLayout>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <SimpleGrid
-          mb="20px"
-          columns={{ sm: 1, md: 1 }}
-          spacing={{ base: '20px', xl: '20px' }}
-        >
-          <Card
-            flexDirection="column"
-            w="100%"
-            px="0px"
-            overflowX={{ sm: 'scroll', lg: 'hidden' }}
-          >
+        <SimpleGrid mb='20px' columns={{ sm: 1, md: 1 }} spacing={{ base: '20px', xl: '20px' }}>
+          <Card flexDirection='column' w='100%' px='0px' overflowX={{ sm: 'scroll', lg: 'hidden' }}>
             <Table
               columnsData={columns}
               tableData={pageData.rowData}
