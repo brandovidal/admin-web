@@ -1,5 +1,4 @@
 import { type Column, type HeaderGroup, type Row } from 'react-table'
-import type { DataProps } from '../../customTables/variables/data'
 
 export const columnsDataCheck = [
   {
@@ -83,7 +82,7 @@ export interface PaginationProps {
 
 export interface TableProps {
   columnsData: ColumnData
-  tableData: DataProps[]
+  tableData: any[]
   manualPagination?: boolean
   emptyDataMessage?: string
 

@@ -7,11 +7,11 @@ import { type TableProps } from '@/views/admin/default/variables/columnsData'
 const CustomTable = ({
   columnsData,
   tableData,
-  totalRows,
-  isLoading,
+  totalRows = 0,
+  isLoading = false,
   manualPagination = false,
-  rowsPerPage,
-  currentPage,
+  rowsPerPage = 0,
+  currentPage = 10,
   pageChangeHandler,
   pageSize,
   pageSizeChangeHandler
@@ -22,7 +22,7 @@ const CustomTable = ({
     <div>
       <Flex px='25px' justify='space-between' mb='20px' align='center'>
         <Text color={textColor} fontSize='22px' fontWeight='700' lineHeight='100%'>
-          Custom Table <small>({((`${totalRows ?? 0} registros`) !== null) || 'Loading...'})</small>
+          Users <small>({isLoading ? 'Loading...' : `${totalRows} registros`})</small>
         </Text>
       </Flex>
       <Table

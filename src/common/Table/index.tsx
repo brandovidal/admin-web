@@ -10,7 +10,6 @@ import { PageSizeFilter } from '@/libs/ReactTable/PageSizeFilter'
 import { GlobalFilter } from '@/libs/ReactTable/GlobalFilter'
 
 import { useGlobalFilter, useSortBy, useTable } from 'react-table'
-import isEmpty from 'just-is-empty'
 
 const Table = ({
   columnsData,

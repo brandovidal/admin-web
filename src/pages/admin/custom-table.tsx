@@ -6,13 +6,15 @@ import Card from '@/components/card/Card'
 
 import AdminLayout from '@/layouts/admin'
 
-import { getData, formatRowData } from '@/views/admin/customTables/variables/data'
-import type { DataProps } from '@/views/admin/customTables/variables/data'
+import { formatRowData } from '@/views/admin/customTables/variables/data'
+
 import Table from '@/views/admin/customTables/components/Table'
 import { columns } from '@/views/admin/customTables/variables/columnsData'
 
+import { getUsers } from '@/services/user/getUsers'
+
 interface PageData {
-  rowData: DataProps[]
+  rowData: any[]
   isLoading: boolean
   totalPages: number
   totalRows: number
@@ -30,21 +32,17 @@ export default function CustomTable (): JSX.Element {
   const [pageSize, setPageSize] = useState(10)
 
   useEffect(() => {
-    setPageData(prevState => ({
-      ...prevState,
-      rowData: [],
-      isLoading: true
-    }))
-
-    getData(currentPage, pageSize)
+    getUsers(currentPage, pageSize)
       .then(info => {
         const { totalPages, data } = info
 
+        const { users, total } = data
+
         setPageData({
           isLoading: false,
-          rowData: formatRowData(data),
+          rowData: formatRowData(users),
           totalPages,
-          totalRows: 100
+          totalRows: total
         })
       })
       .catch(() => {
