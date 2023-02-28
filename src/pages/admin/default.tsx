@@ -37,7 +37,7 @@ import {
   MdBarChart,
   MdFileCopy
 } from 'react-icons/md'
-import Usa from 'img/dashboards/usa.png'
+import Usa from '@/img/dashboards/usa.png'
 
 // Custom components
 import MiniCalendar from '@/components/calendar/MiniCalendar'

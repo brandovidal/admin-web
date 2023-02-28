@@ -44,7 +44,7 @@ import tableDataCheck from '@/views/admin/default/variables/tableDataCheck.json'
 import tableDataComplex from '@/views/admin/default/variables/tableDataComplex.json'
 // Assets
 import { Image } from '@/components/image/Image'
-import Usa from 'img/dashboards/usa.png'
+import Usa from '@/img/dashboards/usa.png'
 
 export default function RTLDashboard (): JSX.Element {
   // Chakra Color Mode

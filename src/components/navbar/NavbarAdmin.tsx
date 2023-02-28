@@ -7,7 +7,6 @@ import {
   BreadcrumbLink,
   Flex,
   Link,
-  Text,
   useColorModeValue
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'

@@ -41,20 +41,20 @@ export default function AdminLayout (props: DashboardLayoutProps): JSX.Element {
           setToggleSidebar
         }}
       >
-        <Sidebar routes={routes} display="none" {...rest} />
+        <Sidebar routes={routes} display='none' {...rest} />
         <Box
-          float="right"
-          minHeight="100vh"
-          height="100%"
-          overflow="auto"
-          position="relative"
-          maxHeight="100%"
+          float='right'
+          minHeight='100vh'
+          height='100%'
+          overflow='auto'
+          position='relative'
+          maxHeight='100%'
           w={{ base: '100%', xl: 'calc( 100% - 290px )' }}
           maxWidth={{ base: '100%', xl: 'calc( 100% - 290px )' }}
-          transition="all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)"
-          transitionDuration=".2s, .2s, .35s"
-          transitionProperty="top, bottom, width"
-          transitionTimingFunction="linear, linear, ease"
+          transition='all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)'
+          transitionDuration='.2s, .2s, .35s'
+          transitionProperty='top, bottom, width'
+          transitionTimingFunction='linear, linear, ease'
         >
           <Portal>
             <Box>
@@ -71,11 +71,11 @@ export default function AdminLayout (props: DashboardLayoutProps): JSX.Element {
           </Portal>
 
           <Box
-            mx="auto"
+            mx='auto'
             p={{ base: '20px', md: '30px' }}
-            pe="20px"
-            minH="100vh"
-            pt="50px"
+            pe='20px'
+            minH='100vh'
+            pt='50px'
           >
             {children}
           </Box>

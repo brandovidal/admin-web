@@ -6,5 +6,5 @@ export default function Home (): JSX.Element {
     void Router.push('/admin/default')
   })
 
-  return <div></div>
+  return <></>
 }
