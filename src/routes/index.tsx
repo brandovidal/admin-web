@@ -13,10 +13,10 @@ import NFTMarketplace from '@pages/admin/nft-marketplace'
 import Profile from '@pages/admin/profile'
 import DataTables from '@pages/admin/data-tables'
 import RTL from '@pages/rtl/rtl-default'
+import UserList from '@/pages/admin/user/list'
 
 // Auth Imports
 import SignInCentered from '@pages/auth/sign-in'
-import CustomTable from '@pages/admin/custom-table'
 
 import { type IRoute } from '@/types/navigation'
 
@@ -51,11 +51,11 @@ const routes: IRoute[] = [
     component: DataTables
   },
   {
-    name: 'Custom Tables',
+    name: 'Usuarios',
     layout: '/admin',
+    path: '/user/list',
     icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
-    path: '/custom-table',
-    component: CustomTable
+    component: UserList
   },
   {
     name: 'Profile',

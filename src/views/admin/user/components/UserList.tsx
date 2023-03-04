@@ -1,14 +1,19 @@
 import { Flex, Text, useColorModeValue } from '@chakra-ui/react'
 
+// common
 import Table from '@common/Table'
 
-import { type TableProps } from '@/views/admin/default/variables/columnsData'
+// Components
+import MenuActions from '@/components/menu/Actions'
 
-const UserList = ({
+// interfaces
+import type { TableProps } from '@/interfaces/Table'
+
+const UserListView = ({
   columnsData,
   tableData,
   totalRows = 0,
-  isLoading,
+  isLoading = false,
   manualPagination = false,
   rowsPerPage,
   currentPage,
@@ -20,15 +25,10 @@ const UserList = ({
 
   return (
     <div>
-      <Flex px="25px" justify="space-between" mb="20px" align="center">
-        <Text
-          color={textColor}
-          fontSize="22px"
-          fontWeight="700"
-          lineHeight="100%"
-        >
-          Custom Table{' '}
-          <small>({`${totalRows} registros` || 'Loading...'})</small>
+      <Flex px='25px' justify='space-between' mb='20px' align='center'>
+        <Text color={textColor} fontSize='22px' fontWeight='700' lineHeight='100%'>
+          Users <small>({isLoading ? 'Loading...' : `${totalRows} registros`})</small>
+          <MenuActions title='acciones' actions={[]}></MenuActions>
         </Text>
       </Flex>
       <Table
@@ -42,10 +42,10 @@ const UserList = ({
         pageChangeHandler={pageChangeHandler}
         pageSize={pageSize}
         pageSizeChangeHandler={pageSizeChangeHandler}
-        emptyDataMessage="No hay datos disponibles"
+        emptyDataMessage='No hay datos disponibles'
       />
     </div>
   )
 }
 
-export default UserList
+export default UserListView

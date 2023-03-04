@@ -5,9 +5,12 @@ import { Icon, Flex, Text, Menu, MenuButton, MenuItem, MenuList, useDisclosure, 
 // Assets
 import { MdOutlineMoreHoriz, MdOutlinePerson, MdOutlineCardTravel, MdOutlineLightbulb, MdOutlineSettings } from 'react-icons/md'
 
-export default function Banner (props: { [key: string]: string }): JSX.Element {
-  const { ...rest } = props
+interface MenuActionsProps {
+  title: string
+  actions: []
+}
 
+export default function MenuActions ({ title = '', actions = [] }: MenuActionsProps): JSX.Element {
   const textColor = useColorModeValue('secondaryGray.500', 'white')
   const textHover = useColorModeValue({ color: 'secondaryGray.900', bg: 'unset' }, { color: 'secondaryGray.500', bg: 'unset' })
   const iconColor = useColorModeValue('brand.500', 'white')
@@ -34,7 +37,6 @@ export default function Banner (props: { [key: string]: string }): JSX.Element {
         lineHeight='100%'
         onClick={onOpen1}
         borderRadius='10px'
-        {...rest}
       >
         <Icon as={MdOutlineMoreHoriz} color={iconColor} w='24px' h='24px' />
       </MenuButton>

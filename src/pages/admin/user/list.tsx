@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from 'react'
 
-import { Box, SimpleGrid } from '@chakra-ui/react'
-
+// Components
 import Card from '@/components/card/Card'
 
+// Layout
 import AdminLayout from '@/layouts/admin'
 
-import {
-  getData,
-  formatRowData
-} from '../../../views/admin/customTables/variables/data'
+// Interfaces
+import type { PageData } from '@/interfaces/Table'
 
-import Table from '../../../views/admin/customTables/components/Table'
+// Variables
+import { formatRowData } from '@/views/admin/customTables/variables/data'
 import { columns } from '@/views/admin/customTables/variables/columnsData'
 
-export default function UserListPage (): JSX.Element {
-  const [pageData, setPageData] = useState({
+// Views
+import UserListView from '@/views/admin/user/components/UserList'
+
+// Services
+import { getUsers } from '@/services/user/getUsers'
+
+// Styles
+import { Box, SimpleGrid } from '@chakra-ui/react'
+
+export default function UserList (): JSX.Element {
+  const [pageData, setPageData] = useState<PageData>({
     rowData: [],
     isLoading: false,
     totalPages: 0,
@@ -26,21 +34,17 @@ export default function UserListPage (): JSX.Element {
   const [pageSize, setPageSize] = useState(10)
 
   useEffect(() => {
-    setPageData((prevState) => ({
-      ...prevState,
-      rowData: [],
-      isLoading: true
-    }))
-
-    getData(currentPage, pageSize)
-      .then((info) => {
+    getUsers(currentPage, pageSize)
+      .then(info => {
         const { totalPages, data } = info
+
+        const { users, total } = data
 
         setPageData({
           isLoading: false,
-          rowData: formatRowData(data),
+          rowData: formatRowData(users),
           totalPages,
-          totalRows: 100
+          totalRows: total
         })
       })
       .catch(() => {
@@ -56,18 +60,9 @@ export default function UserListPage (): JSX.Element {
   return (
     <AdminLayout>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <SimpleGrid
-          mb="20px"
-          columns={{ sm: 1, md: 1 }}
-          spacing={{ base: '20px', xl: '20px' }}
-        >
-          <Card
-            flexDirection="column"
-            w="100%"
-            px="0px"
-            overflowX={{ sm: 'scroll', lg: 'hidden' }}
-          >
-            <Table
+        <SimpleGrid mb='20px' columns={{ sm: 1, md: 1 }} spacing={{ base: '20px', xl: '20px' }}>
+          <Card flexDirection='column' w='100%' px='0px' overflowX={{ sm: 'scroll', lg: 'hidden' }}>
+            <UserListView
               columnsData={columns}
               tableData={pageData.rowData}
               isLoading={pageData.isLoading}
