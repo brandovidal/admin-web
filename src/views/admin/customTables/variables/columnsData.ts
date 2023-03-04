@@ -17,5 +17,9 @@ export const columns: Columns = [
   {
     Header: 'Rol',
     accessor: 'role'
+  },
+  {
+    Header: 'Acciones',
+    accessor: 'actions'
   }
 ]

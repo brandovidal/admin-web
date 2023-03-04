@@ -19,12 +19,12 @@ import UserListView from '@/views/admin/user/components/UserList'
 // Services
 import { getUsers } from '@/services/user/getUsers'
 
-// Styles
+// styles
 import { Box, SimpleGrid } from '@chakra-ui/react'
 
 export default function UserList (): JSX.Element {
   const [pageData, setPageData] = useState<PageData>({
-    rowData: [],
+    data: [],
     isLoading: false,
     totalPages: 0,
     totalRows: 0
@@ -37,12 +37,11 @@ export default function UserList (): JSX.Element {
     getUsers(currentPage, pageSize)
       .then(info => {
         const { totalPages, data } = info
-
         const { users, total } = data
 
         setPageData({
           isLoading: false,
-          rowData: formatRowData(users),
+          data: formatRowData(users),
           totalPages,
           totalRows: total
         })
@@ -50,7 +49,7 @@ export default function UserList (): JSX.Element {
       .catch(() => {
         setPageData({
           isLoading: false,
-          rowData: [],
+          data: [],
           totalPages: 0,
           totalRows: 0
         })
@@ -64,7 +63,7 @@ export default function UserList (): JSX.Element {
           <Card flexDirection='column' w='100%' px='0px' overflowX={{ sm: 'scroll', lg: 'hidden' }}>
             <UserListView
               columnsData={columns}
-              tableData={pageData.rowData}
+              tableData={pageData.data}
               isLoading={pageData.isLoading}
               totalRows={pageData.totalRows}
               currentPage={currentPage}

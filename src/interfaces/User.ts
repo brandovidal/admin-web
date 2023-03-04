@@ -14,4 +14,17 @@ export interface User {
   updatedAt: Date
 }
 
-export const formatRowData = (data: User[] = []): any[] => data.map(({ name, email, role }) => ({ name, email, role }))
+export interface UserData {
+  id?: string
+  username?: string
+  name: string
+  email: string
+  photo?: string | null
+  verified?: boolean | null
+  password?: string
+  role: RoleEnumType | null
+  verificationCode?: string | null
+  createdAt?: Date
+  updatedAt?: Date
+  actions: JSX.Element
+}

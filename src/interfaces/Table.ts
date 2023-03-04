@@ -61,7 +61,7 @@ export interface TableProps {
 }
 
 export interface PageData {
-  rowData: any[]
+  data: any[]
   isLoading: boolean
   totalPages: number
   totalRows: number

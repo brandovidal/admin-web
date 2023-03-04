@@ -1,13 +1,11 @@
-import { Flex, Text, useColorModeValue } from '@chakra-ui/react'
-
 // common
 import Table from '@common/Table'
 
-// Components
-import MenuActions from '@/components/menu/Actions'
-
 // interfaces
 import type { TableProps } from '@/interfaces/Table'
+
+// styles
+import { Flex, Text, useColorModeValue } from '@chakra-ui/react'
 
 const UserListView = ({
   columnsData,
@@ -28,7 +26,6 @@ const UserListView = ({
       <Flex px='25px' justify='space-between' mb='20px' align='center'>
         <Text color={textColor} fontSize='22px' fontWeight='700' lineHeight='100%'>
           Users <small>({isLoading ? 'Loading...' : `${totalRows} registros`})</small>
-          <MenuActions title='acciones' actions={[]}></MenuActions>
         </Text>
       </Flex>
       <Table
