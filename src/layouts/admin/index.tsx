@@ -8,20 +8,18 @@ import Sidebar from '@/components/sidebar/Sidebar'
 import { SidebarContext } from '@/contexts/SidebarContext'
 
 import routes from '@/routes'
-import {
-  getActiveNavbar,
-  getActiveNavbarText,
-  getActiveRoute,
-  isWindowAvailable
-} from '@utils/navigation'
+import { getActiveNavbar, getActiveNavbarText, getActiveRoute, isWindowAvailable } from '@utils/navigation'
 
 interface DashboardLayoutProps extends PropsWithChildren {
-  [x: string]: unknown
+  // children: JSX.Element
+  navbarText?: string
+  // [x: string]: unknown
 }
 
 // Custom Chakra theme
 export default function AdminLayout (props: DashboardLayoutProps): JSX.Element {
-  const { children, ...rest } = props
+  const { children, navbarText, ...rest } = props
+  console.log('🚀 ~ file: index.tsx:27 ~ AdminLayout ~ navbarText:', navbarText)
   // states and functions
   const [fixed] = useState(false)
   const [toggleSidebar, setToggleSidebar] = useState(false)
@@ -61,7 +59,7 @@ export default function AdminLayout (props: DashboardLayoutProps): JSX.Element {
               <Navbar
                 onOpen={onOpen}
                 logoText={'Horizon UI Dashboard PRO'}
-                brandText={getActiveRoute(routes)}
+                brandText={getActiveRoute(routes, navbarText)}
                 secondary={getActiveNavbar(routes)}
                 message={getActiveNavbarText(routes)}
                 fixed={fixed}
@@ -70,13 +68,7 @@ export default function AdminLayout (props: DashboardLayoutProps): JSX.Element {
             </Box>
           </Portal>
 
-          <Box
-            mx='auto'
-            p={{ base: '20px', md: '30px' }}
-            pe='20px'
-            minH='100vh'
-            pt='50px'
-          >
+          <Box mx='auto' p={{ base: '20px', md: '30px' }} pe='20px' minH='100vh' pt='50px'>
             {children}
           </Box>
           <Box>

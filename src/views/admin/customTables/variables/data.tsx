@@ -10,14 +10,16 @@ import { Icon } from '@chakra-ui/react'
 
 // icons
 import { MdInfoOutline, MdModeEditOutline, MdOutlineDelete } from 'react-icons/md'
+import type { NextRouter } from 'next/router'
 
-function generateActions (id: string): ActionsProps[] {
+function generateActions (id: string, router: NextRouter): ActionsProps[] {
   return [
     {
       label: 'Ver',
       icon: <Icon as={MdInfoOutline} h='16px' w='16px' me='8px' />,
       onClick: () => {
         console.log('Ver', id)
+        void router.push(`/admin/user/${id}`)
       }
     },
     {
@@ -25,6 +27,7 @@ function generateActions (id: string): ActionsProps[] {
       icon: <Icon as={MdModeEditOutline} h='16px' w='16px' me='8px' />,
       onClick: () => {
         console.log('Editar', id)
+        void router.push(`/admin/user/edit/${id}`)
       }
     },
     {
@@ -37,8 +40,9 @@ function generateActions (id: string): ActionsProps[] {
   ]
 }
 
-export const formatRowData = (data: User[] = []): UserData[] =>
-  data.map(({ id, name, email, role }) => {
-    const actions = generateActions(id)
+export const formatData = (data: User[] = [], router: NextRouter): UserData[] => {
+  return data.map(({ id, name, email, role }) => {
+    const actions = generateActions(id, router)
     return { name, email, role, actions: <MenuActions actions={actions}></MenuActions> }
   })
+}

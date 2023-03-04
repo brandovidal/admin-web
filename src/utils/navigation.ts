@@ -6,19 +6,14 @@ import isEmpty from 'just-is-empty'
 export const isWindowAvailable = (): boolean => typeof window !== 'undefined'
 
 export const findCurrentRoute = (routes: IRoute[]): IRoute => {
-  const foundRoute: IRoute = routes.find(
-    (route) =>
-      isWindowAvailable() &&
-      window.location.href.includes(route.layout + route.path) &&
-      route
-  ) as IRoute
+  const foundRoute: IRoute = routes.find(route => isWindowAvailable() && window.location.href.includes(route.layout + route.path) && route) as IRoute
 
   return foundRoute
 }
 
-export const getActiveRoute = (routes: IRoute[]): string => {
+export const getActiveRoute = (routes: IRoute[], navbarText = 'text'): string => {
   const route = findCurrentRoute(routes)
-  return route?.name ?? 'Default Brand Text'
+  return route?.name ?? navbarText
 }
 
 export const getActiveNavbar = (routes: IRoute[]): boolean => {

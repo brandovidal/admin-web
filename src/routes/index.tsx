@@ -18,7 +18,7 @@ import UserList from '@/pages/admin/user/list'
 // Auth Imports
 import SignInCentered from '@pages/auth/sign-in'
 
-import { type IRoute } from '@/types/navigation'
+import type { IRoute } from '@/types/navigation'
 
 const routes: IRoute[] = [
   {

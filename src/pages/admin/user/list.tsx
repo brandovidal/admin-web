@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 // Components
 import Card from '@/components/card/Card'
@@ -10,7 +10,7 @@ import AdminLayout from '@/layouts/admin'
 import type { PageData } from '@/interfaces/Table'
 
 // Variables
-import { formatRowData } from '@/views/admin/customTables/variables/data'
+import { formatData } from '@/views/admin/customTables/variables/data'
 import { columns } from '@/views/admin/customTables/variables/columnsData'
 
 // Views
@@ -21,6 +21,7 @@ import { getUsers } from '@/services/user/getUsers'
 
 // styles
 import { Box, SimpleGrid } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 
 export default function UserList (): JSX.Element {
   const [pageData, setPageData] = useState<PageData>({
@@ -29,9 +30,9 @@ export default function UserList (): JSX.Element {
     totalPages: 0,
     totalRows: 0
   })
-
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
+  const router = useRouter()
 
   useEffect(() => {
     getUsers(currentPage, pageSize)
@@ -41,7 +42,7 @@ export default function UserList (): JSX.Element {
 
         setPageData({
           isLoading: false,
-          data: formatRowData(users),
+          data: formatData(users, router),
           totalPages,
           totalRows: total
         })
@@ -54,7 +55,7 @@ export default function UserList (): JSX.Element {
           totalRows: 0
         })
       })
-  }, [currentPage, pageSize])
+  }, [currentPage, pageSize, router])
 
   return (
     <AdminLayout>
