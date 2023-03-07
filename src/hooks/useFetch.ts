@@ -1,3 +1,4 @@
+import isEmpty from 'just-is-empty'
 import { useState, useEffect } from 'react'
 
 export interface DataResponse {
@@ -11,22 +12,46 @@ export interface FetchResponse {
   response: DataResponse | null
   loading: boolean
   error: string | null
+  handleAbortController?: () => void
 }
 
 export const useFetch = (url: string, options?: object): FetchResponse => {
   const [response, setResponse] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
+  const [controller, setController] = useState<AbortController>()
 
   useEffect(() => {
+    const abortController = new AbortController()
+    setController(abortController)
     setLoading(true)
 
-    fetch(url, options)
+    fetch(url, { signal: abortController.signal, ...options })
       .then(async response => await response.json())
-      .then(response => { setResponse(response) })
-      .catch(error => { setError(error) })
-      .finally(() => { setLoading(false) })
+      .then(response => {
+        setResponse(response)
+      })
+      .catch(error => {
+        if (error.name === 'AbortError') {
+          setError('Request cancelled')
+        }
+        setError(error)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+
+    return () => {
+      abortController.abort()
+    }
   }, [url, options])
 
-  return { response, loading, error }
+  const handleAbortController = (): void => {
+    if (!isEmpty(controller)) {
+      controller?.abort()
+      setError('Request cancelled')
+    }
+  }
+
+  return { response, loading, error, handleAbortController }
 }

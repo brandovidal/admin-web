@@ -31,17 +31,17 @@ export default function UserList (): JSX.Element {
 
   const users = useMemo(() => formatData(response?.data?.users ?? [], router), [response?.data?.users, router])
   const total = useMemo(() => response?.data?.total ?? 0, [response?.data?.total])
+  const isLaoding = useMemo(() => loading ?? false, [loading])
 
   return (
     <AdminLayout>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
         <SimpleGrid mb='20px' columns={{ sm: 1, md: 1 }} spacing={{ base: '20px', xl: '20px' }}>
           <Card flexDirection='column' w='100%' px='0px' overflowX={{ sm: 'scroll', lg: 'hidden' }}>
-            {' '}
             <UserListView
               columnsData={columns}
               tableData={users}
-              isLoading={loading}
+              isLoading={isLaoding}
               totalRows={total}
               currentPage={currentPage}
               pageChangeHandler={setCurrentPage}

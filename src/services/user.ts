@@ -7,8 +7,8 @@ import { useFetch } from '@/hooks/useFetch'
 import type { FetchUserResponse, User, UserResponse } from '@/interfaces/User'
 
 export const useGetUsers = (page = 1, size = 10): FetchUserResponse => {
-  const { response, loading, error } = useFetch(`${config?.apiUrl}/api/users?page=${page}&size=${size}`) as FetchUserResponse
-  return { response, loading, error }
+  const { response, loading, error, handleAbortController } = useFetch(`${config?.apiUrl}/api/users?page=${page}&size=${size}`) as FetchUserResponse
+  return { response, loading, error, handleAbortController }
 }
 
 export const addUser = async (user: User): Promise<UserResponse> => {

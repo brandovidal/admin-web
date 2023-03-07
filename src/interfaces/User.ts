@@ -1,4 +1,4 @@
-import type { DataResponse } from '@/hooks/useFetch'
+import type { DataResponse, FetchResponse } from '@/hooks/useFetch'
 
 export type RoleEnumType = 'user' | 'admin'
 
@@ -39,8 +39,6 @@ export interface UserResponse extends DataResponse {
   data: UserDataResponse
 }
 
-export interface FetchUserResponse {
+export interface FetchUserResponse extends FetchResponse {
   response: UserResponse
-  loading: boolean
-  error: string | null
 }
