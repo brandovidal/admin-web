@@ -19,7 +19,6 @@ function generateActions (id: string, router: NextRouter): ActionsProps[] {
       label: 'Ver',
       icon: <Icon as={MdInfoOutline} h='16px' w='16px' me='8px' />,
       onClick: () => {
-        console.log('Ver', id)
         void router.push(`/admin/user/${id}`)
       }
     },
@@ -27,7 +26,6 @@ function generateActions (id: string, router: NextRouter): ActionsProps[] {
       label: 'Editar',
       icon: <Icon as={MdModeEditOutline} h='16px' w='16px' me='8px' />,
       onClick: () => {
-        console.log('Editar', id)
         void router.push(`/admin/user/edit/${id}`)
       }
     },

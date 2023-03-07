@@ -1,4 +1,6 @@
 import type { DataResponse, FetchResponse } from '@/hooks/useFetch'
+import type { NextRouter } from 'next/router'
+import type { TableProps } from './Table'
 
 export type RoleEnumType = 'user' | 'admin'
 
@@ -41,4 +43,8 @@ export interface UserResponse extends DataResponse {
 
 export interface FetchUserResponse extends FetchResponse {
   response: UserResponse
+}
+
+export interface UserViewProps extends TableProps {
+  router: NextRouter
 }
