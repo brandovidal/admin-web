@@ -19,7 +19,6 @@ interface DashboardLayoutProps extends PropsWithChildren {
 // Custom Chakra theme
 export default function AdminLayout (props: DashboardLayoutProps): JSX.Element {
   const { children, navbarText, ...rest } = props
-  console.log('🚀 ~ file: index.tsx:27 ~ AdminLayout ~ navbarText:', navbarText)
   // states and functions
   const [fixed] = useState(false)
   const [toggleSidebar, setToggleSidebar] = useState(false)

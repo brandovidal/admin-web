@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useMemo, useState } from 'react'
+import { useRouter } from 'next/router'
 
 // Components
 import Card from '@/components/card/Card'
@@ -7,7 +8,6 @@ import Card from '@/components/card/Card'
 import AdminLayout from '@/layouts/admin'
 
 // Interfaces
-import type { PageData } from '@/interfaces/Table'
 
 // Variables
 import { formatData } from '@/views/admin/customTables/variables/data'
@@ -17,56 +17,32 @@ import { columns } from '@/views/admin/customTables/variables/columnsData'
 import UserListView from '@/views/admin/user/components/UserList'
 
 // Services
-import { getUsers } from '@/services/user/getUsers'
+import { useGetUsers } from '@/services/user'
 
 // styles
 import { Box, SimpleGrid } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
 
 export default function UserList (): JSX.Element {
-  const [pageData, setPageData] = useState<PageData>({
-    data: [],
-    isLoading: false,
-    totalPages: 0,
-    totalRows: 0
-  })
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const router = useRouter()
 
-  useEffect(() => {
-    getUsers(currentPage, pageSize)
-      .then(info => {
-        const { totalPages, data } = info
-        const { users, total } = data
+  const { loading, response } = useGetUsers(currentPage, pageSize)
 
-        setPageData({
-          isLoading: false,
-          data: formatData(users, router),
-          totalPages,
-          totalRows: total
-        })
-      })
-      .catch(() => {
-        setPageData({
-          isLoading: false,
-          data: [],
-          totalPages: 0,
-          totalRows: 0
-        })
-      })
-  }, [currentPage, pageSize, router])
+  const users = useMemo(() => formatData(response?.data?.users ?? [], router), [response?.data?.users, router])
+  const total = useMemo(() => response?.data?.total ?? 0, [response?.data?.total])
 
   return (
     <AdminLayout>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
         <SimpleGrid mb='20px' columns={{ sm: 1, md: 1 }} spacing={{ base: '20px', xl: '20px' }}>
           <Card flexDirection='column' w='100%' px='0px' overflowX={{ sm: 'scroll', lg: 'hidden' }}>
+            {' '}
             <UserListView
               columnsData={columns}
-              tableData={pageData.data}
-              isLoading={pageData.isLoading}
-              totalRows={pageData.totalRows}
+              tableData={users}
+              isLoading={loading}
+              totalRows={total}
               currentPage={currentPage}
               pageChangeHandler={setCurrentPage}
               pageSize={pageSize}

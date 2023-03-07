@@ -1,21 +1,32 @@
-// create fetch hook
-
 import { useState, useEffect } from 'react'
 
-export const useFetch = (url: string): { data: null, loading: boolean } => {
-  const [data, setData] = useState(null)
+export interface DataResponse {
+  status: number
+  code: string
+  message: string
+  data: object | [] | null
+}
+
+export interface FetchResponse {
+  response: DataResponse | null
+  loading: boolean
+  error: string | null
+}
+
+export const useFetch = (url: string, options?: object): FetchResponse => {
+  const [response, setResponse] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
-    const fetchData = async (): Promise<void> => {
-      const response = await fetch(url)
-      const data = await response.json()
-      setData(data)
-      setLoading(false)
-    }
+    setLoading(true)
 
-    void fetchData()
-  }, [url])
+    fetch(url, options)
+      .then(async response => await response.json())
+      .then(response => { setResponse(response) })
+      .catch(error => { setError(error) })
+      .finally(() => { setLoading(false) })
+  }, [url, options])
 
-  return { data, loading }
+  return { response, loading, error }
 }

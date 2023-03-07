@@ -1,3 +1,5 @@
+import type { NextRouter } from 'next/router'
+
 // interfaces
 import type { User, UserData } from '@/interfaces/User'
 import type { ActionsProps } from '@/interfaces/MenuActions'
@@ -10,7 +12,6 @@ import { Icon } from '@chakra-ui/react'
 
 // icons
 import { MdInfoOutline, MdModeEditOutline, MdOutlineDelete } from 'react-icons/md'
-import type { NextRouter } from 'next/router'
 
 function generateActions (id: string, router: NextRouter): ActionsProps[] {
   return [

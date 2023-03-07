@@ -1,3 +1,5 @@
+import type { DataResponse } from '@/hooks/useFetch'
+
 export type RoleEnumType = 'user' | 'admin'
 
 export interface User {
@@ -26,5 +28,19 @@ export interface UserData {
   verificationCode?: string | null
   createdAt?: Date
   updatedAt?: Date
-  actions: JSX.Element
+}
+
+export interface UserDataResponse {
+  users: User[]
+  count: number
+  total: number
+}
+export interface UserResponse extends DataResponse {
+  data: UserDataResponse
+}
+
+export interface FetchUserResponse {
+  response: UserResponse
+  loading: boolean
+  error: string | null
 }
