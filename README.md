@@ -1,4 +1,4 @@
-# Panel web
+# Panel web by projectum
 
 ### Script
 
