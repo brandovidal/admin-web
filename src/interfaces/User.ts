@@ -48,3 +48,7 @@ export interface FetchUserResponse extends FetchResponse {
 export interface UserViewProps extends TableProps {
   router: NextRouter
 }
+
+export interface UserAddProps {
+  router: NextRouter
+}

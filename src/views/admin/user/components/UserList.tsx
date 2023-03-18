@@ -6,7 +6,7 @@ import type { UserViewProps } from '@/interfaces/User'
 
 // styles
 import { Button, Flex, Icon, Text, useColorModeValue } from '@chakra-ui/react'
-import { MdAdd, MdOutlineRestartAlt } from 'react-icons/md'
+import { MdAdd } from 'react-icons/md'
 
 const UserListView = ({
   router,
@@ -37,11 +37,6 @@ const UserListView = ({
         <Button variant='brand' onClick={handleAddUser} disabled={!isLoading}>
           <Icon as={MdAdd} h='16px' w='16px' me='8px' />
           Agregar
-        </Button>
-
-        <Button variant='brand' onClick={handleAddUser} disabled={!isLoading}>
-          <Icon as={MdOutlineRestartAlt} h='16px' w='16px' me='8px' />
-          Actualizar
         </Button>
       </Flex>
       <Table

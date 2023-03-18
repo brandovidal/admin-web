@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // Components
@@ -10,8 +10,8 @@ import AdminLayout from '@/layouts/admin'
 // Interfaces
 
 // Variables
-import { formatData } from '@/views/admin/customTables/variables/data'
-import { columns } from '@/views/admin/customTables/variables/columnsData'
+import { formatData } from '@/views/admin/user/variables/data'
+import { columns } from '@/views/admin/user/variables/columnsData'
 
 // Views
 import UserListView from '@/views/admin/user/components/UserList'
