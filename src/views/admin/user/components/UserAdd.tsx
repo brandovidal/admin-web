@@ -1,3 +1,7 @@
+// libs
+import { useState } from 'react'
+import isEmpty from 'just-is-empty'
+
 // interfaces
 import type { UserAddProps } from '@/interfaces/User'
 
@@ -11,14 +15,12 @@ import { z } from 'zod'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-// libs
+// services
+import { addUser } from '@/services/user'
 
 // styles
-import { Alert, AlertIcon, Box, Button, SimpleGrid, Stack } from '@chakra-ui/react'
+import { Alert, AlertIcon, type AlertStatus, Box, Button, SimpleGrid, Stack } from '@chakra-ui/react'
 import { MdSave } from 'react-icons/md'
-import { addUser } from '@/services/user'
-import { useState } from 'react'
-import isEmpty from 'just-is-empty'
 
 const validationSchema = z.object({
   username: z.string({ required_error: 'Ingresa tu usuario.' }).min(3, { message: 'Ingresa 3 caracteres como minimo' }),
@@ -31,6 +33,11 @@ const validationSchema = z.object({
 
 type ValidationSchema = z.infer<typeof validationSchema>
 
+interface AlertProps {
+  message: string
+  status: AlertStatus
+}
+
 const UserAddView = ({ router }: UserAddProps): JSX.Element => {
   const {
     control,
@@ -40,7 +47,7 @@ const UserAddView = ({ router }: UserAddProps): JSX.Element => {
     resolver: zodResolver(validationSchema)
   })
 
-  const [error, setError] = useState<string>()
+  const [alert, setAlert] = useState<AlertProps | null>(null)
 
   const onSubmit: SubmitHandler<ValidationSchema> = data => {
     console.log(data)
@@ -50,17 +57,15 @@ const UserAddView = ({ router }: UserAddProps): JSX.Element => {
         const { code } = response
 
         if (code === 'user_exist') {
-          console.log('user_exist')
-          setError('El usuario ya existe')
+          setAlert({ message: 'El usuario ya existe', status: 'warning' })
           return
         }
 
-        console.log('success post')
-        setError('El usuario creado')
-        // void router.push('/admin/user/list')
+        setAlert({ message: 'Usuario creado correctamente', status: 'success' })
+        void router.push('/admin/user/list')
       })
-      .catch(() => {
-        console.log('error')
+      .catch((err) => {
+        console.error('err', err)
       })
   }
 
@@ -69,11 +74,11 @@ const UserAddView = ({ router }: UserAddProps): JSX.Element => {
       <Card flexDirection='column' w='100%' px='0px' overflowX={{ sm: 'scroll', lg: 'hidden' }}>
         <Box margin={{ base: 6, lg: 10 }}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            {!isEmpty(error) && (
+            {!isEmpty(alert) && (
               <Stack paddingBottom={6}>
-                <Alert status='warning'>
+                <Alert status={alert?.status}>
                   <AlertIcon />
-                  {error}
+                  {alert?.message}
                 </Alert>
               </Stack>
             )}
