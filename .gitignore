@@ -17,12 +17,8 @@ build
 
 # misc
 .DS_Store
-.env
-.env.local
-.env.development
-.env.development.local
-.env.test.local
-.env.production.local
+!.env.exmaple
+.env.*
 
 npm-debug.log*
 yarn-debug.log*
