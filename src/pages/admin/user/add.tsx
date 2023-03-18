@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { useRouter } from 'next/router'
 
 // Components
@@ -20,8 +19,6 @@ import { Box } from '@chakra-ui/react'
 
 export default function UserAdd (): JSX.Element {
   const router = useRouter()
-
-  const userId = useMemo(() => router.query.id, [router.query.id])
 
   return (
     <AdminLayout navbarText='Agregar Usuario'>

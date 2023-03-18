@@ -1,7 +1,7 @@
 import type { NextRouter } from 'next/router'
 
 // interfaces
-import type { User, UserData } from '@/interfaces/User'
+import type { User } from '@/interfaces/User'
 import type { ActionsProps } from '@/interfaces/MenuActions'
 
 // Components
@@ -39,8 +39,8 @@ function generateActions (id: string, router: NextRouter): ActionsProps[] {
   ]
 }
 
-export const formatData = (data: User[] = [], router: NextRouter): UserData[] => {
-  return data.map(({ id, name, email, role }) => {
+export const formatData = (data: User[] = [], router: NextRouter): User[] => {
+  return data.map(({ id = '', name, email, role }) => {
     const actions = generateActions(id, router)
     return { name, email, role, actions: <MenuActions actions={actions}></MenuActions> }
   })

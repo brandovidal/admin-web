@@ -48,15 +48,15 @@ export function SidebarResponsive (props: SidebarResponsiveProps): JSX.Element {
   const menuColor = useColorModeValue('gray.400', 'white')
   // // SIDEBAR
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = useRef()
+  const btnRef = useRef(null)
 
   const { routes } = props
   // let isWindows = navigator.platform.startsWith("Win");
   //  BRAND
 
   return (
-    <Flex display={{ sm: 'flex', xl: 'none' }} alignItems='center'>
-      <Flex ref={btnRef} w='max-content' h='max-content' onClick={onOpen}>
+    <Flex ref={btnRef} display={{ sm: 'flex', xl: 'none' }} alignItems='center'>
+      <Flex w='max-content' h='max-content' onClick={onOpen}>
         <Icon as={IoMenuOutline} color={menuColor} my='auto' w='20px' h='20px' me='10px' _hover={{ cursor: 'pointer' }} />
       </Flex>
       <Drawer isOpen={isOpen} onClose={onClose} placement={isWindowAvailable() && window.document.documentElement.dir === 'rtl' ? 'right' : 'left'} finalFocusRef={btnRef}>

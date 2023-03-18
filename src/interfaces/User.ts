@@ -5,20 +5,6 @@ import type { TableProps } from './Table'
 export type RoleEnumType = 'user' | 'admin'
 
 export interface User {
-  id: string
-  username: string
-  name: string
-  email: string
-  photo: string | null
-  verified: boolean | null
-  password: string
-  role: RoleEnumType | null
-  verificationCode: string | null
-  createdAt: Date
-  updatedAt: Date
-}
-
-export interface UserData {
   id?: string
   username?: string
   name: string
@@ -26,10 +12,10 @@ export interface UserData {
   photo?: string | null
   verified?: boolean | null
   password?: string
-  role: RoleEnumType | null
+  role?: RoleEnumType | null
   verificationCode?: string | null
-  createdAt?: Date
-  updatedAt?: Date
+  createdAt?: Date | null
+  updatedAt?: Date | null
 }
 
 export interface UserDataResponse {

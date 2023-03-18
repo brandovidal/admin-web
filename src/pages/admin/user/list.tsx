@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // Components
@@ -31,7 +31,10 @@ export default function UserList (): JSX.Element {
 
   const users = useMemo(() => formatData(response?.data?.users ?? [], router), [response?.data?.users, router])
   const total = useMemo(() => response?.data?.total ?? 0, [response?.data?.total])
-  const isLaoding = useMemo(() => loading ?? false, [loading])
+  const isLoading = useMemo(() => {
+    console.log('loading', loading)
+    return loading
+  }, [loading])
 
   return (
     <AdminLayout>
@@ -42,7 +45,7 @@ export default function UserList (): JSX.Element {
               router={router}
               columnsData={columns}
               tableData={users}
-              isLoading={isLaoding}
+              isLoading={isLoading}
               totalRows={total}
               currentPage={currentPage}
               pageChangeHandler={setCurrentPage}
