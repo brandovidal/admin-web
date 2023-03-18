@@ -1,4 +1,4 @@
-# Admin web
+# Panel web
 
 ### Script
 
