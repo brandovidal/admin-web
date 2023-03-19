@@ -5,14 +5,14 @@ import { Button, Flex, Stack, Text, useColorModeValue } from '@chakra-ui/react'
 import { type PaginationProps } from '@/views/admin/default/variables/columnsData'
 
 const Pagination = ({
-  currentPage,
-  pageChangeHandler,
-  totalRows,
+  page,
+  limitChangeHandler,
+  total,
   rowsPerPage,
-  isLoading
+  isLoading = false
 }: PaginationProps): JSX.Element => {
   // Calculating max number of pages
-  const totalOfPages = Math.ceil(totalRows / rowsPerPage)
+  const totalOfPages = Math.ceil(total / rowsPerPage)
 
   // Navigation arrows enable/disable state
   const [canGoBack, setCanGoBack] = useState(false)
@@ -20,40 +20,40 @@ const Pagination = ({
 
   // Creating an array with length equal to no.of pages
   const pagesArray = useMemo(() => {
-    const offsetPage = totalOfPages - currentPage + 1
+    const offsetPage = totalOfPages - page + 1
     if (totalOfPages <= 3) {
       return [...new Array(totalOfPages)].map((_, index) => index + 1)
     } else if (offsetPage <= 2 && offsetPage > 0) {
       return [totalOfPages - 2, totalOfPages - 1, totalOfPages]
-    } else if (currentPage === 1) {
-      return [currentPage, currentPage + 1, currentPage + 2]
+    } else if (page === 1) {
+      return [page, page + 1, page + 2]
     }
-    return [currentPage - 1, currentPage, currentPage + 1]
-  }, [totalOfPages, currentPage])
+    return [page - 1, page, page + 1]
+  }, [totalOfPages, page])
 
   // Onclick handlers for the butons
-  const onNextPage = (): void => { pageChangeHandler(currentPage + 1) }
-  const onPrevPage = (): void => { pageChangeHandler(currentPage - 1) }
-  const onPageSelect = (pageNo: number): void => { pageChangeHandler(pageNo) }
+  const onNextPage = (): void => { limitChangeHandler(page + 1) }
+  const onPrevPage = (): void => { limitChangeHandler(page - 1) }
+  const onPageSelect = (pageNo: number): void => { limitChangeHandler(pageNo) }
 
   useEffect(() => {
-    if (totalOfPages === currentPage) {
+    if (totalOfPages === page) {
       setCanGoNext(false)
     } else {
       setCanGoNext(true)
     }
 
-    if (currentPage === 1) {
+    if (page === 1) {
       setCanGoBack(false)
     } else {
       setCanGoBack(true)
     }
-  }, [totalOfPages, currentPage])
+  }, [totalOfPages, page])
 
   // To set the starting index of the page
   useEffect(() => {
-    pageChangeHandler(currentPage)
-  }, [currentPage, pageChangeHandler, rowsPerPage])
+    limitChangeHandler(page)
+  }, [page, limitChangeHandler, rowsPerPage])
 
   const textColor = useColorModeValue('gray.500', 'white')
 
@@ -75,11 +75,11 @@ const Pagination = ({
           px="5"
         >
           <Text color={textColor}>
-            P&aacute;gina {currentPage} de {totalOfPages}
+            P&aacute;gina {page} de {totalOfPages}
           </Text>
 
           <Stack direction="row">
-            {currentPage === 1
+            {page === 1
               ? null
               : (
               <Button
@@ -97,15 +97,15 @@ const Pagination = ({
                 key={number}
                 borderRadius="full"
                 onClick={() => { onPageSelect(number) }}
-                variant={number === currentPage ? 'solid' : 'outline'}
-                bg={number === currentPage ? 'brand.500' : 'transparent'}
-                color={number === currentPage ? 'white' : 'gray.400'}
+                variant={number === page ? 'solid' : 'outline'}
+                bg={number === page ? 'brand.500' : 'transparent'}
+                color={number === page ? 'white' : 'gray.400'}
               >
                 {number}
               </Button>
             ))}
 
-            {currentPage === totalOfPages
+            {page === totalOfPages
               ? null
               : (
               <Button

@@ -1,3 +1,4 @@
+// libs
 import { useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 
@@ -23,18 +24,15 @@ import { useGetUsers } from '@/services/user'
 import { Box, SimpleGrid } from '@chakra-ui/react'
 
 export default function UserList (): JSX.Element {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
   const router = useRouter()
 
-  const { loading, response } = useGetUsers(currentPage, pageSize)
+  const [page, setCurrentPage] = useState(1)
+  const [limit, setPageSize] = useState(10)
 
-  const users = useMemo(() => formatData(response?.data?.users ?? [], router), [response?.data?.users, router])
-  const total = useMemo(() => response?.data?.total ?? 0, [response?.data?.total])
-  const isLoading = useMemo(() => {
-    console.log('loading', loading)
-    return loading
-  }, [loading])
+  const { data, isLoading } = useGetUsers({ page, limit })
+
+  const users = useMemo(() => formatData(data?.data ?? [], router), [data, router])
+  const total = useMemo(() => data?.total ?? 0, [data?.total])
 
   return (
     <AdminLayout>
@@ -46,11 +44,11 @@ export default function UserList (): JSX.Element {
               columnsData={columns}
               tableData={users}
               isLoading={isLoading}
-              totalRows={total}
-              currentPage={currentPage}
+              total={total}
+              page={page}
               pageChangeHandler={setCurrentPage}
-              pageSize={pageSize}
-              pageSizeChangeHandler={setPageSize}
+              limit={limit}
+              limitChangeHandler={setPageSize}
               rowsPerPage={10}
             />
           </Card>

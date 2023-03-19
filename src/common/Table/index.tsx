@@ -14,14 +14,14 @@ import { useGlobalFilter, useSortBy, useTable } from 'react-table'
 const Table = ({
   columnsData,
   tableData,
-  totalRows = 0,
+  total = 0,
   isLoading = false,
   manualPagination = false,
   emptyDataMessage = 'No hay datos para mostrar',
   rowsPerPage = 10,
-  currentPage = 0,
-  pageChangeHandler,
-  pageSize = 10,
+  page = 0,
+  limitChangeHandler,
+  limit = 10,
   pageSizeChangeHandler
 }: TableProps): JSX.Element => {
   const textColor = useColorModeValue('secondaryGray.900', 'white')
@@ -65,7 +65,7 @@ const Table = ({
             mx={4}
           >
             <PageSizeFilter
-              pageSize={pageSize}
+              limit={limit}
               setPageSize={pageSizeChangeHandler}
             />
             <GlobalFilter
@@ -86,10 +86,10 @@ const Table = ({
             />
           </Flex>
           <Pagination
-            totalRows={totalRows}
+            total={total}
             isLoading={isLoading}
-            currentPage={currentPage}
-            pageChangeHandler={pageChangeHandler}
+            page={page}
+            limitChangeHandler={limitChangeHandler}
             rowsPerPage={rowsPerPage}
           />
         </>

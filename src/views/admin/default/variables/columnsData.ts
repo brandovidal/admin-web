@@ -50,7 +50,7 @@ export type TableData = Column<{
 }>
 
 export interface PageSizeFilterProps {
-  pageSize: number
+  limit: number
   pageSizes?: number[]
   setPageSize: any
 }
@@ -73,9 +73,9 @@ export interface ReactTableProps {
 }
 
 export interface PaginationProps {
-  currentPage: number
-  pageChangeHandler: any
-  totalRows: number
+  page: number
+  limitChangeHandler: any
+  total: number
   rowsPerPage: number
   isLoading?: boolean
 }
@@ -87,12 +87,12 @@ export interface TableProps {
   emptyDataMessage?: string
 
   isLoading?: boolean
-  totalRows?: number
+  total?: number
   rowsPerPage?: number
 
-  currentPage?: number
-  pageChangeHandler?: any
+  page?: number
+  limitChangeHandler?: any
 
-  pageSize?: number
+  limit?: number
   pageSizeChangeHandler?: any
 }

@@ -12,14 +12,14 @@ const UserListView = ({
   router,
   columnsData,
   tableData,
-  totalRows = 0,
+  total = 0,
   isLoading = false,
   manualPagination = false,
   rowsPerPage,
-  currentPage,
-  pageChangeHandler,
-  pageSize,
-  pageSizeChangeHandler
+  page,
+  limitChangeHandler,
+  limit,
+  limitChangeHandler: pageSizeChangeHandler
 }: UserViewProps): JSX.Element => {
   const textColor = useColorModeValue('secondaryGray.900', 'white')
 
@@ -31,7 +31,7 @@ const UserListView = ({
     <div>
       <Flex px='25px' justify='space-between' mb='20px' align='center'>
         <Text color={textColor} fontSize='22px' fontWeight='700' lineHeight='100%'>
-          Users <small>({isLoading ? 'Loading...' : `${totalRows} registros`})</small>
+          Users <small>({isLoading ? 'Loading...' : `${total} registros`})</small>
         </Text>
 
         <Button variant='brand' onClick={handleAddUser} disabled={!isLoading}>
@@ -43,12 +43,12 @@ const UserListView = ({
         columnsData={columnsData}
         tableData={tableData}
         isLoading={isLoading}
-        totalRows={totalRows}
-        currentPage={currentPage}
+        total={total}
+        page={page}
         manualPagination={manualPagination}
         rowsPerPage={rowsPerPage}
-        pageChangeHandler={pageChangeHandler}
-        pageSize={pageSize}
+        limitChangeHandler={limitChangeHandler}
+        limit={limit}
         pageSizeChangeHandler={pageSizeChangeHandler}
         emptyDataMessage='No hay datos disponibles'
       />

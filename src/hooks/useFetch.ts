@@ -1,19 +1,9 @@
+// libs
 import isEmpty from 'just-is-empty'
 import { useState, useEffect } from 'react'
 
-export interface DataResponse {
-  status: number
-  code: string
-  message: string
-  data: object | [] | null
-}
-
-export interface FetchResponse {
-  response: DataResponse | null
-  loading: boolean
-  error: string | null
-  handleAbortController?: () => void
-}
+// interfaces
+import type { FetchResponse } from '@/interfaces/Response'
 
 export const useFetch = (url: string, options?: object): FetchResponse => {
   const [response, setResponse] = useState(null)
