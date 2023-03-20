@@ -1,11 +1,14 @@
+// libs
 import React from 'react'
-
-import { ChakraProvider } from '@chakra-ui/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 
+// services
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+// styles
+import { ChakraProvider } from '@chakra-ui/react'
 import theme from '@theme/theme'
 
 import '@styles/Fonts.css'
@@ -29,6 +32,7 @@ function MyApp ({ Component, pageProps }: AppProps): JSX.Element {
           <Component {...pageProps} />
         </React.StrictMode>
       </ChakraProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   )
 }

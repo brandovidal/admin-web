@@ -6,7 +6,7 @@ import { type PaginationProps } from '@/views/admin/default/variables/columnsDat
 
 const Pagination = ({
   page,
-  limitChangeHandler,
+  pageChangeHandler,
   total,
   rowsPerPage,
   isLoading = false
@@ -32,9 +32,9 @@ const Pagination = ({
   }, [totalOfPages, page])
 
   // Onclick handlers for the butons
-  const onNextPage = (): void => { limitChangeHandler(page + 1) }
-  const onPrevPage = (): void => { limitChangeHandler(page - 1) }
-  const onPageSelect = (pageNo: number): void => { limitChangeHandler(pageNo) }
+  const onNextPage = (): void => { pageChangeHandler(page + 1) }
+  const onPrevPage = (): void => { pageChangeHandler(page - 1) }
+  const onPageSelect = (pageNo: number): void => { pageChangeHandler(pageNo) }
 
   useEffect(() => {
     if (totalOfPages === page) {
@@ -52,8 +52,8 @@ const Pagination = ({
 
   // To set the starting index of the page
   useEffect(() => {
-    limitChangeHandler(page)
-  }, [page, limitChangeHandler, rowsPerPage])
+    pageChangeHandler(page)
+  }, [page, pageChangeHandler, rowsPerPage])
 
   const textColor = useColorModeValue('gray.500', 'white')
 

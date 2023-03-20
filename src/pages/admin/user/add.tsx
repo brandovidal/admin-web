@@ -19,7 +19,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { registerUserSchema, type RegisterUserInput } from '@/schemas/user'
 
 // services
-import { useAddUser } from '@/services/user'
+import { useCreateUser } from '@/services/user'
 
 // styles
 import { Box } from '@chakra-ui/react'
@@ -37,22 +37,18 @@ export default function UserAdd (): JSX.Element {
 
   const [alert, setAlert] = useState<AlertProps>()
 
+  const { mutate } = useCreateUser({
+    onSuccess: () => {
+      setAlert({ message: 'Usuario creado correctamente', status: 'success' })
+      void router.push('/admin/user/list')
+    },
+    onError: () => {
+      setAlert({ message: 'El usuario o correo ya existe', status: 'warning' })
+    }
+  })
+
   const useOnSubmit: SubmitHandler<RegisterUserInput> = data => {
-    useAddUser(data)
-      .then(response => {
-        const { code } = response
-
-        if (code === 'user_exist') {
-          setAlert({ message: 'El usuario o correo ya existe', status: 'warning' })
-          return
-        }
-
-        setAlert({ message: 'Usuario creado correctamente', status: 'success' })
-        void router.push('/admin/user/list')
-      })
-      .catch(err => {
-        console.error('err', err)
-      })
+    mutate(data)
   }
 
   const onCancel = (): void => {

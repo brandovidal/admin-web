@@ -19,10 +19,10 @@ const Table = ({
   manualPagination = false,
   emptyDataMessage = 'No hay datos para mostrar',
   rowsPerPage = 10,
+  pageChangeHandler,
   page = 0,
   limitChangeHandler,
-  limit = 10,
-  pageSizeChangeHandler
+  limit = 10
 }: TableProps): JSX.Element => {
   const textColor = useColorModeValue('secondaryGray.900', 'white')
 
@@ -66,7 +66,7 @@ const Table = ({
           >
             <PageSizeFilter
               limit={limit}
-              setPageSize={pageSizeChangeHandler}
+              setPageSize={limitChangeHandler}
             />
             <GlobalFilter
               globalFilter={globalFilter}
@@ -89,7 +89,7 @@ const Table = ({
             total={total}
             isLoading={isLoading}
             page={page}
-            limitChangeHandler={limitChangeHandler}
+            pageChangeHandler={pageChangeHandler}
             rowsPerPage={rowsPerPage}
           />
         </>

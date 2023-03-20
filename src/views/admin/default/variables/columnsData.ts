@@ -74,7 +74,7 @@ export interface ReactTableProps {
 
 export interface PaginationProps {
   page: number
-  limitChangeHandler: any
+  pageChangeHandler: any
   total: number
   rowsPerPage: number
   isLoading?: boolean
@@ -91,8 +91,8 @@ export interface TableProps {
   rowsPerPage?: number
 
   page?: number
-  limitChangeHandler?: any
+  pageChangeHandler?: any
 
   limit?: number
-  pageSizeChangeHandler?: any
+  limitChangeHandler?: any
 }

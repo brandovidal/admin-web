@@ -27,7 +27,7 @@ export default function UserList (): JSX.Element {
   const router = useRouter()
 
   const [page, setCurrentPage] = useState(1)
-  const [limit, setPageSize] = useState(10)
+  const [limit, setLimit] = useState(10)
 
   const { data, isLoading } = useGetUsers({ page, limit })
 
@@ -48,7 +48,7 @@ export default function UserList (): JSX.Element {
               page={page}
               pageChangeHandler={setCurrentPage}
               limit={limit}
-              limitChangeHandler={setPageSize}
+              limitChangeHandler={setLimit}
               rowsPerPage={10}
             />
           </Card>

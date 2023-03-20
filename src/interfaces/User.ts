@@ -31,10 +31,6 @@ export interface UserResponse extends DataResponse {
   data: UserDataResponse
 }
 
-export interface FetchUserResponse extends FetchResponse {
-  response: UserResponse
-}
-
 export interface UserViewProps extends TableProps {
   router: NextRouter
 }

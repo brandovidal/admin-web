@@ -16,10 +16,10 @@ const UserListView = ({
   isLoading = false,
   manualPagination = false,
   rowsPerPage,
-  page,
-  limitChangeHandler,
-  limit,
-  limitChangeHandler: pageSizeChangeHandler
+  page = 1,
+  pageChangeHandler,
+  limit = 10,
+  limitChangeHandler
 }: UserViewProps): JSX.Element => {
   const textColor = useColorModeValue('secondaryGray.900', 'white')
 
@@ -47,9 +47,9 @@ const UserListView = ({
         page={page}
         manualPagination={manualPagination}
         rowsPerPage={rowsPerPage}
-        limitChangeHandler={limitChangeHandler}
+        pageChangeHandler={pageChangeHandler}
         limit={limit}
-        pageSizeChangeHandler={pageSizeChangeHandler}
+        limitChangeHandler={limitChangeHandler}
         emptyDataMessage='No hay datos disponibles'
       />
     </div>
