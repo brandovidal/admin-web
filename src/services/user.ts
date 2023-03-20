@@ -5,19 +5,23 @@ import { useMutation, type UseMutationResult, useQuery, type UseQueryResult } fr
 
 // interfaces
 import type { QueryParams } from '@/interfaces/Response'
-import type { UserDataResponse, User, UserResponse } from '@/interfaces/User'
+import type { UserDataResponse, User } from '@/interfaces/User'
 
 // api
-import { getUsers, postUser, updateUser } from '@/api/user'
+import { getUserId, getUsers, postUser, updateUser } from '@/api/user'
 
 export const useGetUsers = ({ page = 1, limit = 10 }: QueryParams): UseQueryResult<UserDataResponse, Error> => {
   return useQuery<UserDataResponse, Error>(['users', page, limit], async () => await getUsers({ page, limit }))
+}
+
+export const useGetUserId = ({ id, onError }): UseQueryResult<User, Error> => {
+  return useQuery<User, Error>(['users', id], async () => await getUserId({ id }), { onError })
 }
 
 export const useCreateUser = ({ onSuccess, onError }): UseMutationResult<User, Error, User, unknown> => {
   return useMutation(async (user: User) => await postUser(user), { onSuccess, onError })
 }
 
-export const useUpdateUser = ({ onSuccess, onError }): any => {
+export const useUpdateUser = ({ onSuccess, onError }): UseMutationResult<User, Error, User, unknown> => {
   return useMutation(async (user: User) => await updateUser(user), { onSuccess, onError })
 }

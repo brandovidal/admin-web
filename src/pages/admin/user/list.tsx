@@ -1,5 +1,5 @@
 // libs
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // Components
@@ -20,6 +20,9 @@ import UserListView from '@/views/admin/user/components/UserList'
 // Services
 import { useGetUsers } from '@/services/user'
 
+// store
+import { useUserStore } from '@/store/user'
+
 // styles
 import { Box, SimpleGrid } from '@chakra-ui/react'
 
@@ -31,8 +34,15 @@ export default function UserList (): JSX.Element {
 
   const { data, isLoading } = useGetUsers({ page, limit })
 
-  const users = useMemo(() => formatData(data?.data ?? [], router), [data, router])
+  const addUser = useUserStore(state => state.addUser)
+  const removeUser = useUserStore(state => state.removeUser)
+
+  const users = useMemo(() => formatData(data?.data ?? [], router, addUser), [data, router, addUser])
   const total = useMemo(() => data?.total ?? 0, [data?.total])
+
+  useEffect(() => {
+    removeUser()
+  }, [removeUser])
 
   return (
     <AdminLayout>

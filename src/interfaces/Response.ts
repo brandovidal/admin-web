@@ -12,6 +12,10 @@ export interface QueryParams {
   limit: number
 }
 
+export interface QueryId {
+  id: string
+}
+
 export interface FetchResponse {
   response: DataResponse | null
   loading: boolean

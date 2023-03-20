@@ -45,7 +45,8 @@
     "stylis-plugin-rtl": "2.1.1",
     "typescript": "5.0.2",
     "web-vitals": "3.3.0",
-    "zod": "3.21.4"
+    "zod": "3.21.4",
+    "zustand": "4.3.6"
   },
   "devDependencies": {
     "@types/jest": "29.5.0",

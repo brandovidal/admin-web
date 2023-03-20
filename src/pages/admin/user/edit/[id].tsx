@@ -1,6 +1,7 @@
 // libs
-import { useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
+import isEmpty from 'just-is-empty'
 
 // interfaces
 import type { AlertProps } from '@/interfaces/Alert'
@@ -9,7 +10,10 @@ import type { AlertProps } from '@/interfaces/Alert'
 import AdminLayout from '@/layouts/admin'
 
 // Views
-import UserAddView from '@/views/admin/user/components/UserAdd'
+import UserEditView from '@/views/admin/user/components/UserEdit'
+
+// store
+import { useUserStore } from '@/store/user'
 
 // form
 import { type SubmitHandler, useForm } from 'react-hook-form'
@@ -23,44 +27,67 @@ import { useUpdateUser } from '@/services/user'
 
 // styles
 import { Box } from '@chakra-ui/react'
+import type { User } from '@/interfaces/User'
 
 export default function UserEdit (): JSX.Element {
   const router = useRouter()
 
-  const userId = useMemo(() => router.query.id, [router.query.id])
+  const userId = useMemo(() => router.query.id as string, [router.query.id])
+
+  const user = useUserStore(state => state.user) as User
+  const removeUser = useUserStore(state => state.removeUser)
 
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { isLoading, isSubmitting }
   } = useForm<RegisterUserInput>({
     resolver: zodResolver(registerUserSchema)
   })
 
+  useEffect(() => {
+    if (isEmpty(user)) {
+      setAlert({ message: 'No se pudo encontrar el usuario', status: 'error' })
+      void router.push('/admin/user/list')
+      return
+    }
+
+    setValue('username', user.username ?? '')
+    setValue('name', user.name)
+    setValue('email', user.email)
+    setValue('password', user?.password ?? '')
+  }, [user, router, setValue])
+
   const [alert, setAlert] = useState<AlertProps>()
 
-  const { mutate } = useUpdateUser({
-    onSuccess: () => {
-      setAlert({ message: 'Usuario actualizado correctamente', status: 'success' })
-      void router.push('/admin/user/list')
+  const onCreateSuccess = (): void => {
+    setAlert({ message: 'Usuario editado correctamente', status: 'success' })
+    void router.push('/admin/user/list')
+  }
+
+  const onCreateError = (): void => {
+    setAlert({ message: 'El usuario o correo ya existe', status: 'warning' })
+  }
+
+  const { mutate: updateUser } = useUpdateUser({ onSuccess: onCreateSuccess, onError: onCreateError })
+
+  const useOnSubmit: SubmitHandler<RegisterUserInput> = useCallback(
+    data => {
+      updateUser({ id: userId, ...data })
     },
-    onError: () => {
-      setAlert({ message: 'El usuario o correo ya existe', status: 'warning' })
-    }
-  })
+    [updateUser, userId]
+  )
 
-  const useOnSubmit: SubmitHandler<RegisterUserInput> = data => {
-    mutate(data)
-  }
-
-  const onCancel = (): void => {
+  const onCancel = useCallback((): void => {
+    removeUser()
     router.back()
-  }
+  }, [router, removeUser])
 
   return (
     <AdminLayout navbarText='User Edit'>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <UserAddView control={control} alert={alert} disabled={!isLoading || isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
+        <UserEditView control={control} alert={alert} disabled={!isLoading || isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
       </Box>
     </AdminLayout>
   )

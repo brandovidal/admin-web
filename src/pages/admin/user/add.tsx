@@ -1,5 +1,5 @@
 // libs
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // interfaces
@@ -37,23 +37,27 @@ export default function UserAdd (): JSX.Element {
 
   const [alert, setAlert] = useState<AlertProps>()
 
-  const { mutate } = useCreateUser({
-    onSuccess: () => {
-      setAlert({ message: 'Usuario creado correctamente', status: 'success' })
-      void router.push('/admin/user/list')
+  const onSuccess = (): void => {
+    setAlert({ message: 'Usuario creado correctamente', status: 'success' })
+    void router.push('/admin/user/list')
+  }
+
+  const onError = (): void => {
+    setAlert({ message: 'El usuario o correo ya existe', status: 'warning' })
+  }
+
+  const { mutate } = useCreateUser({ onSuccess, onError })
+
+  const useOnSubmit: SubmitHandler<RegisterUserInput> = useCallback(
+    data => {
+      mutate(data)
     },
-    onError: () => {
-      setAlert({ message: 'El usuario o correo ya existe', status: 'warning' })
-    }
-  })
+    [mutate]
+  )
 
-  const useOnSubmit: SubmitHandler<RegisterUserInput> = data => {
-    mutate(data)
-  }
-
-  const onCancel = (): void => {
+  const onCancel = useCallback((): void => {
     router.back()
-  }
+  }, [router])
 
   return (
     <AdminLayout navbarText='Agregar Usuario'>
