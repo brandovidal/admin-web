@@ -28,10 +28,10 @@ const UserListView = ({
   }
 
   return (
-    <div>
+    <>
       <Flex px='25px' justify='space-between' mb='20px' align='center'>
         <Text color={textColor} fontSize='22px' fontWeight='700' lineHeight='100%'>
-          Users <small>({isLoading ? 'Loading...' : `${total} registros`})</small>
+          Usuarios <small>({isLoading ? 'Loading...' : `${total} registros`})</small>
         </Text>
 
         <Button variant='brand' onClick={handleAddUser} disabled={!isLoading}>
@@ -52,7 +52,7 @@ const UserListView = ({
         limitChangeHandler={limitChangeHandler}
         emptyDataMessage='No hay datos disponibles'
       />
-    </div>
+    </>
   )
 }
 

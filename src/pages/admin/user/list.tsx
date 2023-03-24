@@ -48,7 +48,7 @@ export default function UserList (): JSX.Element {
     <AdminLayout>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
         <SimpleGrid mb='20px' columns={{ sm: 1, md: 1 }} spacing={{ base: '20px', xl: '20px' }}>
-          <Card flexDirection='column' w='100%' px='0px' overflowX={{ sm: 'scroll', lg: 'hidden' }}>
+          <Card flexDirection='column' w='100%' px='0px'>
             <UserListView
               router={router}
               columnsData={columns}

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { Flex, Text, useColorModeValue } from '@chakra-ui/react'
+import { Flex, Stack, Text, useColorModeValue } from '@chakra-ui/react'
 
 import { type TableProps } from '@/views/admin/default/variables/columnsData'
 
@@ -50,31 +50,18 @@ const Table = ({
 
   return (
     <>
-      {isLoading
-        ? (
-        <Flex justifyContent="center" alignItems="center" py="10">
+      {isLoading && (
+        <Flex justifyContent='center' alignItems='center' py='10'>
           <Text color={textColor}>Loading...</Text>
         </Flex>
-          )
-        : (
+      )}
+      {!isLoading && (
         <>
-          <Flex
-            flexDirection={['column', 'column', 'row', 'row']}
-            justifyContent="space-between"
-            alignItems="center"
-            mx={4}
-          >
-            <PageSizeFilter
-              limit={limit}
-              setPageSize={limitChangeHandler}
-            />
-            <GlobalFilter
-              globalFilter={globalFilter}
-              setGlobalFilter={setGlobalFilter}
-              placeholder={'Buscar por nombre'}
-            />
+          <Flex flexDirection={['column', 'column', 'row', 'row']} justifyContent='space-between' alignItems='center' mx={4}>
+            <PageSizeFilter limit={limit} setPageSize={limitChangeHandler} />
+            <GlobalFilter globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} placeholder={'Buscar por nombre'} />
           </Flex>
-          <Flex flexDir="column" overflow="auto">
+          <>
             <ReactTable
               getTableProps={getTableProps}
               getTableBodyProps={getTableBodyProps}
@@ -84,16 +71,10 @@ const Table = ({
               isLoading={isLoading}
               emptyDataMessage={emptyDataMessage}
             />
-          </Flex>
-          <Pagination
-            total={total}
-            isLoading={isLoading}
-            page={page}
-            pageChangeHandler={pageChangeHandler}
-            rowsPerPage={rowsPerPage}
-          />
+          </>
+          <Pagination total={total} isLoading={isLoading} page={page} pageChangeHandler={pageChangeHandler} rowsPerPage={rowsPerPage} />
         </>
-          )}
+      )}
     </>
   )
 }

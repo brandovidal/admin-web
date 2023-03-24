@@ -14,7 +14,7 @@ export const GlobalFilter = ({
   const [value, setValue] = useState(globalFilter)
 
   const onChange = debounce((value: string) => {
-    setGlobalFilter(value || undefined)
+    setGlobalFilter(value ?? undefined)
   }, TWO_HUNDRED_MS)
 
   return (
