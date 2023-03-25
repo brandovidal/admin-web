@@ -32,7 +32,8 @@ export interface UserResponse extends DataResponse {
 }
 
 export interface UserViewProps extends TableProps {
-  router: NextRouter
+  handleAdd: () => void
+  handleRefetch: () => void
 }
 
 export interface UserAddProps {

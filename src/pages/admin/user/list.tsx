@@ -1,5 +1,5 @@
 // libs
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 import isEmpty from 'just-is-empty'
 
@@ -36,22 +36,31 @@ export default function UserList (): JSX.Element {
 
   const [page, setCurrentPage] = useState(1)
   const [limit, setLimit] = useState(10)
+  const [revalidate, setRevalidate] = useState('REVALIDATE')
 
-  const { data, isLoading } = useGetUsers({ page, limit })
+  const { data, isLoading } = useGetUsers({ page, limit, revalidate })
 
   const addUser = useUserStore(state => state.addUser)
   const cleanUser = useUserStore(state => state.cleanUser)
 
-  const [alert, setAlert] = useState<AlertProps>({ message: 'hola', status: 'info' })
+  const [alert, setAlert] = useState<AlertProps>()
 
-  const onSuccess = (): void => {
+  const handleRefetch = useCallback(
+    async (): Promise<void> => {
+      setRevalidate(prevState => prevState === 'REFETCH' ? 'REVALIDATE' : 'REFETCH')
+    },
+    [setRevalidate]
+  )
+
+  const onSuccess = useCallback(async (): Promise<void> => {
     setAlert({ message: 'Usuario eliminado correctamente', status: 'success' })
+    await handleRefetch()
     void router.push('/admin/user/list')
-  }
+  }, [handleRefetch, router])
 
-  const onError = (): void => {
+  const onError = useCallback((): void => {
     setAlert({ message: 'No se pudo eliminar al usuario', status: 'warning' })
-  }
+  }, [])
 
   const { mutate: deleteUser } = useDeleteUser({ onSuccess, onError })
 
@@ -62,14 +71,20 @@ export default function UserList (): JSX.Element {
     cleanUser()
   }, [cleanUser])
 
+  const handleAddUser = useCallback((): void => {
+    void router.push('/admin/user/add')
+  }, [router])
+
   return (
     <AdminLayout>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
         <SimpleGrid mb='20px' columns={{ sm: 1, md: 1 }} spacing={{ base: '20px', xl: '20px' }}>
           {!isEmpty(alert) && <Alert status={alert?.status} message={alert?.message} />}
-          <Card flexDirection='column' w='100%' px='0px'>
+
+          <Card flexDirection='column' w='100%' px='0'>
             <UserListView
-              router={router}
+              handleAdd={handleAddUser}
+              handleRefetch={handleRefetch}
               columnsData={columns}
               tableData={users}
               isLoading={isLoading}

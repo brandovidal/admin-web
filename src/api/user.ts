@@ -8,8 +8,8 @@ import { config } from '@/config/variables'
 import type { QueryId, QueryParams } from '@/interfaces/Response'
 import type { User, UserDataResponse } from '@/interfaces/User'
 
-export const getUsers = async ({ page = 1, limit = 10 }: QueryParams): Promise<UserDataResponse> => {
-  const response = await axios.get<UserDataResponse>(`${config.apiUrl}/users?page=${page}&limit=${limit}`)
+export const getUsers = async ({ page = 1, limit = 10, revalidate = 'NONE' }: QueryParams): Promise<UserDataResponse> => {
+  const response = await axios.get<UserDataResponse>(`${config.apiUrl}/users?page=${page}&limit=${limit}&revalidate=${revalidate}`)
   return response.data
 }
 

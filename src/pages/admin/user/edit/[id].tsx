@@ -35,7 +35,7 @@ export default function UserEdit (): JSX.Element {
   const userId = useMemo(() => router.query.id as string, [router.query.id])
 
   const user = useUserStore(state => state.user) as User
-  const removeUser = useUserStore(state => state.removeUser)
+  const cleanUser = useUserStore(state => state.cleanUser)
 
   const {
     control,
@@ -61,14 +61,14 @@ export default function UserEdit (): JSX.Element {
 
   const [alert, setAlert] = useState<AlertProps>()
 
-  const onCreateSuccess = (): void => {
+  const onCreateSuccess = useCallback((): void => {
     setAlert({ message: 'Usuario editado correctamente', status: 'success' })
     void router.push('/admin/user/list')
-  }
+  }, [router])
 
-  const onCreateError = (): void => {
+  const onCreateError = useCallback((): void => {
     setAlert({ message: 'El usuario o correo ya existe', status: 'warning' })
-  }
+  }, [])
 
   const { mutate: updateUser } = useUpdateUser({ onSuccess: onCreateSuccess, onError: onCreateError })
 
@@ -80,14 +80,14 @@ export default function UserEdit (): JSX.Element {
   )
 
   const onCancel = useCallback((): void => {
-    removeUser()
+    cleanUser()
     router.back()
-  }, [router, removeUser])
+  }, [router, cleanUser])
 
   return (
     <AdminLayout navbarText='Editar Usuario'>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <UserEditView control={control} alert={alert} disabled={!isLoading || isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
+        <UserEditView control={control} alert={alert} disabled={isLoading || isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
       </Box>
     </AdminLayout>
   )

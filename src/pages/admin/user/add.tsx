@@ -62,7 +62,7 @@ export default function UserAdd (): JSX.Element {
   return (
     <AdminLayout navbarText='Agregar Usuario'>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <UserAddView control={control} alert={alert} disabled={!isLoading || isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
+        <UserAddView control={control} alert={alert} disabled={isLoading || isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
       </Box>
     </AdminLayout>
   )

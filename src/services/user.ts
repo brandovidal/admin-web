@@ -10,8 +10,8 @@ import type { UserDataResponse, User } from '@/interfaces/User'
 // api
 import { deleteUser, getUserId, getUsers, postUser, updateUser } from '@/api/user'
 
-export const useGetUsers = ({ page = 1, limit = 10 }: QueryParams): UseQueryResult<UserDataResponse, Error> => {
-  return useQuery<UserDataResponse, Error>(['users', page, limit], async () => await getUsers({ page, limit }), { refetchOnWindowFocus: true })
+export const useGetUsers = ({ page = 1, limit = 10, revalidate = 'NONE' }: QueryParams): UseQueryResult<UserDataResponse, Error> => {
+  return useQuery<UserDataResponse, Error>(['users', page, limit, revalidate], async () => await getUsers({ page, limit, revalidate }), { refetchOnWindowFocus: false, refetchOnReconnect: true })
 }
 
 export const useGetUserId = ({ id, onError }): UseQueryResult<User, Error> => {

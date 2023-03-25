@@ -33,10 +33,10 @@ const UserEditView = ({ control, alert, disabled, onSubmit, onCancel }: UserEdit
             </SimpleGrid>
 
             <Box display='flex' justifyContent='flex-end' alignItems='center' mt={6} gap={4}>
-              <Button type='button' leftIcon={<MdChevronLeft />} fontSize='md' variant='outline' fontWeight='500' p={6} disabled={disabled} onClick={onCancel}>
+              <Button type='button' leftIcon={<MdChevronLeft />} fontSize='md' variant='outline' fontWeight='500' p={6} isDisabled={disabled} onClick={onCancel}>
                 Regresar
               </Button>
-              <Button type='submit' leftIcon={<MdSave />} fontSize='md' variant='brand' fontWeight='500' p={6} disabled={disabled}>
+              <Button type='submit' leftIcon={<MdSave />} fontSize='md' variant='brand' fontWeight='500' p={6} isDisabled={disabled}>
                 Editar
               </Button>
             </Box>

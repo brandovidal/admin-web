@@ -6,10 +6,11 @@ import type { UserViewProps } from '@/interfaces/User'
 
 // styles
 import { Button, Flex, Icon, Text, useColorModeValue } from '@chakra-ui/react'
-import { MdAdd } from 'react-icons/md'
+import { MdAdd, MdUpdate } from 'react-icons/md'
 
 const UserListView = ({
-  router,
+  handleAdd,
+  handleRefetch,
   columnsData,
   tableData,
   total = 0,
@@ -23,10 +24,6 @@ const UserListView = ({
 }: UserViewProps): JSX.Element => {
   const textColor = useColorModeValue('secondaryGray.900', 'white')
 
-  const handleAddUser = (): void => {
-    void router.push('/admin/user/add')
-  }
-
   return (
     <>
       <Flex px='25px' justify='space-between' mb='20px' align='center'>
@@ -34,10 +31,16 @@ const UserListView = ({
           Usuarios <small>({isLoading ? 'Loading...' : `${total} registros`})</small>
         </Text>
 
-        <Button variant='brand' onClick={handleAddUser} disabled={!isLoading}>
-          <Icon as={MdAdd} h='16px' w='16px' me='8px' />
-          Agregar
-        </Button>
+        <Flex gap={4}>
+          <Button variant='outline' onClick={handleRefetch} disabled={!isLoading}>
+            <Icon as={MdUpdate} h='16px' w='16px' me='8px' />
+            Actualizar
+          </Button>
+          <Button variant='brand' onClick={handleAdd} disabled={!isLoading}>
+            <Icon as={MdAdd} h='16px' w='16px' me='8px' />
+            Agregar
+          </Button>
+        </Flex>
       </Flex>
       <Table
         columnsData={columnsData}
