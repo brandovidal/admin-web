@@ -85,7 +85,7 @@ export default function UserEdit (): JSX.Element {
   }, [router, removeUser])
 
   return (
-    <AdminLayout navbarText='User Edit'>
+    <AdminLayout navbarText='Editar Usuario'>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
         <UserEditView control={control} alert={alert} disabled={!isLoading || isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
       </Box>

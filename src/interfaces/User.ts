@@ -2,7 +2,7 @@ import type { NextRouter } from 'next/router'
 
 // interfaces
 import type { AlertProps } from './Alert'
-import type { DataResponse, FetchResponse } from './Response'
+import type { DataResponse } from './Response'
 import type { TableProps } from './Table'
 
 export type RoleEnumType = 'user' | 'admin'
@@ -43,3 +43,4 @@ export interface UserAddProps {
   onSubmit: React.FormEventHandler
   onCancel: () => void
 }
+export interface UserEditProps extends UserAddProps {}

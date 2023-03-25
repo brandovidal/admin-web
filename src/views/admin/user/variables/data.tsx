@@ -11,18 +11,10 @@ import MenuActions from '@/components/menu/Actions'
 import { Icon } from '@chakra-ui/react'
 
 // icons
-import { MdInfoOutline, MdModeEditOutline, MdOutlineDelete } from 'react-icons/md'
+import { MdModeEditOutline, MdOutlineDelete } from 'react-icons/md'
 
-function generateActions (user: User, router: NextRouter, addUser): ActionsProps[] {
+function generateActions (user: User, router: NextRouter, addUser: (user: User) => void): ActionsProps[] {
   return [
-    {
-      label: 'Ver',
-      icon: <Icon as={MdInfoOutline} h='16px' w='16px' me='8px' />,
-      onClick: () => {
-        addUser(user)
-        void router.push(`/admin/user/${user.id as string}`)
-      }
-    },
     {
       label: 'Editar',
       icon: <Icon as={MdModeEditOutline} h='16px' w='16px' me='8px' />,
