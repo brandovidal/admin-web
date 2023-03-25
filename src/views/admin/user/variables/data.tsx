@@ -13,7 +13,7 @@ import { Icon } from '@chakra-ui/react'
 // icons
 import { MdModeEditOutline, MdOutlineDelete } from 'react-icons/md'
 
-function generateActions (user: User, router: NextRouter, addUser: (user: User) => void): ActionsProps[] {
+function generateActions (user: User, router: NextRouter, addUser: (user: User) => void, deleteUser: (user: User) => void): ActionsProps[] {
   return [
     {
       label: 'Editar',
@@ -27,16 +27,17 @@ function generateActions (user: User, router: NextRouter, addUser: (user: User) 
       label: 'Eliminar',
       icon: <Icon as={MdOutlineDelete} h='16px' w='16px' me='8px' />,
       onClick: () => {
+        deleteUser(user)
         console.log('Eliminar', user.id as string)
       }
     }
   ]
 }
 
-export const formatData = (data: User[] = [], router: NextRouter, addUser: (user: User) => void): User[] => {
+export const formatData = (data: User[] = [], router: NextRouter, addUser: (user: User) => void, deleteUser: (user: User) => void): User[] => {
   return data.map((user) => {
     const { username, name, email, role } = user
-    const actions = generateActions(user, router, addUser)
+    const actions = generateActions(user, router, addUser, deleteUser)
     return { username, name, email, role, actions: <MenuActions actions={actions}></MenuActions> }
   })
 }

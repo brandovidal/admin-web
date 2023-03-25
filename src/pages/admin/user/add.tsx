@@ -46,16 +46,16 @@ export default function UserAdd (): JSX.Element {
     setAlert({ message: 'El usuario o correo ya existe', status: 'warning' })
   }
 
-  const { mutate } = useCreateUser({ onSuccess, onError })
+  const { mutate: addUser } = useCreateUser({ onSuccess, onError })
 
   const useOnSubmit: SubmitHandler<RegisterUserInput> = useCallback(
     data => {
-      mutate(data)
+      addUser(data)
     },
-    [mutate]
+    [addUser]
   )
 
-  const onCancel = useCallback((): void => {
+  const onCancel = useCallback(() => {
     router.back()
   }, [router])
 

@@ -1,11 +1,13 @@
-import type { User } from '@/interfaces/User'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
+
+// interfaces
+import type { User } from '@/interfaces/User'
 
 interface UserState {
   user: User | null
   addUser: (user: User) => void
-  removeUser: () => void
+  cleanUser: () => void
 }
 
 export const useUserStore = create(
@@ -15,7 +17,7 @@ export const useUserStore = create(
       addUser: user => {
         set(() => ({ user }))
       },
-      removeUser: () => {
+      cleanUser: () => {
         set({ user: null })
       }
     }),

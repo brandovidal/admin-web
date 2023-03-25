@@ -29,3 +29,9 @@ export const updateUser = async (user: User): Promise<User> => {
   const response = await axios.put(`${config.apiUrl}/users/${userId}`, user)
   return response.data
 }
+
+export const deleteUser = async (user: User): Promise<User> => {
+  const userId = user.id ?? ''
+  const response = await axios.delete(`${config.apiUrl}/users/${userId}`)
+  return response.data
+}
