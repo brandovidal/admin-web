@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { Flex, Stack, Text, useColorModeValue } from '@chakra-ui/react'
+import { Flex, Text, useColorModeValue } from '@chakra-ui/react'
 
 import { type TableProps } from '@/views/admin/default/variables/columnsData'
 
