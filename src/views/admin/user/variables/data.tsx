@@ -11,37 +11,33 @@ import MenuActions from '@/components/menu/Actions'
 import { Icon } from '@chakra-ui/react'
 
 // icons
-import { MdInfoOutline, MdModeEditOutline, MdOutlineDelete } from 'react-icons/md'
+import { MdModeEditOutline, MdOutlineDelete } from 'react-icons/md'
 
-function generateActions (id: string, router: NextRouter): ActionsProps[] {
+function generateActions (user: User, router: NextRouter, addUser: (user: User) => void, deleteUser: (user: User) => void): ActionsProps[] {
   return [
-    {
-      label: 'Ver',
-      icon: <Icon as={MdInfoOutline} h='16px' w='16px' me='8px' />,
-      onClick: () => {
-        void router.push(`/admin/user/${id}`)
-      }
-    },
     {
       label: 'Editar',
       icon: <Icon as={MdModeEditOutline} h='16px' w='16px' me='8px' />,
       onClick: () => {
-        void router.push(`/admin/user/edit/${id}`)
+        addUser(user)
+        void router.push(`/admin/user/edit/${user.id as string}`)
       }
     },
     {
       label: 'Eliminar',
       icon: <Icon as={MdOutlineDelete} h='16px' w='16px' me='8px' />,
       onClick: () => {
-        console.log('Eliminar', id)
+        deleteUser(user)
+        console.log('Eliminar', user.id as string)
       }
     }
   ]
 }
 
-export const formatData = (data: User[] = [], router: NextRouter): User[] => {
-  return data.map(({ id = '', name, email, role }) => {
-    const actions = generateActions(id, router)
-    return { name, email, role, actions: <MenuActions actions={actions}></MenuActions> }
+export const formatData = (data: User[] = [], router: NextRouter, addUser: (user: User) => void, deleteUser: (user: User) => void): User[] => {
+  return data.map((user) => {
+    const { username, name, email, role } = user
+    const actions = generateActions(user, router, addUser, deleteUser)
+    return { username, name, email, role, actions: <MenuActions actions={actions}></MenuActions> }
   })
 }

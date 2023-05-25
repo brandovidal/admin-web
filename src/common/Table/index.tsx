@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { Flex, Text, useColorModeValue } from '@chakra-ui/react'
+import { Flex, Stack, Text, useColorModeValue } from '@chakra-ui/react'
 
 import { type TableProps } from '@/views/admin/default/variables/columnsData'
 
@@ -14,15 +14,15 @@ import { useGlobalFilter, useSortBy, useTable } from 'react-table'
 const Table = ({
   columnsData,
   tableData,
-  totalRows = 0,
+  total = 0,
   isLoading = false,
   manualPagination = false,
   emptyDataMessage = 'No hay datos para mostrar',
   rowsPerPage = 10,
-  currentPage = 0,
   pageChangeHandler,
-  pageSize = 10,
-  pageSizeChangeHandler
+  page = 0,
+  limitChangeHandler,
+  limit = 10
 }: TableProps): JSX.Element => {
   const textColor = useColorModeValue('secondaryGray.900', 'white')
 
@@ -50,31 +50,18 @@ const Table = ({
 
   return (
     <>
-      {isLoading
-        ? (
-        <Flex justifyContent="center" alignItems="center" py="10">
+      {isLoading && (
+        <Flex justifyContent='center' alignItems='center' py='10'>
           <Text color={textColor}>Loading...</Text>
         </Flex>
-          )
-        : (
+      )}
+      {!isLoading && (
         <>
-          <Flex
-            flexDirection={['column', 'column', 'row', 'row']}
-            justifyContent="space-between"
-            alignItems="center"
-            mx={4}
-          >
-            <PageSizeFilter
-              pageSize={pageSize}
-              setPageSize={pageSizeChangeHandler}
-            />
-            <GlobalFilter
-              globalFilter={globalFilter}
-              setGlobalFilter={setGlobalFilter}
-              placeholder={'Buscar por nombre'}
-            />
+          <Flex flexDirection={['column', 'column', 'row', 'row']} justifyContent='space-between' alignItems='center' mx={4}>
+            <PageSizeFilter limit={limit} setPageSize={limitChangeHandler} />
+            <GlobalFilter globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} placeholder={'Buscar por nombre'} />
           </Flex>
-          <Flex flexDir="column" overflow="auto">
+          <>
             <ReactTable
               getTableProps={getTableProps}
               getTableBodyProps={getTableBodyProps}
@@ -84,16 +71,10 @@ const Table = ({
               isLoading={isLoading}
               emptyDataMessage={emptyDataMessage}
             />
-          </Flex>
-          <Pagination
-            totalRows={totalRows}
-            isLoading={isLoading}
-            currentPage={currentPage}
-            pageChangeHandler={pageChangeHandler}
-            rowsPerPage={rowsPerPage}
-          />
+          </>
+          <Pagination total={total} isLoading={isLoading} page={page} pageChangeHandler={pageChangeHandler} rowsPerPage={rowsPerPage} />
         </>
-          )}
+      )}
     </>
   )
 }

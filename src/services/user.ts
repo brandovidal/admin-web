@@ -1,23 +1,31 @@
-import { config } from '@/config/variables'
+// libs
+import { useMutation, type UseMutationResult, useQuery, type UseQueryResult } from '@tanstack/react-query'
 
-// hooks
-import { useFetch } from '@/hooks/useFetch'
+// variables
 
-/// interfaces
-import type { FetchUserResponse, User, UserResponse } from '@/interfaces/User'
+// interfaces
+import type { QueryParams } from '@/interfaces/Response'
+import type { UserDataResponse, User } from '@/interfaces/User'
 
-export const useGetUsers = (page = 1, size = 10): FetchUserResponse => {
-  const { response, loading, error, handleAbortController } = useFetch(`${config?.apiUrl}/api/users?page=${page}&size=${size}`) as FetchUserResponse
-  return { response, loading, error, handleAbortController }
+// api
+import { deleteUser, getUserId, getUsers, postUser, updateUser } from '@/api/user'
+
+export const useGetUsers = ({ page = 1, limit = 10, revalidate = 'NONE' }: QueryParams): UseQueryResult<UserDataResponse, Error> => {
+  return useQuery<UserDataResponse, Error>(['users', page, limit, revalidate], async () => await getUsers({ page, limit, revalidate }), { refetchOnWindowFocus: false, refetchOnReconnect: true })
 }
 
-export const addUser = async (user: User): Promise<UserResponse> => {
-  const response = await fetch(`${config?.apiUrl}/api/users`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user)
-  })
-  return await response.json()
+export const useGetUserId = ({ id, onError }): UseQueryResult<User, Error> => {
+  return useQuery<User, Error>(['users', id], async () => await getUserId({ id }), { onError })
+}
+
+export const useCreateUser = ({ onSuccess, onError }): UseMutationResult<User, Error, User, unknown> => {
+  return useMutation(async (user: User) => await postUser(user), { onSuccess, onError })
+}
+
+export const useUpdateUser = ({ onSuccess, onError }): UseMutationResult<User, Error, User, unknown> => {
+  return useMutation(async (user: User) => await updateUser(user), { onSuccess, onError })
+}
+
+export const useDeleteUser = ({ onSuccess, onError }): UseMutationResult<User, Error, User, unknown> => {
+  return useMutation(async (user: User) => await deleteUser(user), { onSuccess, onError })
 }

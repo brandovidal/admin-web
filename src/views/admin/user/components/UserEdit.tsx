@@ -2,7 +2,7 @@
 import isEmpty from 'just-is-empty'
 
 // interfaces
-import type { UserAddProps } from '@/interfaces/User'
+import type { UserEditProps } from '@/interfaces/User'
 
 // common
 import Alert from '@/common/Alert/default'
@@ -14,7 +14,7 @@ import PasswordInput from '@/common/Input/password'
 import { Box, Button, SimpleGrid } from '@chakra-ui/react'
 import { MdChevronLeft, MdSave } from 'react-icons/md'
 
-const UserAddView = ({ control, alert, disabled, onSubmit, onCancel }: UserAddProps): JSX.Element => {
+const UserEditView = ({ control, alert, disabled, onSubmit, onCancel }: UserEditProps): JSX.Element => {
   return (
     <SimpleGrid mb='20px' columns={{ sm: 1, md: 1 }} spacing={{ base: '20px', xl: '20px' }}>
       <Card flexDirection='column' w='100%' px='0px' overflowX={{ sm: 'scroll', lg: 'hidden' }}>
@@ -37,7 +37,7 @@ const UserAddView = ({ control, alert, disabled, onSubmit, onCancel }: UserAddPr
                 Regresar
               </Button>
               <Button type='submit' leftIcon={<MdSave />} fontSize='md' variant='brand' fontWeight='500' p={6} isDisabled={disabled}>
-                Agregar
+                Editar
               </Button>
             </Box>
           </form>
@@ -47,4 +47,4 @@ const UserAddView = ({ control, alert, disabled, onSubmit, onCancel }: UserAddPr
   )
 }
 
-export default UserAddView
+export default UserEditView

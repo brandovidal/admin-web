@@ -1,5 +1,8 @@
-import type { DataResponse, FetchResponse } from '@/hooks/useFetch'
 import type { NextRouter } from 'next/router'
+
+// interfaces
+import type { AlertProps } from './Alert'
+import type { DataResponse } from './Response'
 import type { TableProps } from './Table'
 
 export type RoleEnumType = 'user' | 'admin'
@@ -19,7 +22,8 @@ export interface User {
 }
 
 export interface UserDataResponse {
-  users: User[]
+  users?: User[]
+  data: User[]
   count: number
   total: number
 }
@@ -27,14 +31,17 @@ export interface UserResponse extends DataResponse {
   data: UserDataResponse
 }
 
-export interface FetchUserResponse extends FetchResponse {
-  response: UserResponse
-}
-
 export interface UserViewProps extends TableProps {
-  router: NextRouter
+  handleAdd: () => void
+  handleRefetch: () => void
 }
 
 export interface UserAddProps {
-  router: NextRouter
+  router?: NextRouter
+  control: any
+  alert?: AlertProps
+  disabled: boolean
+  onSubmit: React.FormEventHandler
+  onCancel: () => void
 }
+export interface UserEditProps extends UserAddProps {}
