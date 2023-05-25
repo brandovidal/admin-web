@@ -52,7 +52,7 @@ const routes: IRoute[] = [
     component: DataTables
   },
   {
-    name: 'Usuarios',
+    name: 'Users',
     layout: '/admin',
     path: '/user/list',
     icon: <Icon as={MdPeople} width="20px" height="20px" color="inherit" />,

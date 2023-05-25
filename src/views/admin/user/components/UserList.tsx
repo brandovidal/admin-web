@@ -8,6 +8,9 @@ import type { UserViewProps } from '@/interfaces/User'
 import { Button, Flex, Icon, Text, useColorModeValue } from '@chakra-ui/react'
 import { MdAdd, MdUpdate } from 'react-icons/md'
 
+// utils
+import { generateRecord } from '@/utils/page'
+
 const UserListView = ({
   handleAdd,
   handleRefetch,
@@ -23,22 +26,23 @@ const UserListView = ({
   limitChangeHandler
 }: UserViewProps): JSX.Element => {
   const textColor = useColorModeValue('secondaryGray.900', 'white')
+  const record = generateRecord(isLoading, total)
 
   return (
     <>
       <Flex px='25px' justify='space-between' mb='20px' align='center'>
-        <Text color={textColor} fontSize='22px' fontWeight='700' lineHeight='100%'>
-          Usuarios <small>({isLoading ? 'Loading...' : `${total} registros`})</small>
+        <Text color={textColor} fontSize='xl' fontWeight='700' lineHeight='100%'>
+          User List <small>({record})</small>
         </Text>
 
         <Flex gap={4}>
           <Button variant='outline' onClick={handleRefetch} disabled={!isLoading}>
             <Icon as={MdUpdate} h='16px' w='16px' me='8px' />
-            Actualizar
+            Refresh
           </Button>
           <Button variant='brand' onClick={handleAdd} disabled={!isLoading}>
             <Icon as={MdAdd} h='16px' w='16px' me='8px' />
-            Agregar
+            Add
           </Button>
         </Flex>
       </Flex>

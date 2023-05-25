@@ -40,10 +40,10 @@
       "@types/*": ["./src/types/*"],
       "@utils/*": ["./src/utils/*"],
       "@variables/*": ["./src/variables/*"],
-      "@views/*": ["./src/views/*"],
+      "@views/*": ["./src/views/*"]
     },
     "incremental": true
   },
   "exclude": ["node_modules", "next.config.js", "next-env.d.ts"],
-  "include": ["./src", "**/*.ts", "**/*.tsx", ],
+  "include": ["./src", "**/*.ts", "**/*.tsx"]
 }
