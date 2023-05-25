@@ -6,11 +6,11 @@
  |_| |_|\___/|_| \_\___/____\___/|_| \_|  \___/|___|
 
 =========================================================
-* Horizon UI - v1.1.0
+* Panel Dashboard - v1.1.0
 =========================================================
 
 * Product Page: https://www.horizon-ui.com/
-* Copyright 2022 Horizon UI (https://www.horizon-ui.com/)
+* Copyright 2022 Panel Dashboard (https://www.horizon-ui.com/)
 
 * Designed and Coded by Simmmple
 
@@ -36,7 +36,7 @@ import Upload from '@/views/admin/profile/components/Upload'
 import banner from '@/img/auth/banner.png'
 import avatar from '@/img/avatars/avatar4.png'
 
-export default function ProfileOverview (): JSX.Element {
+export default function ProfileOverview(): JSX.Element {
   return (
     <AdminLayout>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>

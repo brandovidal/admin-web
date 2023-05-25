@@ -13,10 +13,10 @@ import { SidebarContext } from '@/contexts/SidebarContext'
 
 import routes from '@/routes'
 
-interface RTLLayoutProps extends PropsWithChildren {}
+interface RTLLayoutProps extends PropsWithChildren { }
 
 // Custom Chakra theme
-export default function RTLLayout (props: RTLLayoutProps): JSX.Element {
+export default function RTLLayout(props: RTLLayoutProps): JSX.Element {
   const { children, ...rest } = props
   const [fixed] = useState(false)
   const [toggleSidebar, setToggleSidebar] = useState(false)
@@ -55,7 +55,7 @@ export default function RTLLayout (props: RTLLayoutProps): JSX.Element {
               <Box>
                 <Navbar
                   onOpen={onOpen}
-                  logoText={'Horizon UI Dashboard'}
+                  logoText={'Panel Dashboard'}
                   brandText={getActiveRoute(routes)}
                   secondary={getActiveNavbar(routes)}
                   message={getActiveNavbarText(routes)}

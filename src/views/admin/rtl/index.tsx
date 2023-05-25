@@ -6,11 +6,11 @@
  |_| |_|\___/|_| \_\___/____\___/|_| \_|  \___/|___|
 
 =========================================================
-* Horizon UI - v1.1.0
+* Panel Dashboard - v1.1.0
 =========================================================
 
 * Product Page: https://www.horizon-ui.com/
-* Copyright 2022 Horizon UI (https://www.horizon-ui.com/)
+* Copyright 2022 Panel Dashboard (https://www.horizon-ui.com/)
 
 * Designed and Coded by Simmmple
 
@@ -59,7 +59,7 @@ import {
 import tableDataCheck from '@/views/admin/default/variables/tableDataCheck.json'
 import tableDataComplex from '@/views/admin/default/variables/tableDataComplex.json'
 
-export default function UserReports (): JSX.Element {
+export default function UserReports(): JSX.Element {
   // Chakra Color Mode
   const brandColor = useColorModeValue('brand.500', 'white')
   const boxBg = useColorModeValue('secondaryGray.300', 'whiteAlpha.100')

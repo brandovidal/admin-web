@@ -6,11 +6,11 @@
  |_| |_|\___/|_| \_\___/____\___/|_| \_|  \___/|___|
 
 =========================================================
-* Horizon UI - v1.1.0
+* Panel Dashboard - v1.1.0
 =========================================================
 
 * Product Page: https://www.horizon-ui.com/
-* Copyright 2022 Horizon UI (https://www.horizon-ui.com/)
+* Copyright 2022 Panel Dashboard (https://www.horizon-ui.com/)
 
 * Designed and Coded by Simmmple
 
@@ -52,7 +52,7 @@ import { type TableData } from '@/views/admin/default/variables/columnsData'
 
 import AdminLayout from '@/layouts/admin'
 
-export default function NftMarketplace (): JSX.Element {
+export default function NftMarketplace(): JSX.Element {
   // Chakra Color Mode
   const textColor = useColorModeValue('secondaryGray.900', 'white')
   const textColorBrand = useColorModeValue('brand.500', 'white')

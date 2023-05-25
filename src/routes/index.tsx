@@ -4,7 +4,8 @@ import {
   MdPerson,
   MdHome,
   MdLock,
-  MdOutlineShoppingCart
+  MdOutlineShoppingCart,
+  MdPeople
 } from 'react-icons/md'
 
 // Admin Imports
@@ -54,7 +55,7 @@ const routes: IRoute[] = [
     name: 'Usuarios',
     layout: '/admin',
     path: '/user/list',
-    icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
+    icon: <Icon as={MdPeople} width="20px" height="20px" color="inherit" />,
     component: UserList
   },
   {

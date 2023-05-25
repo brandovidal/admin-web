@@ -18,13 +18,13 @@ import '@styles/Contact.css'
 import 'react-calendar/dist/Calendar.css'
 import '@styles/MiniCalendar.css'
 
-function MyApp ({ Component, pageProps }: AppProps): JSX.Element {
+function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   const queryClient = new QueryClient()
   return (
     <QueryClientProvider client={queryClient}>
       <ChakraProvider theme={theme}>
         <Head>
-          <title>Horizon UI Dashboard</title>
+          <title>Panel Dashboard</title>
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <meta name='@theme-color' content='#000000' />
         </Head>
