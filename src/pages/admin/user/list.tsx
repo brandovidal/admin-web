@@ -22,7 +22,7 @@ import { useGetUsers } from '@/services/user'
 // styles
 import { Box, SimpleGrid } from '@chakra-ui/react'
 
-export default function UserList (): JSX.Element {
+export default function UserList(): JSX.Element {
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const router = useRouter()
