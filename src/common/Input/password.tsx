@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 // styles
-import { Button, FormControl, FormLabel, Input as InputUI, InputGroup, InputRightElement, Text, useColorModeValue } from '@chakra-ui/react'
+import { Button, FormControl, FormLabel, Input as InputUI, InputGroup, InputRightElement, Text, useColorModeValue, Icon } from '@chakra-ui/react'
 
 // interfaces
 import type { InputProps } from '@/interfaces/Input'
@@ -11,6 +11,7 @@ import { Controller } from 'react-hook-form'
 
 // libs
 import isEmpty from 'just-is-empty'
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
 const PasswordInput = ({ control, name, label = '', placeholder, disabled = false, hasAutoComplete = true }: InputProps): JSX.Element => {
   const textColor = useColorModeValue('secondaryGray.900', 'white')
@@ -40,7 +41,7 @@ const PasswordInput = ({ control, name, label = '', placeholder, disabled = fals
             />
             <InputRightElement width='4.5rem' borderRadius='16px'>
               <Button h='1.75rem' size='sm' borderRadius='10px' onClick={handleShow}>
-                {show ? 'Ocultar' : 'Mostrar'}
+                <Icon as={show ? FaEyeSlash : FaEye } w='24px' h='24px' />
               </Button>
             </InputRightElement>
           </InputGroup>
