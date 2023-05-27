@@ -42,6 +42,7 @@
       "@variables/*": ["./src/variables/*"],
       "@views/*": ["./src/views/*"]
     },
+    "types": ["@types/node", "@types/react", "@types/react-dom"],
     "incremental": true
   },
   "exclude": ["node_modules", "next.config.js", "next-env.d.ts"],

@@ -7,8 +7,6 @@ import isEmpty from 'just-is-empty'
 import type { AlertProps } from '@/interfaces/Alert'
 import type { User } from '@/interfaces/User'
 
-import Toast from '@/common/Toast'
-
 // Layout
 import AdminLayout from '@/layouts/admin'
 
@@ -65,7 +63,6 @@ export default function UserEdit (): JSX.Element {
 
   const onCreateSuccess = useCallback((): void => {
     setAlert({ message: 'Usuario editado correctamente', status: 'success' })
-    Toast()
     void router.push('/admin/user/list')
   }, [router])
 

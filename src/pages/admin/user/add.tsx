@@ -5,8 +5,6 @@ import { useRouter } from 'next/router'
 // interfaces
 import type { AlertProps } from '@/interfaces/Alert'
 
-import Toast from '@/common/Toast'
-
 // Layout
 import AdminLayout from '@/layouts/admin'
 
@@ -41,7 +39,6 @@ export default function UserAdd (): JSX.Element {
 
   const onSuccess = (): void => {
     setAlert({ message: 'Usuario creado correctamente', status: 'success' })
-    Toast()
     void router.push('/admin/user/list')
   }
 

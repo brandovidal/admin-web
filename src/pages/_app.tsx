@@ -18,7 +18,7 @@ import '@styles/Contact.css'
 import 'react-calendar/dist/Calendar.css'
 import '@styles/MiniCalendar.css'
 
-function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+function MyApp ({ Component, pageProps }: AppProps): JSX.Element {
   const queryClient = new QueryClient()
   return (
     <QueryClientProvider client={queryClient}>

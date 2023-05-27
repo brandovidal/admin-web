@@ -1,5 +1,5 @@
 // interfaces
-import type { ToastProps } from '@/interfaces/Toast'
+// import type { ToastProps } from '@/interfaces/Toast'
 
 // styles
 import { Button, useToast } from '@chakra-ui/react'
