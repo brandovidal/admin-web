@@ -9,11 +9,11 @@ export const PageSizeFilter = ({
 }: PageSizeFilterProps): JSX.Element => {
   return (
     <Select
-      fontSize="sm"
-      minWidth="150px"
-      maxWidth="200px"
-      mr={4}
-      color="gray.500"
+      fontSize='sm'
+      minWidth='11rem'
+      maxWidth='22rem'
+      w={{ xs: '100%', sm: 'auto' }}
+      color='gray.500'
       value={limit}
       onChange={(e) => {
         setPageSize(Number(e.target.value))

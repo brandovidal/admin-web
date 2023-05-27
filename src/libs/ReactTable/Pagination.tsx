@@ -75,7 +75,7 @@ const Pagination = ({
           px="5"
         >
           <Text color={textColor}>
-            P&aacute;gina {page} de {totalOfPages}
+            Page {page} de {totalOfPages}
           </Text>
 
           <Stack direction="row">

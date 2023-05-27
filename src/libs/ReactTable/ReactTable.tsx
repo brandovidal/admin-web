@@ -29,7 +29,7 @@ const ReactTable = ({
                 {headerGroups.map((headerGroup, index) => (
                   <Tr {...headerGroup.getHeaderGroupProps()} key={index}>
                     {headerGroup.headers.map((column, index) => (
-                      <Th {...column.getHeaderProps(column.getSortByToggleProps())} pe='10px' key={index} borderColor={borderColor}>
+                      <Th {...column.getHeaderProps(column.getSortByToggleProps())} pe='10px' key={index} borderColor={borderColor} minW={{ sm: '80px', md: '120px', lg: 'auto' }}>
                         <Flex justify='space-between' align='center' fontSize={{ sm: 'xs', lg: 'sm' }} color='gray.500'>
                           {column.render('Header')}
                         </Flex>
@@ -49,7 +49,7 @@ const ReactTable = ({
                             {...cell.getCellProps()}
                             key={index}
                             fontSize={{ sm: '14px' }}
-                            minW={{ sm: '150px', md: '200px', lg: 'auto' }}
+                            minW={{ sm: '80px', md: '120px', lg: 'auto' }}
                             borderColor='transparent'
                             color={textColor}
                           >

@@ -57,7 +57,7 @@ const Table = ({
       )}
       {!isLoading && (
         <>
-          <Flex flexDirection={['column', 'column', 'row', 'row']} justifyContent='space-between' alignItems='center' mx={4}>
+          <Flex flexDirection={['column', 'column', 'row', 'row']} justifyContent='space-between' alignItems='center' mx={4} gap={4}>
             <PageSizeFilter limit={limit} setPageSize={limitChangeHandler} />
             <GlobalFilter globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} placeholder={'Buscar por nombre'} />
           </Flex>

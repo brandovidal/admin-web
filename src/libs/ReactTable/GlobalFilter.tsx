@@ -21,7 +21,8 @@ export const GlobalFilter = ({
     <Input
       type="text"
       size="sm"
-      minWidth="180px"
+      minWidth='11rem'
+      w={{ xs: '100%', sm: 'auto' }}
       py={5}
       placeholder={placeholder}
       value={value ?? ''}

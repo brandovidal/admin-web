@@ -30,12 +30,16 @@ const UserListView = ({
 
   return (
     <>
-      <Flex px='25px' justify='space-between' mb='20px' align='center'>
-        <Text color={textColor} fontSize='xl' fontWeight='700' lineHeight='100%'>
-          User List <small>({record})</small>
-        </Text>
+      <Flex flexDirection={['column', 'column', 'row', 'row']} justify='space-between' align={['flex-start', 'flex-start', 'center', 'center']}
+        px={4} gap={4} mb={4}>
+        <Flex flexDirection={['column', 'column', 'column', 'row']} columnGap={2}>
+          <Text color={textColor} fontSize='xl' fontWeight='700' lineHeight='100%'>
+            User List
+          </Text>
+          <Text fontSize='sm' fontWeight='500'>({record})</Text>
+        </Flex>
 
-        <Flex gap={4}>
+        <Flex w={['full', 'full', 'auto', 'auto']} gap={4} justify='flex-end'>
           <Button variant='outline' onClick={handleRefetch} disabled={!isLoading}>
             <Icon as={MdUpdate} h='16px' w='16px' me='8px' />
             Refresh
