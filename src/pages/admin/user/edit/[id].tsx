@@ -5,6 +5,9 @@ import isEmpty from 'just-is-empty'
 
 // interfaces
 import type { AlertProps } from '@/interfaces/Alert'
+import type { User } from '@/interfaces/User'
+
+import Toast from '@/common/Toast'
 
 // Layout
 import AdminLayout from '@/layouts/admin'
@@ -27,7 +30,6 @@ import { useUpdateUser } from '@/services/user'
 
 // styles
 import { Box } from '@chakra-ui/react'
-import type { User } from '@/interfaces/User'
 
 export default function UserEdit (): JSX.Element {
   const router = useRouter()
@@ -63,6 +65,7 @@ export default function UserEdit (): JSX.Element {
 
   const onCreateSuccess = useCallback((): void => {
     setAlert({ message: 'Usuario editado correctamente', status: 'success' })
+    Toast()
     void router.push('/admin/user/list')
   }, [router])
 
