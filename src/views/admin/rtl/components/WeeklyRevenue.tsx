@@ -16,7 +16,7 @@ import {
 } from '@variables/charts'
 import { MdBarChart } from 'react-icons/md'
 
-export default function WeeklyRevenue(props: { [key: string]: any }): JSX.Element {
+export default function WeeklyRevenue (props: { [key: string]: any }): JSX.Element {
   const { ...rest } = props
 
   // Chakra Color Mode

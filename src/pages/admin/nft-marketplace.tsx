@@ -52,7 +52,7 @@ import { type TableData } from '@/views/admin/default/variables/columnsData'
 
 import AdminLayout from '@/layouts/admin'
 
-export default function NftMarketplace(): JSX.Element {
+export default function NftMarketplace (): JSX.Element {
   // Chakra Color Mode
   const textColor = useColorModeValue('secondaryGray.900', 'white')
   const textColorBrand = useColorModeValue('brand.500', 'white')

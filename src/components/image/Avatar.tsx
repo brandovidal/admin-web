@@ -3,7 +3,10 @@ import isEmpty from 'just-is-empty'
 import { type ComponentProps } from 'react'
 import { Image } from './Image'
 
-interface AvatarImageProps extends ComponentProps<typeof Image> {
+// interface AvatarImageProps extends ComponentProps<typeof Image> {
+//   showBorder?: boolean
+// }
+type AvatarImageProps = ComponentProps<typeof Image> & {
   showBorder?: boolean
 }
 

@@ -46,11 +46,11 @@ import tableDataComplex from '@/views/admin/default/variables/tableDataComplex.j
 import { Image } from '@/components/image/Image'
 import Usa from '@/img/dashboards/usa.png'
 
-export default function RTLDashboard(): JSX.Element {
-	// Chakra Color Mode
-	const brandColor = useColorModeValue('brand.500', 'white')
-	const boxBg = useColorModeValue('secondaryGray.300', 'whiteAlpha.100')
-	return (
+export default function RTLDashboard (): JSX.Element {
+  // Chakra Color Mode
+  const brandColor = useColorModeValue('brand.500', 'white')
+  const boxBg = useColorModeValue('secondaryGray.300', 'whiteAlpha.100')
+  return (
 		<RTLLayout>
 			<Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
 				<SimpleGrid columns={{ base: 1, md: 2, lg: 3, '2xl': 6 }} gap='20px' mb='20px'>
@@ -146,5 +146,5 @@ export default function RTLDashboard(): JSX.Element {
 				</SimpleGrid>
 			</Box>
 		</RTLLayout>
-	)
+  )
 }

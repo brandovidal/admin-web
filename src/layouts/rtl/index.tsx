@@ -16,7 +16,7 @@ import routes from '@/routes'
 interface RTLLayoutProps extends PropsWithChildren { }
 
 // Custom Chakra theme
-export default function RTLLayout(props: RTLLayoutProps): JSX.Element {
+export default function RTLLayout (props: RTLLayoutProps): JSX.Element {
   const { children, ...rest } = props
   const [fixed] = useState(false)
   const [toggleSidebar, setToggleSidebar] = useState(false)

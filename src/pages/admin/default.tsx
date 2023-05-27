@@ -63,7 +63,7 @@ import tableDataComplex from '@/views/admin/default/variables/tableDataComplex.j
 
 import AdminLayout from '@/layouts/admin'
 
-export default function UserReports(): JSX.Element {
+export default function UserReports (): JSX.Element {
   // Chakra Color Mode
   const brandColor = useColorModeValue('brand.500', 'white')
   const boxBg = useColorModeValue('secondaryGray.300', 'whiteAlpha.100')

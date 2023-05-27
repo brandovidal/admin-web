@@ -36,7 +36,7 @@ import Upload from '@/views/admin/profile/components/Upload'
 import banner from '@/img/auth/banner.png'
 import avatar from '@/img/avatars/avatar4.png'
 
-export default function ProfileOverview(): JSX.Element {
+export default function ProfileOverview (): JSX.Element {
   return (
     <AdminLayout>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
