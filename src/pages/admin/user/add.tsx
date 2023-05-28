@@ -23,9 +23,11 @@ import { useCreateUser } from '@/services/user'
 
 // styles
 import { Box } from '@chakra-ui/react'
+import Toast from '@/common/Toast'
 
 export default function UserAdd (): JSX.Element {
   const router = useRouter()
+  const { showToast } = Toast()
 
   const {
     control,
@@ -44,6 +46,7 @@ export default function UserAdd (): JSX.Element {
 
   const onError = (): void => {
     setAlert({ message: 'El usuario o correo ya existe', status: 'warning' })
+    showToast()
   }
 
   const { mutate: addUser } = useCreateUser({ onSuccess, onError })
