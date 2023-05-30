@@ -16,6 +16,9 @@ import UserEditView from '@/views/admin/user/components/UserEdit'
 // store
 import { useUserStore } from '@/store/user'
 
+// hooks
+import { useNotification } from '@/hooks/useNotification'
+
 // form
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -31,6 +34,7 @@ import { Box } from '@chakra-ui/react'
 
 export default function UserEdit (): JSX.Element {
   const router = useRouter()
+  const { showToast, showErrorToast } = useNotification()
 
   const userId = useMemo(() => router.query.id as string, [router.query.id])
 
@@ -48,7 +52,7 @@ export default function UserEdit (): JSX.Element {
 
   useEffect(() => {
     if (isEmpty(user)) {
-      setAlert({ message: 'No se pudo encontrar el usuario', status: 'error' })
+      showErrorToast({ title: 'No se pudo encontrar el usuario', description: 'Por favor, intentar más tarde' })
       void router.push('/admin/user/list')
       return
     }
@@ -57,18 +61,19 @@ export default function UserEdit (): JSX.Element {
     setValue('name', user.name)
     setValue('email', user.email)
     setValue('password', user?.password ?? '')
-  }, [user, router, setValue])
+  }, [user, router, setValue, showErrorToast])
 
   const [alert, setAlert] = useState<AlertProps>()
 
   const onCreateSuccess = useCallback((): void => {
-    setAlert({ message: 'Usuario editado correctamente', status: 'success' })
+    showToast({ title: 'Usuario editado correctamente', description: 'El usuario se ha editado correctamente' })
     void router.push('/admin/user/list')
-  }, [router])
+  }, [router, showToast])
 
   const onCreateError = useCallback((): void => {
     setAlert({ message: 'El usuario o correo ya existe', status: 'warning' })
-  }, [])
+    showErrorToast({ title: 'El usuario o correo ya existe', description: 'Por favor, ingresar otro usuario o correo' })
+  }, [showErrorToast])
 
   const { mutate: updateUser } = useUpdateUser({ onSuccess: onCreateSuccess, onError: onCreateError })
 
