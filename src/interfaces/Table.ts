@@ -39,7 +39,7 @@ export interface PaginationProps {
   page: number
   pageChangeHandler: any
   total: number
-  rowsPerPage: number
+  limit: number
   isLoading?: boolean
 }
 
@@ -51,7 +51,6 @@ export interface TableProps {
 
   isLoading?: boolean
   total?: number
-  rowsPerPage?: number
 
   page?: number
   pageChangeHandler?: any

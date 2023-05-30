@@ -53,7 +53,10 @@ export default function UserAdd (): JSX.Element {
 
   const { mutate: addUser } = useCreateUser({ onSuccess, onError })
 
-  const useOnSubmit: SubmitHandler<RegisterUserInput> = useCallback(data => { addUser(data) }, [addUser])
+  const useOnSubmit: SubmitHandler<RegisterUserInput> = useCallback(data => {
+    console.log(data)
+    addUser(data)
+  }, [addUser])
 
   const onCancel = useCallback(() => { router.back() }, [router])
 

@@ -4,7 +4,7 @@ import { type PageSizeFilterProps } from '@/views/admin/default/variables/column
 
 export const PageSizeFilter = ({
   limit = 10,
-  pageSizes = [10, 25, 50, 100, 250, 500],
+  pageSizes = [5, 10, 25, 50, 100, 250, 500],
   setPageSize
 }: PageSizeFilterProps): JSX.Element => {
   return (

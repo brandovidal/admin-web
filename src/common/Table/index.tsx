@@ -18,7 +18,6 @@ const Table = ({
   isLoading = false,
   manualPagination = false,
   emptyDataMessage = 'No hay datos para mostrar',
-  rowsPerPage = 10,
   pageChangeHandler,
   page = 0,
   limitChangeHandler,
@@ -72,7 +71,7 @@ const Table = ({
               emptyDataMessage={emptyDataMessage}
             />
           </>
-          <Pagination total={total} isLoading={isLoading} page={page} pageChangeHandler={pageChangeHandler} rowsPerPage={rowsPerPage} />
+          <Pagination total={total} isLoading={isLoading} page={page} pageChangeHandler={pageChangeHandler} limit={limit} />
         </>
       )}
     </>

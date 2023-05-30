@@ -38,7 +38,7 @@ export default function UserList (): JSX.Element {
   const router = useRouter()
 
   const [page, setCurrentPage] = useState(1)
-  const [limit, setLimit] = useState(10)
+  const [limit, setLimit] = useState(5)
   const [revalidate, setRevalidate] = useState('REVALIDATE')
 
   const { data, isLoading } = useGetUsers({ page, limit, revalidate })
@@ -99,7 +99,6 @@ export default function UserList (): JSX.Element {
               pageChangeHandler={setCurrentPage}
               limit={limit}
               limitChangeHandler={setLimit}
-              rowsPerPage={10}
             />
           </Card>
         </SimpleGrid>

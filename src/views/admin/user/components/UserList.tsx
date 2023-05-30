@@ -19,7 +19,6 @@ const UserListView = ({
   total = 0,
   isLoading = false,
   manualPagination = false,
-  rowsPerPage,
   page = 1,
   pageChangeHandler,
   limit = 10,
@@ -57,7 +56,6 @@ const UserListView = ({
         total={total}
         page={page}
         manualPagination={manualPagination}
-        rowsPerPage={rowsPerPage}
         pageChangeHandler={pageChangeHandler}
         limit={limit}
         limitChangeHandler={limitChangeHandler}

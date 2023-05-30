@@ -8,11 +8,11 @@ const Pagination = ({
   page,
   pageChangeHandler,
   total,
-  rowsPerPage,
+  limit,
   isLoading = false
 }: PaginationProps): JSX.Element => {
   // Calculating max number of pages
-  const totalOfPages = Math.ceil(total / rowsPerPage)
+  const totalOfPages = Math.ceil(total / limit)
 
   // Navigation arrows enable/disable state
   const [canGoBack, setCanGoBack] = useState(false)
@@ -53,7 +53,7 @@ const Pagination = ({
   // To set the starting index of the page
   useEffect(() => {
     pageChangeHandler(page)
-  }, [page, pageChangeHandler, rowsPerPage])
+  }, [page, pageChangeHandler, limit])
 
   const textColor = useColorModeValue('gray.500', 'white')
 

@@ -8,7 +8,12 @@ export const registerUserSchema = z.object({
     message: 'Ingresa un correo valido.'
   }),
   password: z.string({ required_error: 'Ingresa tu contraseña.' }).min(6, { message: 'Ingresa una contraseña con 6 caracteres' })
-})
+}).transform(data => ({
+  username: data.username.trim().toLowerCase(),
+  email: data.email.trim().toLowerCase(),
+  name: data.name.trim(),
+  password: data.password.trim()
+}))
 
 export type RegisterUserInput = z.infer<typeof registerUserSchema>
 
