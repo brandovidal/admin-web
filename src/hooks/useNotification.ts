@@ -1,25 +1,10 @@
 // interfaces
-// import type { ToastProps } from '@/interfaces/Toast'
+import type { NotificationProps, ToastProps } from '@/interfaces/Notification'
 
 // styles
-import { useToast, useColorMode, type ToastPosition } from '@chakra-ui/react'
+import { useToast, useColorMode } from '@chakra-ui/react'
 
-type ToastStatus = 'success' | 'error' | 'warning' | 'info' | 'loading'
-interface ToastProps {
-  title: string
-  description: string
-  status?: ToastStatus
-  variant?: string
-  position?: ToastPosition
-  duration?: number
-  isClosable?: boolean
-}
-interface NotificationProps {
-  showToast: (props: ToastProps) => void
-  showErrorToast: (props: ToastProps) => void
-}
-
-const Toast = (): NotificationProps => {
+export const useNotification = (): NotificationProps => {
   const toast = useToast()
 
   const { colorMode } = useColorMode()
@@ -55,5 +40,3 @@ const Toast = (): NotificationProps => {
 
   return { showToast, showErrorToast }
 }
-
-export default Toast

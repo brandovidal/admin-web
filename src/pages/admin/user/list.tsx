@@ -25,6 +25,9 @@ import { columns } from '@/views/admin/user/variables/columnsData'
 // store
 import { useUserStore } from '@/store/user'
 
+// hooks
+import { useNotification } from '@/hooks/useNotification'
+
 // Services
 import { useDeleteUser, useGetUsers } from '@/services/user'
 
@@ -44,6 +47,7 @@ export default function UserList (): JSX.Element {
   const cleanUser = useUserStore(state => state.cleanUser)
 
   const [alert, setAlert] = useState<AlertProps>()
+  const { showToast, showErrorToast } = useNotification()
 
   const handleRefetch = useCallback(
     async (): Promise<void> => {
@@ -52,17 +56,19 @@ export default function UserList (): JSX.Element {
     [setRevalidate]
   )
 
-  const onSuccess = useCallback(async (): Promise<void> => {
+  const onDeleteSuccess = useCallback(async (): Promise<void> => {
     setAlert({ message: 'Usuario eliminado correctamente', status: 'success' })
+    showToast({ title: 'Usuario eliminado correctamente', description: 'El usuario se ha eliminado correctamente' })
     await handleRefetch()
     void router.push('/admin/user/list')
-  }, [handleRefetch, router])
+  }, [handleRefetch, showToast, router])
 
-  const onError = useCallback((): void => {
+  const onDeleteError = useCallback((): void => {
     setAlert({ message: 'No se pudo eliminar al usuario', status: 'warning' })
-  }, [])
+    showErrorToast({ title: 'No se pudo eliminar al usuario', description: 'Por favor, intentar más tarde' })
+  }, [showErrorToast])
 
-  const { mutate: deleteUser } = useDeleteUser({ onSuccess, onError })
+  const { mutate: deleteUser } = useDeleteUser({ onSuccess: onDeleteSuccess, onError: onDeleteError })
 
   const users = useMemo(() => formatData(data?.data ?? [], router, addUser, deleteUser), [data, router, addUser, deleteUser])
   const total = useMemo(() => data?.total ?? 0, [data?.total])

@@ -18,16 +18,18 @@ import { zodResolver } from '@hookform/resolvers/zod'
 // schema
 import { registerUserSchema, type RegisterUserInput } from '@/schemas/user'
 
+// hooks
+import { useNotification } from '@/hooks/useNotification'
+
 // services
 import { useCreateUser } from '@/services/user'
 
 // styles
 import { Box } from '@chakra-ui/react'
-import Toast from '@/common/Toast'
 
 export default function UserAdd (): JSX.Element {
   const router = useRouter()
-  const { showToast } = Toast()
+  const { showToast, showErrorToast } = useNotification()
 
   const {
     control,
@@ -40,27 +42,20 @@ export default function UserAdd (): JSX.Element {
   const [alert, setAlert] = useState<AlertProps>()
 
   const onSuccess = (): void => {
-    setAlert({ message: 'Usuario creado correctamente', status: 'success' })
+    showToast({ title: 'Usuario creado correctamente', description: 'El usuario se ha creado correctamente' })
     void router.push('/admin/user/list')
   }
 
   const onError = (): void => {
     setAlert({ message: 'El usuario o correo ya existe', status: 'warning' })
-    showToast()
+    showErrorToast({ title: 'El usuario o correo ya existe', description: 'Por favor, ingresar otro usuario o correo' })
   }
 
   const { mutate: addUser } = useCreateUser({ onSuccess, onError })
 
-  const useOnSubmit: SubmitHandler<RegisterUserInput> = useCallback(
-    data => {
-      addUser(data)
-    },
-    [addUser]
-  )
+  const useOnSubmit: SubmitHandler<RegisterUserInput> = useCallback(data => { addUser(data) }, [addUser])
 
-  const onCancel = useCallback(() => {
-    router.back()
-  }, [router])
+  const onCancel = useCallback(() => { router.back() }, [router])
 
   return (
     <AdminLayout navbarText='Agregar Usuario'>
