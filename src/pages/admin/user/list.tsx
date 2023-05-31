@@ -39,7 +39,7 @@ export default function UserList (): JSX.Element {
 
   const [page, setCurrentPage] = useState(1)
   const [limit, setLimit] = useState(5)
-  const [revalidate, setRevalidate] = useState('REVALIDATE')
+  const [revalidate, setRevalidate] = useState(false)
 
   const { data, isLoading } = useGetUsers({ page, limit, revalidate })
 
@@ -51,7 +51,7 @@ export default function UserList (): JSX.Element {
 
   const handleRefetch = useCallback(
     async (): Promise<void> => {
-      setRevalidate(prevState => prevState === 'REFETCH' ? 'REVALIDATE' : 'REFETCH')
+      setRevalidate(prevState => !prevState)
     },
     [setRevalidate]
   )
@@ -90,7 +90,7 @@ export default function UserList (): JSX.Element {
           <Card flexDirection='column' w='100%' px='0'>
             <UserListView
               handleAdd={handleAddUser}
-              handleRefetch={handleRefetch}
+              handleRevalidate={handleRefetch}
               columnsData={columns}
               tableData={users}
               isLoading={isLoading}

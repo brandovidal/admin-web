@@ -33,7 +33,7 @@ export interface UserResponse extends DataResponse {
 
 export interface UserViewProps extends TableProps {
   handleAdd: () => void
-  handleRefetch: () => void
+  handleRevalidate: () => void
 }
 
 export interface UserAddProps {

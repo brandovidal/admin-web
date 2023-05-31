@@ -10,7 +10,7 @@ export interface DataResponse {
 export interface QueryParams {
   page: number
   limit: number
-  revalidate?: string
+  revalidate?: boolean
 }
 
 export interface QueryId {
