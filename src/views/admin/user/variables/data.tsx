@@ -1,14 +1,14 @@
 import type { NextRouter } from 'next/router'
 
 // interfaces
-import type { User } from '@/interfaces/api/User'
+import type { User, UserRole } from '@/interfaces/api/User'
 import type { ActionsProps } from '@/interfaces/common/MenuActions'
 
 // Components
 import MenuActions from '@/components/menu/Actions'
 
 // styles
-import { Icon } from '@chakra-ui/react'
+import { Badge, Icon } from '@chakra-ui/react'
 
 // icons
 import { MdModeEditOutline, MdOutlineDelete } from 'react-icons/md'
@@ -34,10 +34,18 @@ function generateActions (user: User, router: NextRouter, addUser: (user: User) 
   ]
 }
 
+function Role ({ role }: UserRole): JSX.Element {
+  const roleLabel = role === 'admin' ? 'Admin' : 'User'
+  const roleColor = role === 'admin' ? 'red' : 'green'
+
+  return <Badge variant='subtle' colorScheme={roleColor}>{roleLabel}</Badge>
+}
+
 export const formatData = (data: User[] = [], router: NextRouter, addUser: (user: User) => void, deleteUser: (user: User) => void): User[] => {
   return data.map((user) => {
     const { username, name, email, role } = user
     const actions = generateActions(user, router, addUser, deleteUser)
-    return { username, name, email, role, actions: <MenuActions actions={actions}></MenuActions> }
+
+    return { username, name, email, role: <Role role={role} />, actions: <MenuActions actions={actions}></MenuActions> }
   })
 }

@@ -15,10 +15,14 @@ export interface User {
   photo?: string | null
   verified?: boolean | null
   password?: string
-  role?: RoleEnumType | null
+  role?: any | null
   verificationCode?: string | null
   createdAt?: Date | null
   updatedAt?: Date | null
+}
+
+export interface UserRole {
+  role: RoleEnumType
 }
 
 export interface UserDataResponse {
