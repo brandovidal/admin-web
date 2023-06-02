@@ -2,7 +2,7 @@
 import { FormControl, FormLabel, Input as InputUI, Text, useColorModeValue } from '@chakra-ui/react'
 
 // interfaces
-import type { InputProps } from '@/interfaces/Input'
+import type { InputProps } from '@/interfaces/common/Input'
 
 // libs
 import isEmpty from 'just-is-empty'

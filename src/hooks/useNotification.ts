@@ -1,5 +1,5 @@
 // interfaces
-import type { NotificationProps, ToastProps } from '@/interfaces/Notification'
+import type { NotificationProps, ToastProps } from '@/interfaces/common/Notification'
 
 // styles
 import { useToast, useColorMode } from '@chakra-ui/react'

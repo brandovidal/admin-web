@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 // interfaces
-import type { User } from '@/interfaces/User'
+import type { User } from '@/interfaces/api/User'
 
 interface UserState {
   user: User | null

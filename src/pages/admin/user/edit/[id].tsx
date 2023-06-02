@@ -4,8 +4,8 @@ import { useRouter } from 'next/router'
 import isEmpty from 'just-is-empty'
 
 // interfaces
-import type { AlertProps } from '@/interfaces/Alert'
-import type { User } from '@/interfaces/User'
+import type { AlertProps } from '@/interfaces/common/Alert'
+import type { User } from '@/interfaces/api/User'
 
 // Layout
 import AdminLayout from '@/layouts/admin'

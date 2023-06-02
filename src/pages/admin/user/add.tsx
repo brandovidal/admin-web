@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // interfaces
-import type { AlertProps } from '@/interfaces/Alert'
+import type { AlertProps } from '@/interfaces/common/Alert'
 
 // Layout
 import AdminLayout from '@/layouts/admin'

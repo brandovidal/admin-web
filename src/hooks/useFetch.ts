@@ -3,7 +3,7 @@ import isEmpty from 'just-is-empty'
 import { useState, useEffect } from 'react'
 
 // interfaces
-import type { FetchResponse } from '@/interfaces/Response'
+import type { FetchResponse } from '@/interfaces/common/Response'
 
 export const useFetch = (url: string, options?: object): FetchResponse => {
   const [response, setResponse] = useState(null)

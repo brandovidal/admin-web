@@ -1,13 +1,13 @@
 import type { NextRouter } from 'next/router'
 
 // interfaces
-import type { AlertProps } from './Alert'
-import type { DataResponse } from './Response'
-import type { TableProps } from './Table'
+import type { AlertProps } from '../common/Alert'
+import type { DataResponse } from '../common/Response'
+import type { TableProps } from '../common/Table'
 
-export type RoleEnumType = 'user' | 'admin'
+export type RoleEnumType = 'student' | 'admin'
 
-export interface User {
+export interface Student {
   id?: string
   username?: string
   name: string
@@ -21,22 +21,22 @@ export interface User {
   updatedAt?: Date | null
 }
 
-export interface UserDataResponse {
-  users?: User[]
-  data: User[]
+export interface StudentDataResponse {
+  users?: Student[]
+  data: Student[]
   count: number
   total: number
 }
-export interface UserResponse extends DataResponse {
-  data: UserDataResponse
+export interface StudentResponse extends DataResponse {
+  data: StudentDataResponse
 }
 
-export interface UserViewProps extends TableProps {
+export interface StudentViewProps extends TableProps {
   handleAdd: () => void
   handleRevalidate: () => void
 }
 
-export interface UserAddProps {
+export interface StudentAddProps {
   router?: NextRouter
   control: any
   alert?: AlertProps
@@ -44,4 +44,4 @@ export interface UserAddProps {
   onSubmit: React.FormEventHandler
   onCancel: () => void
 }
-export interface UserEditProps extends UserAddProps {}
+export interface StudentEditProps extends StudentAddProps {}

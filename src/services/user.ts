@@ -4,8 +4,8 @@ import { useMutation, type UseMutationResult, useQuery, type UseQueryResult } fr
 // variables
 
 // interfaces
-import type { QueryParams } from '@/interfaces/Response'
-import type { UserDataResponse, User } from '@/interfaces/User'
+import type { QueryParams } from '@/interfaces/common/Response'
+import type { UserDataResponse, User } from '@/interfaces/api/User'
 
 // api
 import { deleteUser, getUserId, getUsers, postUser, updateUser } from '@/api/user'

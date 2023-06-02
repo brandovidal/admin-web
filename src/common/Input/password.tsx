@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Button, FormControl, FormLabel, Input as InputUI, InputGroup, InputRightElement, Text, useColorModeValue, Icon } from '@chakra-ui/react'
 
 // interfaces
-import type { InputProps } from '@/interfaces/Input'
+import type { InputProps } from '@/interfaces/common/Input'
 
 // form
 import { Controller } from 'react-hook-form'

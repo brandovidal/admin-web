@@ -1,8 +1,8 @@
 import type { NextRouter } from 'next/router'
 
 // interfaces
-import type { User } from '@/interfaces/User'
-import type { ActionsProps } from '@/interfaces/MenuActions'
+import type { User } from '@/interfaces/api/User'
+import type { ActionsProps } from '@/interfaces/common/MenuActions'
 
 // Components
 import MenuActions from '@/components/menu/Actions'

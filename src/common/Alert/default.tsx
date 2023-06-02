@@ -1,5 +1,5 @@
 // interfaces
-import type { AlertProps } from '@/interfaces/Alert'
+import type { AlertProps } from '@/interfaces/common/Alert'
 
 // styles
 import { Alert as AlertUI, AlertIcon, Stack } from '@chakra-ui/react'

@@ -1,7 +1,7 @@
 import React from 'react'
 
 // interfaces
-import type { MenuActionsProps } from '@/interfaces/MenuActions'
+import type { MenuActionsProps } from '@/interfaces/common/MenuActions'
 
 // utils
 import isEmpty from 'just-is-empty'

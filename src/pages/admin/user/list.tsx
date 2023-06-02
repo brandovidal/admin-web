@@ -16,7 +16,7 @@ import AdminLayout from '@/layouts/admin'
 import UserListView from '@/views/admin/user/components/UserList'
 
 // interfaces
-import type { AlertProps } from '@/interfaces/Alert'
+import type { AlertProps } from '@/interfaces/common/Alert'
 
 // Variables
 import { formatData } from '@/views/admin/user/variables/data'

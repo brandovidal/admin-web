@@ -2,7 +2,7 @@
 import Table from '@common/Table'
 
 // interfaces
-import type { UserViewProps } from '@/interfaces/User'
+import type { UserViewProps } from '@/interfaces/api/User'
 
 // styles
 import { Button, Flex, Icon, Text, useColorModeValue } from '@chakra-ui/react'

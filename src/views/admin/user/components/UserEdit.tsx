@@ -2,7 +2,7 @@
 import isEmpty from 'just-is-empty'
 
 // interfaces
-import type { UserEditProps } from '@/interfaces/User'
+import type { UserEditProps } from '@/interfaces/api/User'
 
 // common
 import Alert from '@/common/Alert/default'
