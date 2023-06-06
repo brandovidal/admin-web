@@ -4,8 +4,10 @@ import type { NextRouter } from 'next/router'
 import type { AlertProps } from '../common/Alert'
 import type { DataResponse } from '../common/Response'
 import type { TableProps } from '../common/Table'
+import type { ReactElement } from 'react'
 
 export type RoleEnumType = 'user' | 'admin'
+export type StatusEnumType = 'active' | 'inactive' | 'deleted'
 
 export interface User {
   id?: string
@@ -15,14 +17,34 @@ export interface User {
   photo?: string | null
   verified?: boolean | null
   password?: string
-  role?: any | null
+  role?: RoleEnumType
+  status?: StatusEnumType
   verificationCode?: string | null
   createdAt?: Date | null
   updatedAt?: Date | null
 }
 
+export interface UserData {
+  id?: string
+  username?: string
+  name: string
+  email: string
+  photo?: string | null
+  verified?: boolean | null
+  password?: string
+  role?: ReactElement | null
+  status?: ReactElement | null
+  verificationCode?: string | null
+  createdAt?: Date | null
+  updatedAt?: Date | null
+  actions?: ReactElement | null
+}
+
 export interface UserRole {
-  role: RoleEnumType
+  role?: RoleEnumType
+}
+export interface UserStatus {
+  status?: StatusEnumType
 }
 
 export interface UserDataResponse {

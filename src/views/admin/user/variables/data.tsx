@@ -1,7 +1,7 @@
 import type { NextRouter } from 'next/router'
 
 // interfaces
-import type { User, UserRole } from '@/interfaces/api/User'
+import type { User, UserData, UserRole, UserStatus } from '@/interfaces/api/User'
 import type { ActionsProps } from '@/interfaces/common/MenuActions'
 
 // Components
@@ -40,12 +40,18 @@ function Role ({ role }: UserRole): JSX.Element {
 
   return <Badge variant='subtle' colorScheme={roleColor}>{roleLabel}</Badge>
 }
+function Status ({ status }: UserStatus): JSX.Element {
+  const roleLabel = status === 'active' ? 'Admin' : 'User'
+  const roleColor = status === 'active' ? 'red' : 'green'
 
-export const formatData = (data: User[] = [], router: NextRouter, addUser: (user: User) => void, deleteUser: (user: User) => void): User[] => {
+  return <Badge variant='subtle' colorScheme={roleColor}>{roleLabel}</Badge>
+}
+
+export const formatData = (data: User[] = [], router: NextRouter, addUser: (user: User) => void, deleteUser: (user: User) => void): UserData[] => {
   return data.map((user) => {
-    const { username, name, email, role } = user
+    const { username, name, email, role, status } = user
     const actions = generateActions(user, router, addUser, deleteUser)
 
-    return { username, name, email, role: <Role role={role} />, actions: <MenuActions actions={actions}></MenuActions> }
+    return { username, name, email, role: <Role role={role} />, status: <Status status={status} />, actions: <MenuActions actions={actions} /> }
   })
 }

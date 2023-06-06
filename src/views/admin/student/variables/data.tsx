@@ -36,8 +36,8 @@ function generateActions (student: Student, router: NextRouter, addStudent: (stu
 
 export const formatData = (data: Student[] = [], router: NextRouter, addStudent: (student: Student) => void, deleteStudent: (student: Student) => void): Student[] => {
   return data.map((student) => {
-    const { username, name, email, role } = student
+    const { username, name, email, role, status } = student
     const actions = generateActions(student, router, addStudent, deleteStudent)
-    return { username, name, email, role, actions: <MenuActions actions={actions}></MenuActions> }
+    return { username, name, email, role, status, actions: <MenuActions actions={actions}></MenuActions> }
   })
 }

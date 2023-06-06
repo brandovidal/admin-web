@@ -16,6 +16,7 @@ export interface Student {
   verified?: boolean | null
   password?: string
   role?: RoleEnumType | null
+  status?: RoleEnumType | null
   verificationCode?: string | null
   createdAt?: Date | null
   updatedAt?: Date | null
