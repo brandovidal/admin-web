@@ -28,6 +28,7 @@
       "@api/*": ["./src/api/*"],
       "@assets/*": ["./src/assets/*"],
       "@common/*": ["./src/common/*"],
+      "@constants/*": ["./src/constants/*"],
       "@components/*": ["./src/components/*"],
       "@contexts/*": ["./src/contexts/*"],
       "@img/*": ["./src/img/*"],
@@ -42,7 +43,7 @@
       "@variables/*": ["./src/variables/*"],
       "@views/*": ["./src/views/*"]
     },
-    "types": ["@types/node", "@types/react", "@types/react-dom"],
+    "types": ["@types/react", "@types/react-dom"],
     "incremental": true
   },
   "exclude": ["node_modules", "next.config.js", "next-env.d.ts"],

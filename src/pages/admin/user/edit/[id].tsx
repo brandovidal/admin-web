@@ -40,6 +40,7 @@ export default function UserEdit (): JSX.Element {
 
   const user = useUserStore(state => state.user) as User
   const cleanUser = useUserStore(state => state.cleanUser)
+  const [closeEdit, setCloseEdit] = useState(false)
 
   const {
     control,
@@ -51,6 +52,8 @@ export default function UserEdit (): JSX.Element {
   })
 
   useEffect(() => {
+    console.log("🚀 ~ file: [id].tsx:55 ~ useEffect ~ user:", user, closeEdit)
+    if(closeEdit) return
     if (isEmpty(user)) {
       showErrorToast({ title: 'No se pudo encontrar el usuario', description: 'Por favor, intentar más tarde' })
       void router.push('/admin/user/list')
@@ -86,8 +89,9 @@ export default function UserEdit (): JSX.Element {
 
   const onCancel = useCallback((): void => {
     cleanUser()
+    setCloseEdit(true)
     router.back()
-  }, [router, cleanUser])
+  }, [router, cleanUser, setCloseEdit])
 
   return (
     <AdminLayout navbarText='Editar Usuario'>

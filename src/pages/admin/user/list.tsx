@@ -8,6 +8,7 @@ import Card from '@/components/card/Card'
 
 // common
 import Alert from '@/common/Alert/default'
+import Dialog from '@/common/Dialog/default'
 
 // Layout
 import AdminLayout from '@/layouts/admin'
@@ -17,6 +18,7 @@ import UserListView from '@/views/admin/user/components/UserList'
 
 // interfaces
 import type { AlertProps } from '@/interfaces/common/Alert'
+import { User } from '@/interfaces/api/User'
 
 // Variables
 import { formatData } from '@/views/admin/user/variables/data'
@@ -32,7 +34,7 @@ import { useNotification } from '@/hooks/useNotification'
 import { useDeleteUser, useGetUsers } from '@/services/user'
 
 // styles
-import { Box, SimpleGrid } from '@chakra-ui/react'
+import { Box, SimpleGrid, useDisclosure } from '@chakra-ui/react'
 
 export default function UserList (): JSX.Element {
   const router = useRouter()
@@ -43,11 +45,14 @@ export default function UserList (): JSX.Element {
 
   const { data, isLoading } = useGetUsers({ page, limit, revalidate })
 
+  const user = useUserStore(state => state.user) as User
   const addUser = useUserStore(state => state.addUser)
   const cleanUser = useUserStore(state => state.cleanUser)
 
   const [alert, setAlert] = useState<AlertProps>()
   const { showToast, showErrorToast } = useNotification()
+  
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const handleRefetch = useCallback(
     async (): Promise<void> => {
@@ -70,7 +75,17 @@ export default function UserList (): JSX.Element {
 
   const { mutate: deleteUser } = useDeleteUser({ onSuccess: onDeleteSuccess, onError: onDeleteError })
 
-  const users = useMemo(() => formatData(data?.data ?? [], router, addUser, deleteUser), [data, router, addUser, deleteUser])
+  const confirmDelete = useCallback((user): void => {
+    onOpen()
+    addUser(user)
+  }, [onOpen])
+
+  const onCloseComplete = useCallback((): void => {
+    deleteUser(user)
+    onClose()
+  }, [user, onClose, deleteUser])
+
+  const users = useMemo(() => formatData(data?.data ?? [], router, addUser, confirmDelete), [data, router, addUser, confirmDelete])
   const total = useMemo(() => data?.total ?? 0, [data?.total])
 
   useEffect(() => {
@@ -86,6 +101,7 @@ export default function UserList (): JSX.Element {
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
         <SimpleGrid mb='20px' columns={{ sm: 1, md: 1 }} spacing={{ base: '20px', xl: '20px' }}>
           {!isEmpty(alert) && <Alert status={alert?.status} message={alert?.message} />}
+          <Dialog title='Delete User' message='Are you sure you want to delete this user' isOpen={isOpen} onClose={onClose} onCloseComplete={onCloseComplete} />
 
           <Card flexDirection='column' w='100%' px='0'>
             <UserListView
