@@ -1,7 +1,7 @@
 import type { NextRouter } from 'next/router'
 
 // interfaces
-import type { User, UserData, UserRole, UserStatus } from '@/interfaces/api/User'
+import type { User, UserData, UserRoleEnumType, UserStatusEnumType } from '@/interfaces/api/User'
 import type { ActionsProps } from '@/interfaces/common/MenuActions'
 
 // Components
@@ -34,15 +34,33 @@ function generateActions (user: User, router: NextRouter, addUser: (user: User) 
   ]
 }
 
-function Role ({ role }: UserRole): JSX.Element {
-  const roleLabel = role === 'admin' ? 'Admin' : 'User'
-  const roleColor = role === 'admin' ? 'red' : 'green'
+function Role (data: UserRoleEnumType = 'user'): JSX.Element {
+  const roleLabel = data === 'admin' ? 'Admin' : 'User'
+  const roleColor = data === 'admin' ? 'red' : 'green'
 
   return <Badge variant='subtle' colorScheme={roleColor}>{roleLabel}</Badge>
 }
-function Status ({ status }: UserStatus): JSX.Element {
-  const roleLabel = status === 'active' ? 'Admin' : 'User'
-  const roleColor = status === 'active' ? 'red' : 'green'
+function Status (status: UserStatusEnumType = 'active'): JSX.Element {
+  const data = {
+    active: {
+      label: 'Active',
+      color: 'green'
+    },
+    inactive: {
+      label: 'Inactive',
+      color: 'yellow'
+    },
+    deleted: {
+      label: 'Deleted',
+      color: 'red'
+    },
+    banned: {
+      label: 'Banned',
+      color: 'red'
+    }
+  }
+  const roleLabel = data[status]?.label ?? data.inactive.label
+  const roleColor = data[status]?.color ?? data.inactive.color
 
   return <Badge variant='subtle' colorScheme={roleColor}>{roleLabel}</Badge>
 }
@@ -52,6 +70,6 @@ export const formatData = (data: User[] = [], router: NextRouter, addUser: (user
     const { username, name, email, role, status } = user
     const actions = generateActions(user, router, addUser, deleteUser)
 
-    return { username, name, email, role: <Role role={role} />, status: <Status status={status} />, actions: <MenuActions actions={actions} /> }
+    return { username, name, email, role: Role(role), status: Status(status), actions: <MenuActions actions={actions} /> }
   })
 }

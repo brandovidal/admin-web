@@ -6,8 +6,8 @@ import type { DataResponse } from '../common/Response'
 import type { TableProps } from '../common/Table'
 import type { ReactElement } from 'react'
 
-export type RoleEnumType = 'user' | 'admin'
-export type StatusEnumType = 'active' | 'inactive' | 'deleted'
+export type UserRoleEnumType = 'user' | 'admin'
+export type UserStatusEnumType = 'active' | 'inactive' | 'deleted' | 'banned'
 
 export interface User {
   id?: string
@@ -17,8 +17,8 @@ export interface User {
   photo?: string | null
   verified?: boolean | null
   password?: string
-  role?: RoleEnumType
-  status?: StatusEnumType
+  role?: UserRoleEnumType
+  status?: UserStatusEnumType
   verificationCode?: string | null
   createdAt?: Date | null
   updatedAt?: Date | null
@@ -32,8 +32,8 @@ export interface UserData {
   photo?: string | null
   verified?: boolean | null
   password?: string
-  role?: ReactElement | null
-  status?: ReactElement | null
+  role?: ReactElement
+  status?: ReactElement
   verificationCode?: string | null
   createdAt?: Date | null
   updatedAt?: Date | null
@@ -41,10 +41,10 @@ export interface UserData {
 }
 
 export interface UserRole {
-  role?: RoleEnumType
+  role?: UserRoleEnumType
 }
 export interface UserStatus {
-  status?: StatusEnumType
+  status?: UserStatusEnumType
 }
 
 export interface UserDataResponse {

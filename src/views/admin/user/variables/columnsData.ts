@@ -23,6 +23,10 @@ export const columns: Columns = [
     accessor: 'role'
   },
   {
+    Header: 'Status',
+    accessor: 'status'
+  },
+  {
     Header: 'Acctions',
     accessor: 'actions'
   }
