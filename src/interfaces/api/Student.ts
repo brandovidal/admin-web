@@ -1,11 +1,12 @@
 import type { NextRouter } from 'next/router'
+import type { ReactElement } from 'react'
 
 // interfaces
 import type { AlertProps } from '../common/Alert'
 import type { DataResponse } from '../common/Response'
 import type { TableProps } from '../common/Table'
 
-export type RoleEnumType = 'student' | 'admin'
+export type StudentStatusEnumType = 'active' | 'inactive' | 'deleted' | 'banned'
 
 export interface Student {
   id?: string
@@ -15,13 +16,25 @@ export interface Student {
   photo?: string | null
   verified?: boolean | null
   password?: string
-  role?: RoleEnumType | null
-  status?: RoleEnumType | null
+  status?: StudentStatusEnumType
   verificationCode?: string | null
   createdAt?: Date | null
   updatedAt?: Date | null
 }
-
+export interface StudentData {
+  id?: string
+  username?: string
+  name: string
+  email: string
+  photo?: string | null
+  verified?: boolean | null
+  password?: string
+  status?: ReactElement
+  verificationCode?: string | null
+  createdAt?: Date | null
+  updatedAt?: Date | null
+  actions?: ReactElement | null
+}
 export interface StudentDataResponse {
   users?: Student[]
   data: Student[]

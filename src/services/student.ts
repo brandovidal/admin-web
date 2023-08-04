@@ -11,11 +11,11 @@ import type { StudentDataResponse, Student } from '@/interfaces/api/Student'
 import { deleteStudent, getStudentId, getStudents, postStudent, updateStudent } from '@/api/student'
 
 export const useGetStudents = ({ page = 1, limit = 10, revalidate = true }: QueryParams): UseQueryResult<StudentDataResponse, Error> => {
-  return useQuery<StudentDataResponse, Error>(['users', page, limit, revalidate], async () => await getStudents({ page, limit, revalidate }), { refetchOnWindowFocus: false, refetchOnReconnect: true })
+  return useQuery<StudentDataResponse, Error>(['students', page, limit, revalidate], async () => await getStudents({ page, limit, revalidate }), { refetchOnWindowFocus: false, refetchOnReconnect: true })
 }
 
 export const useGetStudentId = ({ id, onError }): UseQueryResult<Student, Error> => {
-  return useQuery<Student, Error>(['users', id], async () => await getStudentId({ id }), { onError })
+  return useQuery<Student, Error>(['students', id], async () => await getStudentId({ id }), { onError })
 }
 
 export const useCreateStudent = ({ onSuccess, onError }): UseMutationResult<Student, Error, Student, unknown> => {

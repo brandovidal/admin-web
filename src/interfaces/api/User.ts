@@ -1,10 +1,10 @@
 import type { NextRouter } from 'next/router'
+import type { ReactElement } from 'react'
 
 // interfaces
 import type { AlertProps } from '../common/Alert'
 import type { DataResponse } from '../common/Response'
 import type { TableProps } from '../common/Table'
-import type { ReactElement } from 'react'
 
 export type UserRoleEnumType = 'user' | 'admin'
 export type UserStatusEnumType = 'active' | 'inactive' | 'deleted' | 'banned'
@@ -39,14 +39,6 @@ export interface UserData {
   updatedAt?: Date | null
   actions?: ReactElement | null
 }
-
-export interface UserRole {
-  role?: UserRoleEnumType
-}
-export interface UserStatus {
-  status?: UserStatusEnumType
-}
-
 export interface UserDataResponse {
   users?: User[]
   data: User[]
