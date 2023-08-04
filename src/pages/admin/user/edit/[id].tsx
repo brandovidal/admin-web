@@ -52,8 +52,8 @@ export default function UserEdit (): JSX.Element {
   })
 
   useEffect(() => {
-    console.log("🚀 ~ file: [id].tsx:55 ~ useEffect ~ user:", user, closeEdit)
-    if(closeEdit) return
+    console.log('🚀 ~ file: [id].tsx:55 ~ useEffect ~ user:', user, closeEdit)
+    if (closeEdit) return
     if (isEmpty(user)) {
       showErrorToast({ title: 'No se pudo encontrar el usuario', description: 'Por favor, intentar más tarde' })
       void router.push('/admin/user/list')
@@ -64,7 +64,7 @@ export default function UserEdit (): JSX.Element {
     setValue('name', user.name)
     setValue('email', user.email)
     setValue('password', user?.password ?? '')
-  }, [user, router, setValue, showErrorToast])
+  }, [user, router, closeEdit, setValue, showErrorToast])
 
   const [alert, setAlert] = useState<AlertProps>()
 

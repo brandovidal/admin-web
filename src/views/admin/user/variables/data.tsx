@@ -36,7 +36,7 @@ function generateActions (user: User, router: NextRouter, addUser: (user: User) 
 
 function Role (data: UserRoleEnumType = 'user'): JSX.Element {
   const roleLabel = data === 'admin' ? 'Admin' : 'User'
-  const roleColor = data === 'admin' ? 'red' : 'green'
+  const roleColor = data === 'admin' ? 'purple' : 'green'
 
   return <Badge variant='subtle' colorScheme={roleColor}>{roleLabel}</Badge>
 }
@@ -56,7 +56,7 @@ function Status (status: UserStatusEnumType = 'active'): JSX.Element {
     },
     banned: {
       label: 'Banned',
-      color: 'red'
+      color: 'purple'
     }
   }
   const roleLabel = data[status]?.label ?? data.inactive.label

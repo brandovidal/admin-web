@@ -18,7 +18,7 @@ import UserListView from '@/views/admin/user/components/UserList'
 
 // interfaces
 import type { AlertProps } from '@/interfaces/common/Alert'
-import { User } from '@/interfaces/api/User'
+import { type User } from '@/interfaces/api/User'
 
 // Variables
 import { formatData } from '@/views/admin/user/variables/data'
@@ -51,7 +51,7 @@ export default function UserList (): JSX.Element {
 
   const [alert, setAlert] = useState<AlertProps>()
   const { showToast, showErrorToast } = useNotification()
-  
+
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const handleRefetch = useCallback(
@@ -78,7 +78,7 @@ export default function UserList (): JSX.Element {
   const confirmDelete = useCallback((user): void => {
     onOpen()
     addUser(user)
-  }, [onOpen])
+  }, [onOpen, addUser])
 
   const onCloseComplete = useCallback((): void => {
     deleteUser(user)

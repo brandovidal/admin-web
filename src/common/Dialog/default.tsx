@@ -1,8 +1,8 @@
-import { useRef } from "react"
+import { type ReactElement, useRef } from 'react'
 
-import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button } from "@chakra-ui/react"
+import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button } from '@chakra-ui/react'
 
-import { NO_OP } from "@/constants/default"
+import { NO_OP } from '@/constants/default'
 
 interface DialogProps {
   title?: string
@@ -12,7 +12,7 @@ interface DialogProps {
   onCloseComplete?: () => void
 }
 
-const Dialog = ({ title = 'Delete item', message = 'Are you sure you want to delete', isOpen = false, onClose = NO_OP, onCloseComplete = NO_OP }: DialogProps) => {
+const Dialog = ({ title = 'Delete item', message = 'Are you sure you want to delete', isOpen = false, onClose = NO_OP, onCloseComplete = NO_OP }: DialogProps): ReactElement => {
   const cancelRef = useRef<any>()
 
   return (
@@ -24,7 +24,7 @@ const Dialog = ({ title = 'Delete item', message = 'Are you sure you want to del
     isCentered
   >
     <AlertDialogOverlay />
-  
+
     <AlertDialogContent>
       <AlertDialogHeader>{title}</AlertDialogHeader>
       <AlertDialogCloseButton />
