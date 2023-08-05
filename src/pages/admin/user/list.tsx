@@ -54,7 +54,7 @@ export default function UserList (): JSX.Element {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const handleRefetch = useCallback(
+  const handleRefresh = useCallback(
     async (): Promise<void> => {
       setRevalidate(prevState => !prevState)
     },
@@ -64,9 +64,9 @@ export default function UserList (): JSX.Element {
   const onDeleteSuccess = useCallback(async (): Promise<void> => {
     setAlert({ message: 'Usuario eliminado correctamente', status: 'success' })
     showToast({ title: 'Usuario eliminado correctamente', description: 'El usuario se ha eliminado correctamente' })
-    await handleRefetch()
+    await handleRefresh()
     void router.push('/admin/user/list')
-  }, [handleRefetch, showToast, router])
+  }, [handleRefresh, showToast, router])
 
   const onDeleteError = useCallback((): void => {
     setAlert({ message: 'No se pudo eliminar al usuario', status: 'warning' })
@@ -106,7 +106,7 @@ export default function UserList (): JSX.Element {
           <Card flexDirection='column' w='100%' px='0'>
             <UserListView
               handleAdd={handleAddUser}
-              handleRefresh={handleRefetch}
+              handleRefresh={handleRefresh}
               columnsData={columns}
               tableData={tableData}
               isLoading={isLoading}
