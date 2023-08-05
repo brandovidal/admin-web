@@ -1,18 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react'
-
+import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import { Button, Flex, Stack, Text, useColorModeValue } from '@chakra-ui/react'
 
-import { type PaginationProps } from '@/views/admin/default/variables/columnsData'
+import type { PaginationProps } from '@/interfaces/common/Table'
 
-const Pagination = ({
-  page,
-  pageChangeHandler,
-  total,
-  limit,
-  isLoading = false
-}: PaginationProps): JSX.Element => {
+const Pagination = ({ pagination, isLoading = false, pageChangeHandler }: PaginationProps): JSX.Element => {
   // Calculating max number of pages
-  const totalOfPages = Math.ceil(total / limit)
+  const page = pagination?.page ?? 1
+  const totalOfPages = pagination?.pageCount ?? 1
 
   // Navigation arrows enable/disable state
   const [canGoBack, setCanGoBack] = useState(false)
@@ -32,9 +26,9 @@ const Pagination = ({
   }, [totalOfPages, page])
 
   // Onclick handlers for the butons
-  const onNextPage = (): void => { pageChangeHandler(page + 1) }
-  const onPrevPage = (): void => { pageChangeHandler(page - 1) }
-  const onPageSelect = (pageNo: number): void => { pageChangeHandler(pageNo) }
+  const onNextPage = useCallback((): void => { pageChangeHandler(page + 1) }, [page, pageChangeHandler])
+  const onPrevPage = useCallback((): void => { pageChangeHandler(page - 1) }, [page, pageChangeHandler])
+  const onPageSelect = useCallback((page: number): void => { pageChangeHandler(page) }, [pageChangeHandler])
 
   useEffect(() => {
     if (totalOfPages === page) {
@@ -48,80 +42,75 @@ const Pagination = ({
     } else {
       setCanGoBack(true)
     }
-  }, [totalOfPages, page])
+  }, [totalOfPages, page, setCanGoNext, setCanGoBack])
 
   // To set the starting index of the page
   useEffect(() => {
     pageChangeHandler(page)
-  }, [page, pageChangeHandler, limit])
+  }, [page, pageChangeHandler])
 
   const textColor = useColorModeValue('gray.500', 'white')
 
+  if (isLoading) {
+    return (
+      <Flex justifyContent="center" alignItems="center" py="10">
+        <Text color={textColor}>Loading...</Text>
+      </Flex>
+    )
+  }
+
+  if (totalOfPages < 2) {
+    return <></>
+  }
+
+  const ListOfPageButtons = (): JSX.Element[] => {
+    return pagesArray.map((number) => (
+      <Button
+        key={number}
+        borderRadius="full"
+        onClick={() => { onPageSelect(number) }}
+        variant={number === page ? 'solid' : 'outline'}
+        bg={number === page ? 'brand.500' : 'transparent'}
+        color={number === page ? 'white' : 'gray.400'}
+      >
+        {number}
+      </Button>
+    ))
+  }
+
+  const PreviuousButton = (): JSX.Element => {
+    if (page === 1) {
+      return <></>
+    }
+
+    return (<Button variant="outline" borderRadius="full" onClick={onPrevPage} disabled={!canGoBack}>&#8249;</Button>)
+  }
+  const NextButton = (): JSX.Element => {
+    if (page === totalOfPages) {
+      return <></>
+    }
+
+    return (<Button variant="outline" borderRadius="full" onClick={onNextPage} disabled={!canGoNext}>&#8250;</Button>)
+  }
+
   return (
-    <>
-      {isLoading
-        ? (
-        <Flex justifyContent="center" alignItems="center" py="10">
-          <Text color={textColor}>Pagination...</Text>
-        </Flex>
-          )
-        : totalOfPages > 1
-          ? (
-        <Flex
-          flexDirection={['column', 'column', 'row', 'row']}
-          justifyContent="space-between"
-          alignItems="center"
-          gap={['3', '3', '0', '0']}
-          px="5"
-        >
-          <Text color={textColor}>
-            Page {page} de {totalOfPages}
-          </Text>
+    <Flex
+      flexDirection={['column', 'column', 'row', 'row']}
+      justifyContent="space-between"
+      alignItems="center"
+      gap={['3', '3', '0', '0']}
+      px="5"
+    >
+      <Text color={textColor}>
+        Page {page} de {totalOfPages}
+      </Text>
 
-          <Stack direction="row">
-            {page === 1
-              ? null
-              : (
-              <Button
-                variant="outline"
-                borderRadius="full"
-                onClick={onPrevPage}
-                disabled={!canGoBack}
-              >
-                &#8249;
-              </Button>
-                )}
-
-            {pagesArray.map((number) => (
-              <Button
-                key={number}
-                borderRadius="full"
-                onClick={() => { onPageSelect(number) }}
-                variant={number === page ? 'solid' : 'outline'}
-                bg={number === page ? 'brand.500' : 'transparent'}
-                color={number === page ? 'white' : 'gray.400'}
-              >
-                {number}
-              </Button>
-            ))}
-
-            {page === totalOfPages
-              ? null
-              : (
-              <Button
-                variant="outline"
-                borderRadius="full"
-                onClick={onNextPage}
-                disabled={!canGoNext}
-              >
-                &#8250;
-              </Button>
-                )}
-          </Stack>
-        </Flex>
-            )
-          : null}
-    </>
+      <Stack direction="row">
+        { PreviuousButton() }
+        { ListOfPageButtons()}
+        { NextButton() }
+      </Stack>
+    </Flex>
   )
 }
 

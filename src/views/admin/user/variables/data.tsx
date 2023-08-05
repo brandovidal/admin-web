@@ -1,14 +1,14 @@
 import type { NextRouter } from 'next/router'
 
 // interfaces
-import type { User } from '@/interfaces/api/User'
+import type { User, UserData, UserRoleEnumType, UserStatusEnumType } from '@/interfaces/api/User'
 import type { ActionsProps } from '@/interfaces/common/MenuActions'
 
 // Components
 import MenuActions from '@/components/menu/Actions'
 
 // styles
-import { Icon } from '@chakra-ui/react'
+import { Badge, Icon } from '@chakra-ui/react'
 
 // icons
 import { MdModeEditOutline, MdOutlineDelete } from 'react-icons/md'
@@ -34,10 +34,42 @@ function generateActions (user: User, router: NextRouter, addUser: (user: User) 
   ]
 }
 
-export const formatData = (data: User[] = [], router: NextRouter, addUser: (user: User) => void, deleteUser: (user: User) => void): User[] => {
+function Role (data = 'user'): JSX.Element {
+  const roleLabel = data === 'admin' ? 'Admin' : 'User'
+  const roleColor = data === 'admin' ? 'purple' : 'green'
+
+  return <Badge variant='subtle' colorScheme={roleColor}>{roleLabel}</Badge>
+}
+function Status (status = 'active'): JSX.Element {
+  const data = {
+    active: {
+      label: 'Active',
+      color: 'green'
+    },
+    inactive: {
+      label: 'Inactive',
+      color: 'yellow'
+    },
+    deleted: {
+      label: 'Deleted',
+      color: 'red'
+    },
+    banned: {
+      label: 'Banned',
+      color: 'purple'
+    }
+  }
+  const roleLabel = data[status]?.label ?? data.inactive.label
+  const roleColor = data[status]?.color ?? data.inactive.color
+
+  return <Badge variant='subtle' colorScheme={roleColor}>{roleLabel}</Badge>
+}
+
+export const formatData = (data: User[] = [], router: NextRouter, addUser: (user: User) => void, deleteUser: (user: User) => void): UserData[] => {
   return data.map((user) => {
-    const { username, name, email, role } = user
+    const { username, name, email, role, status } = user
     const actions = generateActions(user, router, addUser, deleteUser)
-    return { username, name, email, role, actions: <MenuActions actions={actions}></MenuActions> }
+
+    return { username, name, email, role: Role(role as UserRoleEnumType), status: Status(status as UserStatusEnumType), actions: <MenuActions actions={actions} /> }
   })
 }

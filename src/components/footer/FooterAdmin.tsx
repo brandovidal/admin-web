@@ -26,7 +26,7 @@ export default function Footer() {
 				}}
 				mb={{ base: '20px', xl: '0px' }}>
 				{' '}
-				&copy; {new Date().getFullYear()}
+				{new Date().getFullYear()}
 				<Text as='span' fontWeight='500' ms='4px'>
 					Panel Dashboard. Made with love by
 					Brando Vidal

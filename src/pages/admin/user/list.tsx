@@ -8,15 +8,13 @@ import Card from '@/components/card/Card'
 
 // common
 import Alert from '@/common/Alert/default'
+import Dialog from '@/common/Dialog/default'
 
 // Layout
 import AdminLayout from '@/layouts/admin'
 
 // Views
 import UserListView from '@/views/admin/user/components/UserList'
-
-// interfaces
-import type { AlertProps } from '@/interfaces/common/Alert'
 
 // Variables
 import { formatData } from '@/views/admin/user/variables/data'
@@ -32,36 +30,43 @@ import { useNotification } from '@/hooks/useNotification'
 import { useDeleteUser, useGetUsers } from '@/services/user'
 
 // styles
-import { Box, SimpleGrid } from '@chakra-ui/react'
+import { Box, SimpleGrid, useDisclosure } from '@chakra-ui/react'
+
+// interfaces
+import type { AlertProps } from '@/interfaces/common/Alert'
+import { type User } from '@/interfaces/api/User'
 
 export default function UserList (): JSX.Element {
   const router = useRouter()
 
-  const [page, setCurrentPage] = useState(1)
-  const [limit, setLimit] = useState(5)
-  const [revalidate, setRevalidate] = useState(false)
+  const [page, pageChangeHandler] = useState(1)
+  const [limit, pageSizeHandler] = useState(5)
 
-  const { data, isLoading } = useGetUsers({ page, limit, revalidate })
+  const { data: users, isLoading, refetch } = useGetUsers({ page, limit })
 
+  const user = useUserStore(state => state.user) as User
   const addUser = useUserStore(state => state.addUser)
   const cleanUser = useUserStore(state => state.cleanUser)
 
   const [alert, setAlert] = useState<AlertProps>()
   const { showToast, showErrorToast } = useNotification()
 
-  const handleRefetch = useCallback(
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const handleRefresh = useCallback(
     async (): Promise<void> => {
-      setRevalidate(prevState => !prevState)
+      await refetch()
     },
-    [setRevalidate]
+    [refetch]
   )
 
   const onDeleteSuccess = useCallback(async (): Promise<void> => {
     setAlert({ message: 'Usuario eliminado correctamente', status: 'success' })
     showToast({ title: 'Usuario eliminado correctamente', description: 'El usuario se ha eliminado correctamente' })
-    await handleRefetch()
+
+    await handleRefresh()
     void router.push('/admin/user/list')
-  }, [handleRefetch, showToast, router])
+  }, [handleRefresh, showToast, router])
 
   const onDeleteError = useCallback((): void => {
     setAlert({ message: 'No se pudo eliminar al usuario', status: 'warning' })
@@ -70,8 +75,18 @@ export default function UserList (): JSX.Element {
 
   const { mutate: deleteUser } = useDeleteUser({ onSuccess: onDeleteSuccess, onError: onDeleteError })
 
-  const users = useMemo(() => formatData(data?.data ?? [], router, addUser, deleteUser), [data, router, addUser, deleteUser])
-  const total = useMemo(() => data?.total ?? 0, [data?.total])
+  const confirmDelete = useCallback((user: User): void => {
+    onOpen()
+    addUser(user)
+  }, [onOpen, addUser])
+
+  const onCloseComplete = useCallback((): void => {
+    deleteUser(user)
+    onClose()
+  }, [user, onClose, deleteUser])
+
+  const tableData = useMemo(() => formatData(users?.data, router, addUser, confirmDelete), [users, router, addUser, confirmDelete])
+  const pagination = useMemo(() => users?.meta?.pagination, [users?.meta?.pagination])
 
   useEffect(() => {
     cleanUser()
@@ -86,19 +101,18 @@ export default function UserList (): JSX.Element {
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
         <SimpleGrid mb='20px' columns={{ sm: 1, md: 1 }} spacing={{ base: '20px', xl: '20px' }}>
           {!isEmpty(alert) && <Alert status={alert?.status} message={alert?.message} />}
+          <Dialog title='Delete User' message='Are you sure you want to delete this user' isOpen={isOpen} onClose={onClose} onCloseComplete={onCloseComplete} />
 
           <Card flexDirection='column' w='100%' px='0'>
             <UserListView
               handleAdd={handleAddUser}
-              handleRevalidate={handleRefetch}
+              handleRefresh={handleRefresh}
               columnsData={columns}
-              tableData={users}
+              tableData={tableData}
               isLoading={isLoading}
-              total={total}
-              page={page}
-              pageChangeHandler={setCurrentPage}
-              limit={limit}
-              limitChangeHandler={setLimit}
+              pagination={pagination}
+              pageChangeHandler={pageChangeHandler}
+              pageSizeHandler={pageSizeHandler}
             />
           </Card>
         </SimpleGrid>

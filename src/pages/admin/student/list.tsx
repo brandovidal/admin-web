@@ -37,11 +37,11 @@ import { Box, SimpleGrid } from '@chakra-ui/react'
 export default function StudentList (): JSX.Element {
   const router = useRouter()
 
-  const [page, setCurrentPage] = useState(1)
-  const [limit, setLimit] = useState(5)
+  const [page, pageChangeHandler] = useState(1)
+  const [limit, pageSizeHandler] = useState(5)
   const [revalidate, setRevalidate] = useState(false)
 
-  const { data, isLoading } = useGetStudents({ page, limit, revalidate })
+  const { data: students, isLoading } = useGetStudents({ page, limit, revalidate })
 
   const addStudent = useStudentStore(state => state.addStudent)
   const cleanStudent = useStudentStore(state => state.cleanStudent)
@@ -49,7 +49,7 @@ export default function StudentList (): JSX.Element {
   const [alert, setAlert] = useState<AlertProps>()
   const { showToast, showErrorToast } = useNotification()
 
-  const handleRefetch = useCallback(
+  const handleRefresh = useCallback(
     async (): Promise<void> => {
       setRevalidate(prevState => !prevState)
     },
@@ -59,9 +59,9 @@ export default function StudentList (): JSX.Element {
   const onDeleteSuccess = useCallback(async (): Promise<void> => {
     setAlert({ message: 'Usuario eliminado correctamente', status: 'success' })
     showToast({ title: 'Usuario eliminado correctamente', description: 'El usuario se ha eliminado correctamente' })
-    await handleRefetch()
+    await handleRefresh()
     void router.push('/admin/student/list')
-  }, [handleRefetch, showToast, router])
+  }, [handleRefresh, showToast, router])
 
   const onDeleteError = useCallback((): void => {
     setAlert({ message: 'No se pudo eliminar al usuario', status: 'warning' })
@@ -70,8 +70,8 @@ export default function StudentList (): JSX.Element {
 
   const { mutate: deleteStudent } = useDeleteStudent({ onSuccess: onDeleteSuccess, onError: onDeleteError })
 
-  const students = useMemo(() => formatData(data?.data ?? [], router, addStudent, deleteStudent), [data, router, addStudent, deleteStudent])
-  const total = useMemo(() => data?.total ?? 0, [data?.total])
+  const tableData = useMemo(() => formatData(students?.data, router, addStudent, deleteStudent), [students, router, addStudent, deleteStudent])
+  const pagination = useMemo(() => students?.meta?.pagination, [students?.meta?.pagination])
 
   useEffect(() => {
     cleanStudent()
@@ -90,15 +90,13 @@ export default function StudentList (): JSX.Element {
           <Card flexDirection='column' w='100%' px='0'>
             <StudentListView
               handleAdd={handleAddStudent}
-              handleRevalidate={handleRefetch}
+              handleRefresh={handleRefresh}
               columnsData={columns}
-              tableData={students}
+              tableData={tableData}
               isLoading={isLoading}
-              total={total}
-              page={page}
-              pageChangeHandler={setCurrentPage}
-              limit={limit}
-              limitChangeHandler={setLimit}
+              pagination={pagination}
+              pageChangeHandler={pageChangeHandler}
+              pageSizeHandler={pageSizeHandler}
             />
           </Card>
         </SimpleGrid>

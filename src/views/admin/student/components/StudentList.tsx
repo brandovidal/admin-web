@@ -13,7 +13,7 @@ import { generateRecord } from '@/utils/page'
 
 const StudentListView = ({
   handleAdd,
-  handleRevalidate,
+  handleRefresh,
   columnsData,
   tableData,
   total = 0,
@@ -39,7 +39,7 @@ const StudentListView = ({
         </Flex>
 
         <Flex w={['full', 'full', 'auto', 'auto']} gap={4} justify='flex-end'>
-          <Button variant='outline' onClick={handleRevalidate} disabled={!isLoading}>
+          <Button variant='outline' onClick={handleRefresh} disabled={!isLoading}>
             <Icon as={MdUpdate} h='16px' w='16px' me='8px' />
             Refresh
           </Button>

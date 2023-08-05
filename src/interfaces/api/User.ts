@@ -1,11 +1,12 @@
 import type { NextRouter } from 'next/router'
+import type { ReactElement } from 'react'
 
 // interfaces
 import type { AlertProps } from '../common/Alert'
-import type { DataResponse } from '../common/Response'
 import type { TableProps } from '../common/Table'
 
-export type RoleEnumType = 'user' | 'admin'
+export type UserRoleEnumType = 'user' | 'admin'
+export type UserStatusEnumType = 'active' | 'inactive' | 'deleted' | 'banned'
 
 export interface User {
   id?: string
@@ -15,25 +16,20 @@ export interface User {
   photo?: string | null
   verified?: boolean | null
   password?: string
-  role?: RoleEnumType | null
+  role?: UserRoleEnumType | ReactElement
+  status?: UserStatusEnumType | ReactElement
   verificationCode?: string | null
   createdAt?: Date | null
   updatedAt?: Date | null
 }
 
-export interface UserDataResponse {
-  users?: User[]
-  data: User[]
-  count: number
-  total: number
-}
-export interface UserResponse extends DataResponse {
-  data: UserDataResponse
+export interface UserData extends User {
+  actions?: ReactElement | null
 }
 
 export interface UserViewProps extends TableProps {
   handleAdd: () => void
-  handleRevalidate: () => void
+  handleRefresh: () => void
 }
 
 export interface UserAddProps {
