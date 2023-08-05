@@ -39,10 +39,6 @@ export interface UserData {
   updatedAt?: Date | null
   actions?: ReactElement | null
 }
-export interface UserResponse extends DataResponse {
-  // users?: User[]
-  data?: User[]
-}
 
 export interface UserViewProps extends TableProps {
   handleAdd: () => void

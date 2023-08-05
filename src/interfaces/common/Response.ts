@@ -25,6 +25,12 @@ export interface DataResponse {
   meta?: MetaType | null
   error?: ErrorType | null
 }
+export interface Response<T> {
+  status: boolean
+  data?: T[]
+  meta?: MetaType | null
+  error?: ErrorType | null
+}
 
 export interface QueryParams {
   page: number
