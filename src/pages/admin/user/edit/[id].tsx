@@ -62,7 +62,6 @@ export default function UserEdit (): JSX.Element {
     }
 
     setValue('id', userId ?? '')
-    setValue('username', user.username ?? '')
     setValue('name', user.name)
     setValue('email', user.email)
   }, [user, userId, router, closeEdit, setValue, showErrorToast])
@@ -70,7 +69,7 @@ export default function UserEdit (): JSX.Element {
   const [alert, setAlert] = useState<AlertProps>()
 
   const onUpdateSuccess = useCallback((): void => {
-    showToast({ title: 'Usuario editado correctamente', description: `El usuario ${user.username ?? ''} se ha editado correctamente` })
+    showToast({ title: 'Usuario editado correctamente', description: `El usuario ${user.name} se ha editado correctamente` })
 
     setIsSubmitting(false)
     void router.push('/admin/user/list')

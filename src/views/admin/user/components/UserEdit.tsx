@@ -22,8 +22,6 @@ const UserEditView = ({ control, alert, isSubmitting = false, isDisabled = false
             {!isEmpty(alert) && <Alert status={alert?.status} message={alert?.message} />}
 
             <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing='10'>
-              <Input control={control} name='username' label='Usuario' placeholder='Ingresa tu usuario' disabled={isSubmitting} />
-
               <Input control={control} name='name' label='Nombre' placeholder='Ingresa tu nombre' disabled={isSubmitting} />
 
               <Input control={control} name='email' label='Email' placeholder='Ingresa tu email' disabled={isSubmitting} />
