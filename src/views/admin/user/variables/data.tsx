@@ -34,13 +34,13 @@ function generateActions (user: User, router: NextRouter, addUser: (user: User) 
   ]
 }
 
-function Role (data: UserRoleEnumType = 'user'): JSX.Element {
+function Role (data = 'user'): JSX.Element {
   const roleLabel = data === 'admin' ? 'Admin' : 'User'
   const roleColor = data === 'admin' ? 'purple' : 'green'
 
   return <Badge variant='subtle' colorScheme={roleColor}>{roleLabel}</Badge>
 }
-function Status (status: UserStatusEnumType = 'active'): JSX.Element {
+function Status (status = 'active'): JSX.Element {
   const data = {
     active: {
       label: 'Active',
@@ -70,6 +70,6 @@ export const formatData = (data: User[] = [], router: NextRouter, addUser: (user
     const { username, name, email, role, status } = user
     const actions = generateActions(user, router, addUser, deleteUser)
 
-    return { username, name, email, role: Role(role), status: Status(status), actions: <MenuActions actions={actions} /> }
+    return { username, name, email, role: Role(role as UserRoleEnumType), status: Status(status as UserStatusEnumType), actions: <MenuActions actions={actions} /> }
   })
 }

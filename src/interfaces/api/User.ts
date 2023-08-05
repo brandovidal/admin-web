@@ -3,7 +3,6 @@ import type { ReactElement } from 'react'
 
 // interfaces
 import type { AlertProps } from '../common/Alert'
-import type { DataResponse } from '../common/Response'
 import type { TableProps } from '../common/Table'
 
 export type UserRoleEnumType = 'user' | 'admin'
@@ -17,26 +16,14 @@ export interface User {
   photo?: string | null
   verified?: boolean | null
   password?: string
-  role?: UserRoleEnumType
-  status?: UserStatusEnumType
+  role?: UserRoleEnumType | ReactElement
+  status?: UserStatusEnumType | ReactElement
   verificationCode?: string | null
   createdAt?: Date | null
   updatedAt?: Date | null
 }
 
-export interface UserData {
-  id?: string
-  username?: string
-  name: string
-  email: string
-  photo?: string | null
-  verified?: boolean | null
-  password?: string
-  role?: ReactElement
-  status?: ReactElement
-  verificationCode?: string | null
-  createdAt?: Date | null
-  updatedAt?: Date | null
+export interface UserData extends User {
   actions?: ReactElement | null
 }
 

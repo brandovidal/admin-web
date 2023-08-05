@@ -33,7 +33,7 @@ function generateActions (student: Student, router: NextRouter, addStudent: (stu
     }
   ]
 }
-function Status (status: StudentStatusEnumType = 'active'): JSX.Element {
+function Status (status = 'active'): JSX.Element {
   const data = {
     active: {
       label: 'Active',
@@ -62,6 +62,6 @@ export const formatData = (data: Student[] = [], router: NextRouter, addStudent:
   return data.map((student) => {
     const { username, name, email, status } = student
     const actions = generateActions(student, router, addStudent, deleteStudent)
-    return { username, name, email, status: Status(status), actions: <MenuActions actions={actions}></MenuActions> }
+    return { username, name, email, status: Status(status as StudentStatusEnumType), actions: <MenuActions actions={actions}></MenuActions> }
   })
 }
