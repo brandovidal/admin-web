@@ -1,14 +1,12 @@
 // libs
 import { useMutation, type UseMutationResult, useQuery, type UseQueryResult } from '@tanstack/react-query'
 
-// variables
+// api
+import { deleteUser, getUserId, getUsers, postUser, updateUser } from '@/api/user'
 
 // interfaces
 import type { QueryParams } from '@/interfaces/common/Response'
 import type { UserResponse, User } from '@/interfaces/api/User'
-
-// api
-import { deleteUser, getUserId, getUsers, postUser, updateUser } from '@/api/user'
 
 export const useGetUsers = ({ page = 1, limit = 10 }: QueryParams): UseQueryResult<UserResponse, Error> => {
   return useQuery<UserResponse, Error>(['users', page, limit], async () => await getUsers({ page, limit }), { refetchOnWindowFocus: false, refetchOnReconnect: true })

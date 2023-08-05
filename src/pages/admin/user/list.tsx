@@ -16,10 +16,6 @@ import AdminLayout from '@/layouts/admin'
 // Views
 import UserListView from '@/views/admin/user/components/UserList'
 
-// interfaces
-import type { AlertProps } from '@/interfaces/common/Alert'
-import { type User } from '@/interfaces/api/User'
-
 // Variables
 import { formatData } from '@/views/admin/user/variables/data'
 import { columns } from '@/views/admin/user/variables/columnsData'
@@ -36,14 +32,17 @@ import { useDeleteUser, useGetUsers } from '@/services/user'
 // styles
 import { Box, SimpleGrid, useDisclosure } from '@chakra-ui/react'
 
+// interfaces
+import type { AlertProps } from '@/interfaces/common/Alert'
+import { type User } from '@/interfaces/api/User'
+
 export default function UserList (): JSX.Element {
   const router = useRouter()
 
   const [page, pageChangeHandler] = useState(1)
   const [limit, pageSizeHandler] = useState(5)
-  const [revalidate, setRevalidate] = useState(false)
 
-  const { data: users, isLoading } = useGetUsers({ page, limit, revalidate })
+  const { data: users, isLoading, refetch } = useGetUsers({ page, limit })
 
   const user = useUserStore(state => state.user) as User
   const addUser = useUserStore(state => state.addUser)
@@ -56,14 +55,15 @@ export default function UserList (): JSX.Element {
 
   const handleRefresh = useCallback(
     async (): Promise<void> => {
-      setRevalidate(prevState => !prevState)
+      await refetch()
     },
-    [setRevalidate]
+    [refetch]
   )
 
   const onDeleteSuccess = useCallback(async (): Promise<void> => {
     setAlert({ message: 'Usuario eliminado correctamente', status: 'success' })
     showToast({ title: 'Usuario eliminado correctamente', description: 'El usuario se ha eliminado correctamente' })
+
     await handleRefresh()
     void router.push('/admin/user/list')
   }, [handleRefresh, showToast, router])
@@ -75,7 +75,7 @@ export default function UserList (): JSX.Element {
 
   const { mutate: deleteUser } = useDeleteUser({ onSuccess: onDeleteSuccess, onError: onDeleteError })
 
-  const confirmDelete = useCallback((user): void => {
+  const confirmDelete = useCallback((user: User): void => {
     onOpen()
     addUser(user)
   }, [onOpen, addUser])
