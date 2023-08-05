@@ -31,10 +31,12 @@ export default function UserAdd (): JSX.Element {
   const router = useRouter()
   const { showToast, showErrorToast } = useNotification()
 
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const {
     control,
     handleSubmit,
-    formState: { isLoading, isSubmitting }
+    formState: { isValid }
   } = useForm<RegisterUserInput>({
     resolver: zodResolver(registerUserSchema)
   })
@@ -43,6 +45,7 @@ export default function UserAdd (): JSX.Element {
 
   const onSuccess = (): void => {
     showToast({ title: 'Usuario creado correctamente', description: 'El usuario se ha creado correctamente' })
+    setIsSubmitting(false)
     void router.push('/admin/user/list')
   }
 
@@ -54,7 +57,7 @@ export default function UserAdd (): JSX.Element {
   const { mutate: addUser } = useCreateUser({ onSuccess, onError })
 
   const useOnSubmit: SubmitHandler<RegisterUserInput> = useCallback(data => {
-    console.log(data)
+    setIsSubmitting(true)
     addUser(data)
   }, [addUser])
 
@@ -63,7 +66,7 @@ export default function UserAdd (): JSX.Element {
   return (
     <AdminLayout navbarText='Agregar Usuario'>
       <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <UserAddView control={control} alert={alert} disabled={isLoading || isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
+        <UserAddView control={control} alert={alert} isDisabled={!isValid || isSubmitting} isSubmitting={isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
       </Box>
     </AdminLayout>
   )

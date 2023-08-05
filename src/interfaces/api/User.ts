@@ -36,7 +36,8 @@ export interface UserAddProps {
   router?: NextRouter
   control: any
   alert?: AlertProps
-  disabled: boolean
+  isSubmitting?: boolean
+  isDisabled: boolean
   onSubmit: React.FormEventHandler
   onCancel: () => void
 }
