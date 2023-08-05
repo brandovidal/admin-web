@@ -39,8 +39,8 @@ import { Box, SimpleGrid, useDisclosure } from '@chakra-ui/react'
 export default function UserList (): JSX.Element {
   const router = useRouter()
 
-  const [page, setCurrentPage] = useState(1)
-  const [limit, setLimit] = useState(5)
+  const [page, pageChangeHandler] = useState(1)
+  const [limit, pageSizeHandler] = useState(5)
   const [revalidate, setRevalidate] = useState(false)
 
   const { data: users, isLoading } = useGetUsers({ page, limit, revalidate })
@@ -86,7 +86,7 @@ export default function UserList (): JSX.Element {
   }, [user, onClose, deleteUser])
 
   const tableData = useMemo(() => formatData(users?.data ?? [], router, addUser, confirmDelete), [users, router, addUser, confirmDelete])
-  const total = useMemo(() => users?.meta?.pagination.total ?? 0, [users?.meta?.pagination.total])
+  const pagination = useMemo(() => users?.meta?.pagination, [users?.meta?.pagination])
 
   useEffect(() => {
     cleanUser()
@@ -106,15 +106,13 @@ export default function UserList (): JSX.Element {
           <Card flexDirection='column' w='100%' px='0'>
             <UserListView
               handleAdd={handleAddUser}
-              handleRevalidate={handleRefetch}
+              handleRefresh={handleRefetch}
               columnsData={columns}
               tableData={tableData}
               isLoading={isLoading}
-              total={total}
-              page={page}
-              pageChangeHandler={setCurrentPage}
-              limit={limit}
-              limitChangeHandler={setLimit}
+              pagination={pagination}
+              pageChangeHandler={pageChangeHandler}
+              pageSizeHandler={pageSizeHandler}
             />
           </Card>
         </SimpleGrid>

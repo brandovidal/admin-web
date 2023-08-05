@@ -1,4 +1,5 @@
-import { type Column, type HeaderGroup, type Row } from 'react-table'
+import type { Column, HeaderGroup, Row } from 'react-table'
+import type { PaginationType } from './Response'
 
 export type ColumnData = Column[]
 
@@ -13,14 +14,14 @@ export type TableData = Column<{
 }>
 
 export interface PageSizeFilterProps {
-  limit: number
+  pageSize?: number
   pageSizes?: number[]
-  setPageSize: any
+  pageSizeHandler: (value: number) => void
 }
 
 export interface GlobalFilterProps {
   globalFilter: string
-  setGlobalFilter: any
+  setGlobalFilter: (value?: string | number | object) => void
   placeholder?: string
 }
 
@@ -36,32 +37,14 @@ export interface ReactTableProps {
 }
 
 export interface PaginationProps {
-  page: number
-  pageChangeHandler: any
-  total: number
-  limit: number
+  pagination?: PaginationType
   isLoading?: boolean
+  pageChangeHandler: (value: number) => void
 }
 
-export interface TableProps {
+export interface TableProps extends PaginationProps, PageSizeFilterProps {
   columnsData: ColumnData
   tableData: any[]
   manualPagination?: boolean
   emptyDataMessage?: string
-
-  isLoading?: boolean
-  total?: number
-
-  page?: number
-  pageChangeHandler?: any
-
-  limit?: number
-  limitChangeHandler?: any
-}
-
-export interface PageData {
-  data: any[]
-  isLoading: boolean
-  totalPages: number
-  total: number
 }

@@ -1,11 +1,11 @@
 import { Select } from '@chakra-ui/react'
 
-import { type PageSizeFilterProps } from '@/views/admin/default/variables/columnsData'
+import type { PageSizeFilterProps } from '@/interfaces/common/Table'
 
 export const PageSizeFilter = ({
-  limit = 10,
+  pageSize = 10,
   pageSizes = [5, 10, 25, 50, 100, 250, 500],
-  setPageSize
+  pageSizeHandler
 }: PageSizeFilterProps): JSX.Element => {
   return (
     <Select
@@ -14,9 +14,9 @@ export const PageSizeFilter = ({
       maxWidth='22rem'
       w={{ xs: '100%', sm: 'auto' }}
       color='gray.500'
-      value={limit}
+      value={pageSize}
       onChange={(e) => {
-        setPageSize(Number(e.target.value))
+        pageSizeHandler(Number(e.target.value))
       }}
     >
       {pageSizes.map((pageSize) => (

@@ -9,7 +9,7 @@ import type { QueryId, QueryParams } from '@/interfaces/common/Response'
 import type { User, UserResponse } from '@/interfaces/api/User'
 
 export const getUsers = async ({ page = 1, limit = 10 }: QueryParams): Promise<UserResponse> => {
-  const response = await axios.get<UserResponse>(`${config.apiUrl}/users?page=${page}&limit=${limit}}`)
+  const response = await axios.get<UserResponse>(`${config.apiUrl}/users?page=${page}&limit=${limit}`)
   return response.data
 }
 

@@ -46,7 +46,7 @@ export interface UserResponse extends DataResponse {
 
 export interface UserViewProps extends TableProps {
   handleAdd: () => void
-  handleRevalidate: () => void
+  handleRefresh: () => void
 }
 
 export interface UserAddProps {

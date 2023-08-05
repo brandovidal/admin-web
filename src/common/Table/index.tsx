@@ -2,8 +2,6 @@ import { useMemo } from 'react'
 
 import { Flex, Text, useColorModeValue } from '@chakra-ui/react'
 
-import { type TableProps } from '@/views/admin/default/variables/columnsData'
-
 import ReactTable from '@/libs/ReactTable/ReactTable'
 import Pagination from '@/libs/ReactTable/Pagination'
 import { PageSizeFilter } from '@/libs/ReactTable/PageSizeFilter'
@@ -11,17 +9,17 @@ import { GlobalFilter } from '@/libs/ReactTable/GlobalFilter'
 
 import { useGlobalFilter, useSortBy, useTable } from 'react-table'
 
+import type { TableProps } from '@/interfaces/common/Table'
+
 const Table = ({
   columnsData,
   tableData,
-  total = 0,
-  isLoading = false,
   manualPagination = false,
   emptyDataMessage = 'No hay datos para mostrar',
+  isLoading = false,
+  pagination,
   pageChangeHandler,
-  page = 0,
-  limitChangeHandler,
-  limit = 10
+  pageSizeHandler
 }: TableProps): JSX.Element => {
   const textColor = useColorModeValue('secondaryGray.900', 'white')
 
@@ -57,7 +55,7 @@ const Table = ({
       {!isLoading && (
         <>
           <Flex flexDirection={['column', 'column', 'row', 'row']} justifyContent='space-between' alignItems='center' mx={4} gap={4}>
-            <PageSizeFilter limit={limit} setPageSize={limitChangeHandler} />
+            <PageSizeFilter pageSize={pagination?.pageSize ?? 10} pageSizeHandler={pageSizeHandler} />
             <GlobalFilter globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} placeholder={'Buscar por nombre'} />
           </Flex>
           <>
@@ -71,7 +69,7 @@ const Table = ({
               emptyDataMessage={emptyDataMessage}
             />
           </>
-          <Pagination total={total} isLoading={isLoading} page={page} pageChangeHandler={pageChangeHandler} limit={limit} />
+          <Pagination isLoading={isLoading} pagination={pagination} pageChangeHandler={pageChangeHandler} />
         </>
       )}
     </>

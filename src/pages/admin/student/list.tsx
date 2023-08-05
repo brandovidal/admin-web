@@ -90,7 +90,7 @@ export default function StudentList (): JSX.Element {
           <Card flexDirection='column' w='100%' px='0'>
             <StudentListView
               handleAdd={handleAddStudent}
-              handleRevalidate={handleRefetch}
+              handleRefresh={handleRefetch}
               columnsData={columns}
               tableData={students}
               isLoading={isLoading}

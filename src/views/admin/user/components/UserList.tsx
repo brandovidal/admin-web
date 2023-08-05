@@ -13,19 +13,17 @@ import { generateRecord } from '@/utils/page'
 
 const UserListView = ({
   handleAdd,
-  handleRevalidate,
+  handleRefresh,
   columnsData,
   tableData,
-  total = 0,
-  isLoading = false,
   manualPagination = false,
-  page = 1,
+  isLoading = false,
+  pagination,
   pageChangeHandler,
-  limit = 10,
-  limitChangeHandler
+  pageSizeHandler
 }: UserViewProps): JSX.Element => {
   const textColor = useColorModeValue('secondaryGray.900', 'white')
-  const record = generateRecord(isLoading, total)
+  const record = generateRecord(isLoading, pagination?.total ?? 0)
 
   return (
     <>
@@ -39,7 +37,7 @@ const UserListView = ({
         </Flex>
 
         <Flex w={['full', 'full', 'auto', 'auto']} gap={4} justify='flex-end'>
-          <Button variant='outline' onClick={handleRevalidate} disabled={!isLoading}>
+          <Button variant='outline' onClick={handleRefresh} disabled={!isLoading}>
             <Icon as={MdUpdate} h='16px' w='16px' me='8px' />
             Refresh
           </Button>
@@ -52,14 +50,12 @@ const UserListView = ({
       <Table
         columnsData={columnsData}
         tableData={tableData}
-        isLoading={isLoading}
-        total={total}
-        page={page}
         manualPagination={manualPagination}
-        pageChangeHandler={pageChangeHandler}
-        limit={limit}
-        limitChangeHandler={limitChangeHandler}
         emptyDataMessage='No hay datos disponibles'
+        isLoading={isLoading}
+        pagination={pagination}
+        pageChangeHandler={pageChangeHandler}
+        pageSizeHandler={pageSizeHandler}
       />
     </>
   )

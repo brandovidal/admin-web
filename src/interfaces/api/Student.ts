@@ -47,7 +47,7 @@ export interface StudentResponse extends DataResponse {
 
 export interface StudentViewProps extends TableProps {
   handleAdd: () => void
-  handleRevalidate: () => void
+  handleRefresh: () => void
 }
 
 export interface StudentAddProps {
