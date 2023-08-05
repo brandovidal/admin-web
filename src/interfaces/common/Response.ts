@@ -1,10 +1,29 @@
-export interface DataResponse {
-  status: number
-  code: string
+export interface ValidationType {
+  name: string | number
+  path?: string | number
+  code?: string
   message: string
-  data: object | [] | null
-  count: number
+}
+export interface ErrorType {
+  code: number
+  name: string
+  message: string
+  details?: ValidationType[] | null
+}
+export interface PaginationType {
+  page: number
+  pageSize: number
+  pageCount: number
   total: number
+}
+export interface MetaType {
+  pagination: PaginationType
+}
+export interface DataResponse {
+  status: boolean
+  data?: object | string | null
+  meta?: MetaType | null
+  error?: ErrorType | null
 }
 
 export interface QueryParams {

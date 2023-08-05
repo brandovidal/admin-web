@@ -6,10 +6,10 @@ import { config } from '@/config/variables'
 
 // interfaces
 import type { QueryId, QueryParams } from '@/interfaces/common/Response'
-import type { User, UserDataResponse } from '@/interfaces/api/User'
+import type { User, UserResponse } from '@/interfaces/api/User'
 
-export const getUsers = async ({ page = 1, limit = 10, revalidate = true }: QueryParams): Promise<UserDataResponse> => {
-  const response = await axios.get<UserDataResponse>(`${config.apiUrl}/users?page=${page}&limit=${limit}&revalidate=${String(revalidate)}`)
+export const getUsers = async ({ page = 1, limit = 10 }: QueryParams): Promise<UserResponse> => {
+  const response = await axios.get<UserResponse>(`${config.apiUrl}/users?page=${page}&limit=${limit}}`)
   return response.data
 }
 

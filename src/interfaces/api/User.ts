@@ -39,14 +39,9 @@ export interface UserData {
   updatedAt?: Date | null
   actions?: ReactElement | null
 }
-export interface UserDataResponse {
-  users?: User[]
-  data: User[]
-  count: number
-  total: number
-}
 export interface UserResponse extends DataResponse {
-  data: UserDataResponse
+  // users?: User[]
+  data?: User[]
 }
 
 export interface UserViewProps extends TableProps {

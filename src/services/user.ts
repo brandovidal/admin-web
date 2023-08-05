@@ -5,13 +5,13 @@ import { useMutation, type UseMutationResult, useQuery, type UseQueryResult } fr
 
 // interfaces
 import type { QueryParams } from '@/interfaces/common/Response'
-import type { UserDataResponse, User } from '@/interfaces/api/User'
+import type { UserResponse, User } from '@/interfaces/api/User'
 
 // api
 import { deleteUser, getUserId, getUsers, postUser, updateUser } from '@/api/user'
 
-export const useGetUsers = ({ page = 1, limit = 10, revalidate = true }: QueryParams): UseQueryResult<UserDataResponse, Error> => {
-  return useQuery<UserDataResponse, Error>(['users', page, limit, revalidate], async () => await getUsers({ page, limit, revalidate }), { refetchOnWindowFocus: false, refetchOnReconnect: true })
+export const useGetUsers = ({ page = 1, limit = 10 }: QueryParams): UseQueryResult<UserResponse, Error> => {
+  return useQuery<UserResponse, Error>(['users', page, limit], async () => await getUsers({ page, limit }), { refetchOnWindowFocus: false, refetchOnReconnect: true })
 }
 
 export const useGetUserId = ({ id, onError }): UseQueryResult<User, Error> => {

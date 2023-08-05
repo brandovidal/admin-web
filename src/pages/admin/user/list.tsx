@@ -43,7 +43,7 @@ export default function UserList (): JSX.Element {
   const [limit, setLimit] = useState(5)
   const [revalidate, setRevalidate] = useState(false)
 
-  const { data, isLoading } = useGetUsers({ page, limit, revalidate })
+  const { data: users, isLoading } = useGetUsers({ page, limit, revalidate })
 
   const user = useUserStore(state => state.user) as User
   const addUser = useUserStore(state => state.addUser)
@@ -85,8 +85,8 @@ export default function UserList (): JSX.Element {
     onClose()
   }, [user, onClose, deleteUser])
 
-  const users = useMemo(() => formatData(data?.data ?? [], router, addUser, confirmDelete), [data, router, addUser, confirmDelete])
-  const total = useMemo(() => data?.total ?? 0, [data?.total])
+  const tableData = useMemo(() => formatData(users?.data ?? [], router, addUser, confirmDelete), [users, router, addUser, confirmDelete])
+  const total = useMemo(() => users?.meta?.pagination.total ?? 0, [users?.meta?.pagination.total])
 
   useEffect(() => {
     cleanUser()
@@ -108,7 +108,7 @@ export default function UserList (): JSX.Element {
               handleAdd={handleAddUser}
               handleRevalidate={handleRefetch}
               columnsData={columns}
-              tableData={users}
+              tableData={tableData}
               isLoading={isLoading}
               total={total}
               page={page}
