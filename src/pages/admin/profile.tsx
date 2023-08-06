@@ -39,7 +39,7 @@ import avatar from '@/img/avatars/avatar4.png'
 export default function ProfileOverview (): JSX.Element {
   return (
     <AdminLayout>
-      <Box pt={{ base: '24', md: '20', xl: '20' }}>
+      <Box pt={{ base: '28', md: '24', xl: '24' }}>
         {/* Main Fields */}
         <Grid
           templateColumns={{

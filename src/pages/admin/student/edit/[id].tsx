@@ -94,7 +94,7 @@ export default function StudentEdit (): JSX.Element {
 
   return (
     <AdminLayout navbarText='Editar Usuario'>
-      <Box pt={{ base: '24', md: '20', xl: '20' }}>
+      <Box pt={{ base: '28', md: '24', xl: '24' }}>
         <StudentEditView control={control} alert={alert} isDisabled={!isValid || isSubmitting} isSubmitting={isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
       </Box>
     </AdminLayout>

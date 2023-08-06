@@ -17,7 +17,7 @@ import { type TableData } from '@/views/admin/default/variables/columnsData'
 export default function DataTables (): JSX.Element {
   return (
     <AdminLayout>
-      <Box pt={{ base: '24', md: '20', xl: '20' }}>
+      <Box pt={{ base: '28', md: '24', xl: '24' }}>
         <SimpleGrid mb='20px' columns={{ sm: 1, md: 2 }} spacing={{ base: '20px', xl: '20px' }}>
           <DevelopmentTable columnsData={columnsDataDevelopment} tableData={tableDataDevelopment as unknown as TableData[]} />
           <CheckTable columnsData={columnsDataCheck} tableData={tableDataCheck as unknown as TableData[]} />

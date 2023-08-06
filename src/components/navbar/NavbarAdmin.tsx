@@ -6,12 +6,10 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Flex,
-  Link as LinkUI,
   useColorModeValue
 } from '@chakra-ui/react'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
 
 import AdminNavbarLinks from '@/components/navbar/NavbarLinksAdmin'
 import { isWindowAvailable } from '@utils/navigation'
@@ -117,8 +115,8 @@ export default function AdminNavbar (props: {
         <Box mb={{ sm: '8px', md: '0px' }}>
           <Breadcrumb fontSize={{ base: 'sm', md: 'lg' }}>
             <BreadcrumbItem color={secondaryText}>
-              <BreadcrumbLink href='#' color={secondaryText}>
-                <Link href='/admin/default'>Home</Link>
+              <BreadcrumbLink href='/admin/default' color={secondaryText}>
+                Home
               </BreadcrumbLink>
             </BreadcrumbItem>
 
@@ -129,7 +127,7 @@ export default function AdminNavbar (props: {
             </BreadcrumbItem>
           </Breadcrumb>
           {/* Here we create navbar brand, based on route name */}
-          {/* <LinkUI
+          {/* <Link
             color={mainText}
             href='#'
             bg='inherit'
@@ -147,7 +145,7 @@ export default function AdminNavbar (props: {
             }}
           >
             {brandText}
-          </LinkUI> */}
+          </Link> */}
         </Box>
         <Box ms='auto' w={{ sm: '100%', md: 'unset' }}>
           <AdminNavbarLinks
