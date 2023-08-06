@@ -16,16 +16,14 @@ const StudentListView = ({
   handleRefresh,
   columnsData,
   tableData,
-  total = 0,
-  isLoading = false,
   manualPagination = false,
-  page = 1,
+  isLoading = false,
+  pagination,
   pageChangeHandler,
-  limit = 10,
-  limitChangeHandler
+  pageSizeHandler
 }: StudentViewProps): JSX.Element => {
   const textColor = useColorModeValue('secondaryGray.900', 'white')
-  const record = generateRecord(isLoading, total)
+  const record = generateRecord(isLoading, pagination?.total ?? 0)
 
   return (
     <>
@@ -52,13 +50,11 @@ const StudentListView = ({
       <Table
         columnsData={columnsData}
         tableData={tableData}
-        isLoading={isLoading}
-        total={total}
-        page={page}
         manualPagination={manualPagination}
+        isLoading={isLoading}
+        pagination={pagination}
         pageChangeHandler={pageChangeHandler}
-        limit={limit}
-        limitChangeHandler={limitChangeHandler}
+        pageSizeHandler={pageSizeHandler}
         emptyDataMessage='No hay datos disponibles'
       />
     </>
