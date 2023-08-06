@@ -6,10 +6,13 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Flex,
-  Link,
+  Link as LinkUI,
   useColorModeValue
 } from '@chakra-ui/react'
+
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
+
 import AdminNavbarLinks from '@/components/navbar/NavbarLinksAdmin'
 import { isWindowAvailable } from '@utils/navigation'
 
@@ -108,31 +111,31 @@ export default function AdminNavbar (props: {
           sm: 'column',
           md: 'row'
         }}
-        alignItems={{ xl: 'center' }}
+        alignItems={{ base: 'center' }}
         mb={gap}
       >
         <Box mb={{ sm: '8px', md: '0px' }}>
-          <Breadcrumb>
-            <BreadcrumbItem color={secondaryText} fontSize='sm'>
+          <Breadcrumb fontSize={{ base: 'sm', md: 'lg' }}>
+            <BreadcrumbItem color={secondaryText}>
               <BreadcrumbLink href='#' color={secondaryText}>
-                Pages
+                <Link href='/admin/default'>Home</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
 
-            <BreadcrumbItem color={secondaryText} fontSize='sm'>
+            <BreadcrumbItem color={secondaryText} fontWeight='bold'>
               <BreadcrumbLink href='#' color={secondaryText}>
                 {brandText}
               </BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
           {/* Here we create navbar brand, based on route name */}
-          <Link
+          {/* <LinkUI
             color={mainText}
             href='#'
             bg='inherit'
             borderRadius='inherit'
             fontWeight='bold'
-            fontSize='34px'
+            fontSize='2xl'
             _hover={{ color: { mainText } }}
             _active={{
               bg: 'inherit',
@@ -144,7 +147,7 @@ export default function AdminNavbar (props: {
             }}
           >
             {brandText}
-          </Link>
+          </LinkUI> */}
         </Box>
         <Box ms='auto' w={{ sm: '100%', md: 'unset' }}>
           <AdminNavbarLinks

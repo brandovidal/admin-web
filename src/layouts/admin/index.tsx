@@ -8,7 +8,7 @@ import Sidebar from '@/components/sidebar/Sidebar'
 import { SidebarContext } from '@/contexts/SidebarContext'
 
 import routes from '@/routes'
-import { getActiveNavbar, getActiveNavbarText, getActiveRoute, isWindowAvailable } from '@utils/navigation'
+import { findCurrentRoute, getActiveNavbar, getActiveNavbarText, getActiveRoute, isWindowAvailable } from '@utils/navigation'
 
 interface DashboardLayoutProps extends PropsWithChildren {
   // children: JSX.Element

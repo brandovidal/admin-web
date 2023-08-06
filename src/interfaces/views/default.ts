@@ -11,7 +11,7 @@ export interface ViewListProps extends TableProps {
 export interface ViewProps {
   router?: NextRouter
   alert?: AlertProps
-  isSubmitting?: boolean
+  isSubmitting: boolean
   isDisabled: boolean
   control: unknown
   onSubmit: React.FormEventHandler
