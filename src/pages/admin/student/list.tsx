@@ -1,6 +1,7 @@
 // libs
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
+
 import isEmpty from 'just-is-empty'
 
 // Components
@@ -42,9 +43,8 @@ export default function StudentList (): JSX.Element {
 
   const [page, pageChangeHandler] = useState(1)
   const [limit, pageSizeHandler] = useState(5)
-  const [revalidate, setRevalidate] = useState(false)
 
-  const { data: students, isLoading } = useGetStudents({ page, limit, revalidate })
+  const { data: students, isLoading, refetch } = useGetStudents({ page, limit })
 
   const student = useStudentStore((state) => state.student) as Student
   const addStudent = useStudentStore(state => state.addStudent)
@@ -57,9 +57,9 @@ export default function StudentList (): JSX.Element {
 
   const handleRefresh = useCallback(
     async (): Promise<void> => {
-      setRevalidate(prevState => !prevState)
+      await refetch()
     },
-    [setRevalidate]
+    [refetch]
   )
 
   const onDeleteSuccess = useCallback(async (): Promise<void> => {

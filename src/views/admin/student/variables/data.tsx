@@ -13,6 +13,8 @@ import { Badge, Icon } from '@chakra-ui/react'
 // icons
 import { MdModeEditOutline, MdOutlineDelete } from 'react-icons/md'
 
+import { formatDate } from '@/utils/date'
+
 function generateActions (student: Student, router: NextRouter, addStudent: (student: Student) => void, deleteStudent: (student: Student) => void): ActionsProps[] {
   return [
     {
@@ -60,8 +62,13 @@ function Status (status = 'active'): JSX.Element {
 
 export const formatData = (data: Student[] = [], router: NextRouter, addStudent: (student: Student) => void, deleteStudent: (student: Student) => void): StudentData[] => {
   return data.map((student) => {
-    const { username, name, email, status } = student
+    const { email, phone, dni, ruc, status, createdAt: date } = student
+
+    const fullName = `${student?.name} ${student?.lastname}`
+    const numberDocument = dni ?? ruc
     const actions = generateActions(student, router, addStudent, deleteStudent)
-    return { username, name, email, status: Status(status as StudentStatusEnumType), actions: <MenuActions actions={actions}></MenuActions> }
+    const createdAt = formatDate(date)
+
+    return { fullName, email, phone, numberDocument, createdAt, status: Status(status as StudentStatusEnumType), actions: <MenuActions actions={actions}></MenuActions> }
   })
 }

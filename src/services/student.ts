@@ -10,8 +10,8 @@ import type { Student } from '@/interfaces/api/Student'
 // api
 import { deleteStudent, getStudentId, getStudents, postStudent, updateStudent } from '@/api/student'
 
-export const useGetStudents = ({ page = 1, limit = 10, revalidate = true }: QueryParams): UseQueryResult<Response<Student>, Error> => {
-  return useQuery<Response<Student>, Error>(['students', page, limit, revalidate], async () => await getStudents({ page, limit, revalidate }), { refetchOnWindowFocus: false, refetchOnReconnect: true })
+export const useGetStudents = ({ page = 1, limit = 10 }: QueryParams): UseQueryResult<Response<Student>, Error> => {
+  return useQuery<Response<Student>, Error>(['students', page, limit], async () => await getStudents({ page, limit }), { refetchOnWindowFocus: false, refetchOnReconnect: true })
 }
 
 export const useGetStudentId = ({ id, onError }): UseQueryResult<Student, Error> => {
