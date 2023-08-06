@@ -2,7 +2,7 @@
 import Table from '@common/Table'
 
 // interfaces
-import type { UserViewProps } from '@/interfaces/api/User'
+import type { ViewListProps } from '@/interfaces/views/default'
 
 // styles
 import { Button, Flex, Icon, Text, useColorModeValue } from '@chakra-ui/react'
@@ -21,7 +21,7 @@ const UserListView = ({
   pagination,
   pageChangeHandler,
   pageSizeHandler
-}: UserViewProps): JSX.Element => {
+}: ViewListProps): JSX.Element => {
   const textColor = useColorModeValue('secondaryGray.900', 'white')
   const record = generateRecord(isLoading, pagination?.total ?? 0)
 

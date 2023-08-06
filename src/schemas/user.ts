@@ -23,6 +23,9 @@ export const updateStudentSchema = z.object({
   email: z.string({ required_error: 'Ingresa tu correo.' }).min(5, { message: 'Ingresa 5 caracteres como minimo.' }).email({
     message: 'Ingresa un correo valido.'
   })
-})
+}).transform(data => ({
+  email: data.email.trim().toLowerCase(),
+  name: data.name.trim()
+}))
 
 export type UpdateStudentInput = z.infer<typeof updateStudentSchema>

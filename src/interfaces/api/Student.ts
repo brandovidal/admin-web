@@ -1,19 +1,13 @@
-import type { NextRouter } from 'next/router'
 import type { ReactElement } from 'react'
-
-// interfaces
-import type { AlertProps } from '../common/Alert'
-import type { TableProps } from '../common/Table'
 
 export type StudentStatusEnumType = 'active' | 'inactive' | 'deleted' | 'banned'
 
 export interface Student {
   id?: string
-  fullName?: string
   name: string
   lastname: string
   birthday?: string | null
-  dni: number
+  dni?: number | null
   email: string
   ruc?: number | null
   businessName?: string | null
@@ -32,29 +26,14 @@ export interface Student {
   workPosition?: string | null
   workAddress?: string | null
   status?: StudentStatusEnumType
-  createdAt: string
-  updatedAt: string
+  createdAt?: string
+  updatedAt?: string
 }
 export interface StudentData {
   fullName: string
   phone?: number | null
-  numberDocument: number
-  createdAt?: string
-  status?: StudentStatusEnumType | ReactElement
+  numberDocument?: number | string
+  createdAt: string | null
+  status: StudentStatusEnumType | ReactElement | null
   actions?: ReactElement | null
 }
-
-export interface StudentViewProps extends TableProps {
-  handleAdd: () => void
-  handleRefresh: () => void
-}
-
-export interface StudentAddProps {
-  router?: NextRouter
-  control: any
-  alert?: AlertProps
-  disabled: boolean
-  onSubmit: React.FormEventHandler
-  onCancel: () => void
-}
-export interface StudentEditProps extends StudentAddProps {}

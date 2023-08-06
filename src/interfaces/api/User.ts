@@ -1,9 +1,4 @@
-import type { NextRouter } from 'next/router'
 import type { ReactElement } from 'react'
-
-// interfaces
-import type { AlertProps } from '../common/Alert'
-import type { TableProps } from '../common/Table'
 
 export type UserRoleEnumType = 'user' | 'admin'
 export type UserStatusEnumType = 'active' | 'inactive' | 'deleted' | 'banned'
@@ -26,19 +21,3 @@ export interface User {
 export interface UserData extends User {
   actions?: ReactElement | null
 }
-
-export interface UserViewProps extends TableProps {
-  handleAdd: () => void
-  handleRefresh: () => void
-}
-
-export interface UserAddProps {
-  router?: NextRouter
-  control: any
-  alert?: AlertProps
-  isSubmitting?: boolean
-  isDisabled: boolean
-  onSubmit: React.FormEventHandler
-  onCancel: () => void
-}
-export interface UserEditProps extends UserAddProps {}

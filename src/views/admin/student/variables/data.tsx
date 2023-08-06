@@ -65,9 +65,9 @@ export const formatData = (data: Student[] = [], router: NextRouter, addStudent:
     const { email, phone, dni, ruc, status, createdAt: date } = student
 
     const fullName = `${student?.name} ${student?.lastname}`
-    const numberDocument = dni ?? ruc
+    const numberDocument = String(dni ?? ruc)
     const actions = generateActions(student, router, addStudent, deleteStudent)
-    const createdAt = formatDate(date)
+    const createdAt = formatDate(String(date))
 
     return { fullName, email, phone, numberDocument, createdAt, status: Status(status as StudentStatusEnumType), actions: <MenuActions actions={actions}></MenuActions> }
   })
