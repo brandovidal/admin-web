@@ -20,10 +20,3 @@ export interface ViewProps {
 export interface ViewAddProps extends ViewProps {
 }
 export interface ViewEditProps extends ViewProps { }
-
-// const control: Control<{
-//   name: string;
-//   lastname: string;
-//   email: string;
-//   dni: number | null | undefined;
-// }, any>

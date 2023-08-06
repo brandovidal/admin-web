@@ -8,6 +8,7 @@ export interface InputProps {
   label?: string
   value?: string
   placeholder?: string
+  helperText?: string
   error?: FieldError
   invalid?: boolean
   disabled?: boolean
