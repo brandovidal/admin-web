@@ -44,21 +44,18 @@ export default function UserList (): JSX.Element {
 
   const { data: users, isLoading, refetch } = useGetUsers({ page, limit })
 
-  const user = useUserStore(state => state.user) as User
-  const addUser = useUserStore(state => state.addUser)
-  const cleanUser = useUserStore(state => state.cleanUser)
+  const user = useUserStore((state) => state.user) as User
+  const addUser = useUserStore((state) => state.addUser)
+  const cleanUser = useUserStore((state) => state.cleanUser)
 
   const [alert, setAlert] = useState<AlertProps>()
   const { showToast, showErrorToast } = useNotification()
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const handleRefresh = useCallback(
-    async (): Promise<void> => {
-      await refetch()
-    },
-    [refetch]
-  )
+  const handleRefresh = useCallback(async (): Promise<void> => {
+    await refetch()
+  }, [refetch])
 
   const onDeleteSuccess = useCallback(async (): Promise<void> => {
     setAlert({ message: 'Usuario eliminado correctamente', status: 'success' })
@@ -75,10 +72,13 @@ export default function UserList (): JSX.Element {
 
   const { mutate: deleteUser } = useDeleteUser({ onSuccess: onDeleteSuccess, onError: onDeleteError })
 
-  const confirmDelete = useCallback((user: User): void => {
-    onOpen()
-    addUser(user)
-  }, [onOpen, addUser])
+  const confirmDelete = useCallback(
+    (user: User): void => {
+      onOpen()
+      addUser(user)
+    },
+    [onOpen, addUser]
+  )
 
   const onCloseComplete = useCallback((): void => {
     deleteUser(user)
@@ -98,12 +98,13 @@ export default function UserList (): JSX.Element {
 
   return (
     <AdminLayout>
-      <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <SimpleGrid mb='20px' columns={{ sm: 1, md: 1 }} spacing={{ base: '20px', xl: '20px' }}>
+      <Box pt={{ base: '24', md: '20', xl: '20' }}>
+        <SimpleGrid mb="20px" columns={{ sm: 1, md: 1 }} spacing={{ base: '20px', xl: '20px' }}>
           {!isEmpty(alert) && <Alert status={alert?.status} message={alert?.message} />}
-          <Dialog title='Delete User' message='Are you sure you want to delete this user' isOpen={isOpen} onClose={onClose} onCloseComplete={onCloseComplete} />
 
-          <Card flexDirection='column' w='100%' px='0'>
+          <Dialog title="Delete User" message="Are you sure you want to delete this user" isOpen={isOpen} onClose={onClose} onCloseComplete={onCloseComplete} />
+
+          <Card flexDirection="column" w="100%" px="0">
             <UserListView
               handleAdd={handleAddUser}
               handleRefresh={handleRefresh}

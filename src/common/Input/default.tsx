@@ -1,5 +1,5 @@
 // styles
-import { FormControl, FormLabel, Input as InputUI, Text, useColorModeValue } from '@chakra-ui/react'
+import { FormControl, FormHelperText, FormLabel, Input as InputUI, Text, useColorModeValue } from '@chakra-ui/react'
 
 // interfaces
 import type { InputProps } from '@/interfaces/common/Input'
@@ -10,7 +10,7 @@ import { Controller } from 'react-hook-form'
 // libs
 import isEmpty from 'just-is-empty'
 
-const Input = ({ control, name, type = 'text', label = '', placeholder, disabled = false, hasAutoComplete = true }: InputProps): JSX.Element => {
+function Input ({ control, name, type = 'text', label = '', helperText = '', placeholder, disabled = false, hasAutoComplete = true }: InputProps): JSX.Element {
   const textColor = useColorModeValue('secondaryGray.900', 'white')
 
   return (
@@ -18,7 +18,7 @@ const Input = ({ control, name, type = 'text', label = '', placeholder, disabled
       control={control}
       name={name}
       render={({ field: { onChange, value = '' }, fieldState: { error, invalid } }) => (
-        <FormControl fontSize='12' isInvalid={invalid}>
+        <FormControl fontSize='sm' isInvalid={invalid} >
           <FormLabel>{label}</FormLabel>
           <InputUI
             type={type}
@@ -35,6 +35,12 @@ const Input = ({ control, name, type = 'text', label = '', placeholder, disabled
               {error?.message}
             </Text>
           )}
+          {!isEmpty(helperText) && (
+            <FormHelperText color='secondaryGray.500'>
+              {helperText}
+            </FormHelperText>
+          )}
+
         </FormControl>
       )}
     />

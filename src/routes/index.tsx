@@ -5,8 +5,14 @@ import {
   MdHome,
   MdLock,
   MdOutlineShoppingCart,
-  MdPeople
+  MdPeople,
+  MdContacts
 } from 'react-icons/md'
+
+import type { IRoute } from '@/types/navigation'
+
+// Auth Imports
+import SignInCentered from '@pages/auth/sign-in'
 
 // Admin Imports
 import MainDashboard from '@pages/admin/default'
@@ -15,11 +21,7 @@ import Profile from '@pages/admin/profile'
 import DataTables from '@pages/admin/data-tables'
 import RTL from '@pages/rtl/rtl-default'
 import UserList from '@/pages/admin/user/list'
-
-// Auth Imports
-import SignInCentered from '@pages/auth/sign-in'
-
-import type { IRoute } from '@/types/navigation'
+import StudentList from '@/pages/admin/student/list'
 
 const routes: IRoute[] = [
   {
@@ -57,6 +59,13 @@ const routes: IRoute[] = [
     path: '/user/list',
     icon: <Icon as={MdPeople} width="20px" height="20px" color="inherit" />,
     component: UserList
+  },
+  {
+    name: 'Students',
+    layout: '/admin',
+    path: '/student/list',
+    icon: <Icon as={MdContacts} width="20px" height="20px" color="inherit" />,
+    component: StudentList
   },
   {
     name: 'Profile',

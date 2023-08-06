@@ -30,6 +30,7 @@
     "@testing-library/user-event": "14.4.3",
     "apexcharts": "3.40.0",
     "axios": "1.4.0",
+    "dayjs": "^1.11.9",
     "framer-motion": "10.12.16",
     "just-debounce-it": "3.2.0",
     "just-is-empty": "3.4.1",

@@ -31,10 +31,12 @@ export default function StudentAdd (): JSX.Element {
   const router = useRouter()
   const { showToast, showErrorToast } = useNotification()
 
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const {
     control,
     handleSubmit,
-    formState: { isLoading, isSubmitting }
+    formState: { isValid }
   } = useForm<RegisterStudentInput>({
     resolver: zodResolver(registerStudentSchema)
   })
@@ -43,6 +45,8 @@ export default function StudentAdd (): JSX.Element {
 
   const onSuccess = (): void => {
     showToast({ title: 'Usuario creado correctamente', description: 'El usuario se ha creado correctamente' })
+    setIsSubmitting(false)
+
     void router.push('/admin/student/list')
   }
 
@@ -54,6 +58,7 @@ export default function StudentAdd (): JSX.Element {
   const { mutate: addStudent } = useCreateStudent({ onSuccess, onError })
 
   const useOnSubmit: SubmitHandler<RegisterStudentInput> = useCallback(data => {
+    setIsSubmitting(true)
     console.log(data)
     addStudent(data)
   }, [addStudent])
@@ -61,9 +66,9 @@ export default function StudentAdd (): JSX.Element {
   const onCancel = useCallback(() => { router.back() }, [router])
 
   return (
-    <AdminLayout navbarText='Agregar Usuario'>
-      <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <StudentAddView control={control} alert={alert} disabled={isLoading || isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
+    <AdminLayout navbarText='Add Estudent'>
+      <Box pt={{ base: '24', md: '20', xl: '20' }}>
+        <StudentAddView control={control} alert={alert} isDisabled={!isValid || isSubmitting} isSubmitting={isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
       </Box>
     </AdminLayout>
   )

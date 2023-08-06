@@ -64,7 +64,7 @@ export default function UserReports (): JSX.Element {
   const brandColor = useColorModeValue('brand.500', 'white')
   const boxBg = useColorModeValue('secondaryGray.300', 'whiteAlpha.100')
   return (
-    <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
+    <Box pt={{ base: '24', md: '20', xl: '20' }}>
       <SimpleGrid
         columns={{ base: 1, md: 2, lg: 3, '2xl': 6 }}
         gap='20px'

@@ -2,48 +2,79 @@
 import isEmpty from 'just-is-empty'
 
 // interfaces
-import type { StudentAddProps } from '@/interfaces/api/Student'
+import type { ViewAddProps } from '@/interfaces/views/default'
 
 // common
 import Alert from '@/common/Alert/default'
 import Card from '@/components/card/Card'
 import Input from '@/common/Input/default'
-import PasswordInput from '@/common/Input/password'
 
 // styles
-import { Box, Button, SimpleGrid } from '@chakra-ui/react'
+import { Box, Button, Grid, GridItem, Heading, SimpleGrid } from '@chakra-ui/react'
 import { MdChevronLeft, MdSave } from 'react-icons/md'
 
-const StudentAddView = ({ control, alert, disabled, onSubmit, onCancel }: StudentAddProps): JSX.Element => {
+const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ViewAddProps): JSX.Element => {
   return (
-    <SimpleGrid mb='20px' columns={{ sm: 1, md: 1 }} spacing={{ base: '20px', xl: '20px' }}>
-      <Card flexDirection='column' w='100%' px='0px' overflowX={{ sm: 'scroll', lg: 'hidden' }}>
-        <Box margin={{ base: 6, lg: 10 }}>
-          <form onSubmit={onSubmit}>
-            {!isEmpty(alert) && <Alert status={alert?.status} message={alert?.message} />}
+    <form onSubmit={onSubmit}>
+      {!isEmpty(alert) && <Alert status={alert?.status} message={alert?.message} />}
 
-            <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing='10'>
-              <Input control={control} name='username' label='Usuario' placeholder='Ingresa tu usuario' disabled={disabled} />
+      <Grid mb='20px' templateColumns='repeat(2, 1fr)' gap={{ base: '6', lg: '12' }}>
+        <GridItem colSpan={{ base: 2 }}>
+          <Box display='flex' justifyContent='flex-end' alignItems='center' mt={2} gap={4}>
+            <Button type='button' leftIcon={<MdChevronLeft />} fontSize='md' variant='outline' fontWeight='500' p={6} isDisabled={isSubmitting && isDisabled} onClick={onCancel}>
+              Regresar
+            </Button>
+            <Button type='submit' leftIcon={<MdSave />} fontSize='md' variant='brand' fontWeight='500' p={6} isDisabled={isDisabled}>
+              {isSubmitting ? 'Agregando...' : 'Agregar'}
+            </Button>
+          </Box>
+        </GridItem>
 
-              <Input control={control} name='name' label='Nombre' placeholder='Ingresa tu nombre' disabled={disabled} />
+        <GridItem colSpan={{ base: 2, md: 1 }} rowSpan={{ base: 1, md: 2 }}>
+          <Card flexDirection='column' w='100%' px='0px'>
+            <Box margin={{ base: 6, lg: 10 }}>
+              <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing='8'>
+                <Heading as='h3' size='md' fontWeight='500' mb='0'>
+                  Información personal
+                </Heading>
 
-              <Input control={control} name='email' label='Email' placeholder='Ingresa tu email' disabled={disabled} />
+                <Input control={control} name='name' label='Nombre' placeholder='Ingresa tu nombre' helperText='Ingresar nombres completos para su emitir su certificado' disabled={isSubmitting} />
 
-              <PasswordInput control={control} name='password' label='Contraseña' placeholder='Ingresa tu contraseña' disabled={disabled} />
-            </SimpleGrid>
-
-            <Box display='flex' justifyContent='flex-end' alignItems='center' mt={6} gap={4}>
-              <Button type='button' leftIcon={<MdChevronLeft />} fontSize='md' variant='outline' fontWeight='500' p={6} isDisabled={disabled} onClick={onCancel}>
-                Regresar
-              </Button>
-              <Button type='submit' leftIcon={<MdSave />} fontSize='md' variant='brand' fontWeight='500' p={6} isDisabled={disabled}>
-                Agregar
-              </Button>
+                <Input control={control} name='lastname' label='Apellidos' placeholder='Ingresa tu apellido' helperText='Ingresar apellidos completos para su emitir su certificado' disabled={isSubmitting} />
+              </SimpleGrid>
             </Box>
-          </form>
-        </Box>
-      </Card>
-    </SimpleGrid>
+          </Card>
+        </GridItem>
+
+        <GridItem colSpan={{ base: 2, md: 1 }}>
+          <Card flexDirection='column' w='100%' px='0px'>
+            <Box margin={{ base: 6, lg: 10 }}>
+              <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing='8'>
+                <Heading as='h3' size='md' fontWeight='500' mb='0'>
+                  Información Académica
+                </Heading>
+
+                <Input control={control} name='studyCenter' label='Nombre' placeholder='Ingresa tu universidad / instituto' disabled={isSubmitting} />
+              </SimpleGrid>
+            </Box>
+          </Card>
+        </GridItem>
+
+        <GridItem colSpan={{ base: 2, md: 1 }}>
+          <Card flexDirection='column' w='100%' px='0px'>
+            <Box margin={{ base: 6, lg: 10 }}>
+              <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing='8'>
+                <Heading as='h3' size='md' fontWeight='500' mb='0'>
+                  Información Laboral
+                </Heading>
+
+                <Input control={control} name='workplace' label='Centro de trabajo (Opcional)' placeholder='Ingresa tu universidad / instituto' disabled={isSubmitting} />
+              </SimpleGrid>
+            </Box>
+          </Card>
+        </GridItem>
+      </Grid>
+    </form>
   )
 }
 

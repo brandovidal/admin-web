@@ -24,7 +24,7 @@ import { type SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 // schema
-import { registerUserSchema, type RegisterUserInput } from '@/schemas/user'
+import { updateStudentSchema, type UpdateStudentInput } from '@/schemas/user'
 
 // services
 import { useUpdateUser } from '@/services/user'
@@ -40,19 +40,20 @@ export default function UserEdit (): JSX.Element {
 
   const user = useUserStore(state => state.user) as User
   const cleanUser = useUserStore(state => state.cleanUser)
+
   const [closeEdit, setCloseEdit] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const {
     control,
     handleSubmit,
     setValue,
-    formState: { isLoading, isSubmitting }
-  } = useForm<RegisterUserInput>({
-    resolver: zodResolver(registerUserSchema)
+    formState: { isValid }
+  } = useForm<UpdateStudentInput>({
+    resolver: zodResolver(updateStudentSchema)
   })
 
   useEffect(() => {
-    console.log('🚀 ~ file: [id].tsx:55 ~ useEffect ~ user:', user, closeEdit)
     if (closeEdit) return
     if (isEmpty(user)) {
       showErrorToast({ title: 'No se pudo encontrar el usuario', description: 'Por favor, intentar más tarde' })
@@ -60,29 +61,31 @@ export default function UserEdit (): JSX.Element {
       return
     }
 
-    setValue('username', user.username ?? '')
+    setValue('id', userId ?? '')
     setValue('name', user.name)
     setValue('email', user.email)
-    setValue('password', user?.password ?? '')
-  }, [user, router, closeEdit, setValue, showErrorToast])
+  }, [user, userId, router, closeEdit, setValue, showErrorToast])
 
   const [alert, setAlert] = useState<AlertProps>()
 
-  const onCreateSuccess = useCallback((): void => {
-    showToast({ title: 'Usuario editado correctamente', description: 'El usuario se ha editado correctamente' })
-    void router.push('/admin/user/list')
-  }, [router, showToast])
+  const onUpdateSuccess = useCallback((): void => {
+    showToast({ title: 'Usuario editado correctamente', description: `El usuario ${user.name} se ha editado correctamente` })
 
-  const onCreateError = useCallback((): void => {
+    setIsSubmitting(false)
+    void router.push('/admin/user/list')
+  }, [user, router, showToast])
+
+  const onUpdateError = useCallback((): void => {
     setAlert({ message: 'El usuario o correo ya existe', status: 'warning' })
     showErrorToast({ title: 'El usuario o correo ya existe', description: 'Por favor, ingresar otro usuario o correo' })
   }, [showErrorToast])
 
-  const { mutate: updateUser } = useUpdateUser({ onSuccess: onCreateSuccess, onError: onCreateError })
+  const { mutate: updateUser } = useUpdateUser({ onSuccess: onUpdateSuccess, onError: onUpdateError })
 
-  const useOnSubmit: SubmitHandler<RegisterUserInput> = useCallback(
+  const useOnSubmit: SubmitHandler<UpdateStudentInput> = useCallback(
     data => {
-      updateUser({ id: userId, ...data })
+      setIsSubmitting(true)
+      updateUser({ ...data, id: userId })
     },
     [updateUser, userId]
   )
@@ -95,8 +98,8 @@ export default function UserEdit (): JSX.Element {
 
   return (
     <AdminLayout navbarText='Editar Usuario'>
-      <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <UserEditView control={control} alert={alert} disabled={isLoading || isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
+      <Box pt={{ base: '24', md: '20', xl: '20' }}>
+        <UserEditView control={control} alert={alert} isDisabled={!isValid || isSubmitting} isSubmitting={isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
       </Box>
     </AdminLayout>
   )

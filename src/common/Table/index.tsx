@@ -55,7 +55,7 @@ const Table = ({
       {!isLoading && (
         <>
           <Flex flexDirection={['column', 'column', 'row', 'row']} justifyContent='space-between' alignItems='center' mx={4} gap={4}>
-            <PageSizeFilter pageSize={pagination?.pageSize ?? 10} pageSizeHandler={pageSizeHandler} />
+            <PageSizeFilter pageSize={pagination?.pageSize} pageSizeHandler={pageSizeHandler} />
             <GlobalFilter globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} placeholder={'Buscar por nombre'} />
           </Flex>
           <>

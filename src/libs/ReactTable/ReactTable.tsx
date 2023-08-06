@@ -24,12 +24,18 @@ const ReactTable = ({
       {!isLoading && (
         <Flex flexDir='column' overflow='auto'>
           {rows.length > 0 && (
-            <Table {...getTableProps()} variant='simple' color='gray.500' my='24px'>
+            <Table {...getTableProps()} variant='simple' color='gray.500' my={{ sm: '6', lg: '8' }} mx={{ sm: '2', lg: '4' }}>
               <Thead>
                 {headerGroups.map((headerGroup, index) => (
                   <Tr {...headerGroup.getHeaderGroupProps()} key={index}>
                     {headerGroup.headers.map((column, index) => (
-                      <Th {...column.getHeaderProps(column.getSortByToggleProps())} pe='10px' key={index} borderColor={borderColor} minW={{ sm: '80px', md: '120px', lg: 'auto' }}>
+                      <Th
+                        {...column.getHeaderProps(column.getSortByToggleProps())}
+                        key={index}
+                        borderColor={borderColor}
+                        minW={{ sm: '4rem', md: '6.5rem', lg: 'auto' }}
+                        p={{ sm: '0.5rem', md: '0.75rem 0.5rem', lg: '0.8rem' }}
+                      >
                         <Flex justify='space-between' align='center' fontSize={{ sm: 'xs', lg: 'sm' }} color='gray.500'>
                           {column.render('Header')}
                         </Flex>
@@ -48,8 +54,9 @@ const ReactTable = ({
                           <Td
                             {...cell.getCellProps()}
                             key={index}
-                            fontSize={{ sm: '14px' }}
-                            minW={{ sm: '80px', md: '120px', lg: 'auto' }}
+                            fontSize={{ sm: 'xs', md: 'sm', lg: 'md' }}
+                            minW={{ sm: '4rem', md: '6.5rem', lg: 'auto' }}
+                            p={{ sm: '0.5rem', md: '0.75rem 0.5rem', lg: '0.8rem' }}
                             borderColor='transparent'
                             color={textColor}
                           >

@@ -41,11 +41,13 @@ export default function StudentEdit (): JSX.Element {
   const student = useStudentStore(state => state.student) as Student
   const cleanStudent = useStudentStore(state => state.cleanStudent)
 
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const {
     control,
     handleSubmit,
     setValue,
-    formState: { isLoading, isSubmitting }
+    formState: { isValid }
   } = useForm<RegisterStudentInput>({
     resolver: zodResolver(registerStudentSchema)
   })
@@ -57,16 +59,16 @@ export default function StudentEdit (): JSX.Element {
       return
     }
 
-    setValue('username', student.username ?? '')
     setValue('name', student.name)
     setValue('email', student.email)
-    setValue('password', student?.password ?? '')
   }, [student, router, setValue, showErrorToast])
 
   const [alert, setAlert] = useState<AlertProps>()
 
   const onCreateSuccess = useCallback((): void => {
     showToast({ title: 'Usuario editado correctamente', description: 'El usuario se ha editado correctamente' })
+    setIsSubmitting(false)
+
     void router.push('/admin/student/list')
   }, [router, showToast])
 
@@ -79,6 +81,7 @@ export default function StudentEdit (): JSX.Element {
 
   const useOnSubmit: SubmitHandler<RegisterStudentInput> = useCallback(
     data => {
+      setIsSubmitting(true)
       updateStudent({ id: studentId, ...data })
     },
     [updateStudent, studentId]
@@ -91,8 +94,8 @@ export default function StudentEdit (): JSX.Element {
 
   return (
     <AdminLayout navbarText='Editar Usuario'>
-      <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
-        <StudentEditView control={control} alert={alert} disabled={isLoading || isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
+      <Box pt={{ base: '24', md: '20', xl: '20' }}>
+        <StudentEditView control={control} alert={alert} isDisabled={!isValid || isSubmitting} isSubmitting={isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
       </Box>
     </AdminLayout>
   )

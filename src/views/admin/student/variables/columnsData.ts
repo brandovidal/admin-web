@@ -7,20 +7,24 @@ type Columns = IColumnHeader[]
 
 export const columns: Columns = [
   {
-    Header: 'Usuario',
-    accessor: 'username'
+    Header: 'Nombres',
+    accessor: 'fullName'
   },
   {
-    Header: 'Nombre',
-    accessor: 'name'
+    Header: 'Teléfono',
+    accessor: 'phone'
+  },
+  {
+    Header: 'Documento',
+    accessor: 'numberDocument'
   },
   {
     Header: 'Correo',
     accessor: 'email'
   },
   {
-    Header: 'Rol',
-    accessor: 'role'
+    Header: 'Fecha Creación',
+    accessor: 'createdAt'
   },
   {
     Header: 'Status',

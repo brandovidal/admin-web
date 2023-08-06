@@ -1,40 +1,39 @@
-import type { NextRouter } from 'next/router'
 import type { ReactElement } from 'react'
-
-// interfaces
-import type { AlertProps } from '../common/Alert'
-import type { TableProps } from '../common/Table'
 
 export type StudentStatusEnumType = 'active' | 'inactive' | 'deleted' | 'banned'
 
 export interface Student {
   id?: string
-  username?: string
   name: string
+  lastname: string
+  birthday?: string | null
+  dni?: number | null
   email: string
-  photo?: string | null
-  verified?: boolean | null
-  password?: string
-  status?: StudentStatusEnumType | ReactElement
-  verificationCode?: string | null
-  createdAt?: Date | null
-  updatedAt?: Date | null
+  ruc?: number | null
+  businessName?: string | null
+  address?: string | null
+  country?: string | null
+  phone?: number | null
+  phoneWithFormat?: string | null
+  ladline?: number | null
+  ladlineWithFormat?: string | null
+  postgradoTraining?: boolean | null
+  qualifiedTraining?: boolean | null
+  highSchoolTraining?: boolean | null
+  studentTraining?: boolean | null
+  studyCenter?: string | null
+  workplace?: string | null
+  workPosition?: string | null
+  workAddress?: string | null
+  status?: StudentStatusEnumType
+  createdAt?: string
+  updatedAt?: string
 }
-export interface StudentData extends Student {
+export interface StudentData {
+  fullName: string
+  phone?: number | null
+  numberDocument?: number | string
+  createdAt: string | null
+  status: StudentStatusEnumType | ReactElement | null
   actions?: ReactElement | null
 }
-
-export interface StudentViewProps extends TableProps {
-  handleAdd: () => void
-  handleRefresh: () => void
-}
-
-export interface StudentAddProps {
-  router?: NextRouter
-  control: any
-  alert?: AlertProps
-  disabled: boolean
-  onSubmit: React.FormEventHandler
-  onCancel: () => void
-}
-export interface StudentEditProps extends StudentAddProps {}
