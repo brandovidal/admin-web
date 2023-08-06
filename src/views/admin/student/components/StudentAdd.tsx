@@ -24,7 +24,7 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
             <Button type='button' leftIcon={<MdChevronLeft />} fontSize='md' variant='outline' fontWeight='500' p={6} isDisabled={isSubmitting && isDisabled} onClick={onCancel}>
               Regresar
             </Button>
-            <Button type='submit' leftIcon={<MdSave />} fontSize='md' variant='brand' fontWeight='500' p={6} isDisabled={isDisabled}>
+            <Button type='submit' leftIcon={<MdSave />} fontSize='md' variant='brand' fontWeight='500' p={6} isDisabled={isSubmitting && isDisabled}>
               {isSubmitting ? 'Agregando...' : 'Agregar'}
             </Button>
           </Box>
