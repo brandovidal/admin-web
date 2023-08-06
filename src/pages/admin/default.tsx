@@ -70,7 +70,7 @@ export default function UserReports (): JSX.Element {
 
   return (
     <AdminLayout>
-      <Box pt={{ base: '24', md: '20', xl: '20' }}>
+      <Box pt={{ base: '28', md: '24', xl: '24' }}>
         <SimpleGrid
           columns={{ base: 1, md: 2, lg: 3, '2xl': 6 }}
           gap="20px"

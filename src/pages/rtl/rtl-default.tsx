@@ -52,7 +52,7 @@ export default function RTLDashboard (): JSX.Element {
   const boxBg = useColorModeValue('secondaryGray.300', 'whiteAlpha.100')
   return (
 		<RTLLayout>
-			<Box pt={{ base: '24', md: '20', xl: '20' }}>
+			<Box pt={{ base: '28', md: '24', xl: '24' }}>
 				<SimpleGrid columns={{ base: 1, md: 2, lg: 3, '2xl': 6 }} gap='20px' mb='20px'>
 					<MiniStatistics
 						startContent={
