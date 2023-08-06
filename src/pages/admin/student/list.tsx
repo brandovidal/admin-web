@@ -102,7 +102,7 @@ export default function StudentList (): JSX.Element {
 
   return (
     <AdminLayout>
-      <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
+      <Box pt={{ base: '24', md: '20', xl: '20' }}>
         <SimpleGrid mb='20px' columns={{ sm: 1, md: 1 }} spacing={{ base: '20px', xl: '20px' }}>
           {!isEmpty(alert) && <Alert status={alert?.status} message={alert?.message} />}
 

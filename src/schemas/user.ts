@@ -24,6 +24,7 @@ export const updateStudentSchema = z.object({
     message: 'Ingresa un correo valido.'
   })
 }).transform(data => ({
+  id: data.id,
   email: data.email.trim().toLowerCase(),
   name: data.name.trim()
 }))

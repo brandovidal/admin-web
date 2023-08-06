@@ -67,7 +67,7 @@ export default function StudentAdd (): JSX.Element {
 
   return (
     <AdminLayout navbarText='Agregar Usuario'>
-      <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
+      <Box pt={{ base: '24', md: '20', xl: '20' }}>
         <StudentAddView control={control} alert={alert} isDisabled={!isValid || isSubmitting} isSubmitting={isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
       </Box>
     </AdminLayout>
