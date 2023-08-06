@@ -10,7 +10,7 @@ import Card from '@/components/card/Card'
 import Input from '@/common/Input/default'
 
 // styles
-import { Box, Button, Grid, GridItem, SimpleGrid } from '@chakra-ui/react'
+import { Box, Button, Grid, GridItem, Heading, SimpleGrid } from '@chakra-ui/react'
 import { MdChevronLeft, MdSave } from 'react-icons/md'
 
 const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ViewAddProps): JSX.Element => {
@@ -34,6 +34,10 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
           <Card flexDirection='column' w='100%' px='0px'>
             <Box margin={{ base: 6, lg: 10 }}>
               <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing='8'>
+                <Heading as='h3' size='md' fontWeight='500' mb='0'>
+                  Información personal
+                </Heading>
+
                 <Input control={control} name='name' label='Nombre' placeholder='Ingresa tu nombre' helperText='Ingresar nombres completos para su emitir su certificado' disabled={isSubmitting} />
 
                 <Input control={control} name='lastname' label='Apellidos' placeholder='Ingresa tu apellido' helperText='Ingresar apellidos completos para su emitir su certificado' disabled={isSubmitting} />
@@ -46,6 +50,10 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
           <Card flexDirection='column' w='100%' px='0px'>
             <Box margin={{ base: 6, lg: 10 }}>
               <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing='8'>
+                <Heading as='h3' size='md' fontWeight='500' mb='0'>
+                  Información Académica
+                </Heading>
+
                 <Input control={control} name='studyCenter' label='Nombre' placeholder='Ingresa tu universidad / instituto' disabled={isSubmitting} />
               </SimpleGrid>
             </Box>
@@ -56,7 +64,11 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
           <Card flexDirection='column' w='100%' px='0px'>
             <Box margin={{ base: 6, lg: 10 }}>
               <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing='8'>
-                <Input control={control} name='workplace' label='Nombre' placeholder='Ingresa tu universidad / instituto' disabled={isSubmitting} />
+                <Heading as='h3' size='md' fontWeight='500' mb='0'>
+                  Información Laboral
+                </Heading>
+
+                <Input control={control} name='workplace' label='Centro de trabajo (Opcional)' placeholder='Ingresa tu universidad / instituto' disabled={isSubmitting} />
               </SimpleGrid>
             </Box>
           </Card>
