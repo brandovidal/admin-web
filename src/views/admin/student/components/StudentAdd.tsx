@@ -12,8 +12,14 @@ import Input from '@/common/Input/default'
 // styles
 import { Box, Button, Grid, GridItem, Heading, SimpleGrid } from '@chakra-ui/react'
 import { MdChevronLeft, MdSave } from 'react-icons/md'
+import Select from '@/common/Select/default'
 
 const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ViewAddProps): JSX.Element => {
+  const modalityOptions = [
+    { label: 'Presencial', value: 'faceToFaceModality' },
+    { label: 'Semi Presencial', value: 'semiFaceToFaceModality' },
+    { label: 'Virtual', value: 'virtualModality' }
+  ]
   return (
     <form onSubmit={onSubmit}>
       {!isEmpty(alert) && <Alert status={alert?.status} message={alert?.message} />}
@@ -41,6 +47,8 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
                 <Input control={control} name='name' label='Nombre' placeholder='Ingresa tu nombre' helperText='Ingresar nombres completos para su emitir su certificado' disabled={isSubmitting} />
 
                 <Input control={control} name='lastname' label='Apellidos' placeholder='Ingresa tu apellido' helperText='Ingresar apellidos completos para su emitir su certificado' disabled={isSubmitting} />
+
+                <Select control={control} options={modalityOptions} name='country' label='Pais' placeholder='Ingresa tu apellido' isDisabled={isSubmitting} />
               </SimpleGrid>
             </Box>
           </Card>

@@ -1,92 +1,92 @@
-// import { useColorMode } from '@chakra-ui/react'
-// import Select, { components } from 'react-select'
-// import makeAnimated from 'react-select/animated'
+import { useColorMode } from '@chakra-ui/react'
 
-// import ReactCountryFlag from 'react-country-flag'
+import type { GroupBase, OptionProps } from 'react-select'
+import Select, { components } from 'react-select'
 
-// import { NO_OP } from '@/constants/default'
+import ReactCountryFlag from 'react-country-flag'
 
-// const animatedComponents = makeAnimated()
+import isEmpty from 'just-is-empty'
 
-// export const ReactSelect = ({
-//   options = [],
-//   onChange = NO_OP,
-//   value = '',
-//   placeholder = 'Seleccione una opción',
-//   noOptionsMessage = 'No existen opciones',
-//   isMulti = false,
-//   isSearchable = true,
-//   isClearable = true,
-//   isDisabled = false
-// }) => {
-//   const { colorMode } = useColorMode()
-//   const isDark = colorMode === 'dark'
+import { NO_OP } from '@/constants/default'
+import { colors } from '@/constants/select'
 
-//   const colorValue = isDark ? '#1a202c' : '#4299e1'
-//   const colorInput = isDark ? '#E2E8F0' : '#2D3748'
-//   const backgroundValue = isDark ? '#90cdf4' : '#e5f8fb'
+import type { IconOptionProps, ReactSelectProps } from '@/interfaces/libs/ReactSelect'
+import type { CustomStyles } from '@/types/react-select'
 
-//   const customStyles = {
-//     option: (provided, { isSelected }) => ({
-//       ...provided,
-//       borderBottom: '1px solid #cccccc',
-//       backgroundColor: isDark ? (isSelected ? '#1a202c' : '#2D3748') : isSelected ? '#BEE3F8' : '#fff',
-//       color: isDark ? (isSelected ? '#F7FAFC' : '#E2E8F0') : isSelected ? '#4299e1' : '#171923',
-//       padding: 10,
-//       ':hover': {
-//         backgroundColor: isDark ? '#171923' : '#EBF8FF',
-//         color: isDark ? '#E2E8F0' : '#4299e1'
-//       }
-//     }),
-//     control: (provided, state) => ({
-//       ...provided,
-//       backgroundColor: isDark ? '#2D3748' : '#fff',
-//       color: isDark ? '#F7FAFC' : '#171923'
-//     }),
-//     singleValue: (provided, { isSelected }) => {
-//       const opacity = isDisabled ? 0.5 : 1
-//       const transition = 'opacity 300ms'
-//       return { ...provided, opacity, transition, color: 'inherit' }
-//     },
-//     multiValue: (styles) => {
-//       return {
-//         ...styles,
-//         backgroundColor: backgroundValue,
-//         color: colorValue
-//       }
-//     },
-//     multiValueLabel: (styles) => ({
-//       ...styles,
-//       color: colorValue
-//     }),
-//     input: (styles) => ({
-//       ...styles,
-//       color: colorInput
-//     })
-//   }
+function IconOption (props: OptionProps<IconOptionProps, boolean, GroupBase<IconOptionProps>>): JSX.Element {
+  const { Option } = components
 
-//   const { Option } = components
-//   const IconOption = (props) => (
-//     <Option {...props}>
-//       {props.data.flag && <ReactCountryFlag svg countryCode={props.data.id} />}
-//       {props.data.flag && ' '}
-//       {props.data.label}
-//     </Option>
-//   )
+  return (
+    <Option {...props}>
+      {!isEmpty(props.data.flag) && !isEmpty(props.data.id) && <ReactCountryFlag svg countryCode={String(props.data.id)} />}
+      {!isEmpty(props.data.flag) && ' '}
+      {props.data.label}
+    </Option>
+  )
+}
 
-//   return (
-//     <Select
-//       styles={customStyles}
-//       placeholder={placeholder}
-//       noOptionsMessage={() => noOptionsMessage}
-//       options={options}
-//       components={{ Option: IconOption, animatedComponents }}
-//       onChange={onChange}
-//       value={value}
-//       isMulti={isMulti}
-//       isClearable={isClearable}
-//       isSearchable={isSearchable}
-//       isDisabled={isDisabled}
-//     />
-//   )
-// }
+export function ReactSelect ({
+  options = [], onChange = NO_OP, value, placeholder = 'Seleccione una opción',
+  noOptionsMessage = 'No existen opciones', isMulti = false, isSearchable = true, isClearable = true, isDisabled = false
+}: ReactSelectProps): JSX.Element {
+  const { colorMode } = useColorMode()
+  const isDark = colorMode === 'dark'
+
+  const colorValue = isDark ? colors.dark : colors.light
+  const colorInput = isDark ? colors.lightColor : colors.darkColor
+  const backgroundValue = isDark ? colors.lightBackgroundColor : colors.darkBackgrounColor
+
+  const customStyles: CustomStyles = {
+    option: (provided, { isSelected }) => ({
+      ...provided,
+      borderBottom: '1px solid #cccccc',
+      backgroundColor: isDark ? (isSelected ? colors.dark : colors.darkColor) : isSelected ? '#BEE3F8' : colors.darkText,
+      color: isDark ? (isSelected ? colors.lightText : colors.lightColor) : isSelected ? colors.light : colors.darkBackground,
+      padding: 10,
+      ':hover': {
+        backgroundColor: isDark ? colors.darkBackground : colors.lightBackground,
+        color: isDark ? colors.lightColor : colors.light
+      }
+    }),
+    control: (provided) => ({
+      ...provided,
+      backgroundColor: isDark ? colors.darkColor : colors.darkText,
+      color: isDark ? colors.lightText : colors.darkBackground
+    }),
+    singleValue: (provided) => {
+      const opacity = isDisabled ? 0.5 : 1
+      const transition = 'opacity 300ms'
+      return { ...provided, opacity, transition, color: 'inherit' }
+    },
+    multiValue: (styles) => {
+      return {
+        ...styles,
+        backgroundColor: backgroundValue,
+        color: colorValue
+      }
+    },
+    multiValueLabel: (styles) => ({
+      ...styles,
+      color: colorValue
+    }),
+    input: (styles) => ({
+      ...styles,
+      color: colorInput
+    })
+  }
+
+  return (
+    <Select
+      styles={customStyles}
+      placeholder={placeholder}
+      noOptionsMessage={() => noOptionsMessage}
+      options={options}
+      components={{ Option: IconOption }}
+      onChange={onChange}
+      // value={value}
+      isMulti={isMulti}
+      isClearable={isClearable}
+      isSearchable={isSearchable}
+      isDisabled={isDisabled} />
+  )
+}
