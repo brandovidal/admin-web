@@ -1,5 +1,5 @@
 // common
-import Table from '@common/Table'
+import Table from '@common/Table/default'
 
 // interfaces
 import type { ViewListProps } from '@/interfaces/views/default'
