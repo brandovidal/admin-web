@@ -12,7 +12,7 @@ export interface Student {
   ruc?: number | null
   businessName?: string | null
   address?: string | null
-  country?: string | null
+  country?: string | object | null
   phone?: number | null
   phoneWithFormat?: string | null
   ladline?: number | null

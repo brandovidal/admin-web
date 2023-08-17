@@ -64,7 +64,7 @@ export default function UserAdd (): JSX.Element {
   const onCancel = useCallback(() => { router.back() }, [router])
 
   return (
-    <AdminLayout navbarText='Agregar Usuario'>
+    <AdminLayout navbarText='Add User'>
       <Box pt={{ base: '28', md: '24', xl: '24' }}>
         <UserAddView control={control} alert={alert} isDisabled={!isValid || isSubmitting} isSubmitting={isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
       </Box>

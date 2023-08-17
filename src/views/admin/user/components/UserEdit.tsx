@@ -22,14 +22,14 @@ const UserEditView = ({ control, alert, isSubmitting = false, isDisabled = false
             {!isEmpty(alert) && <Alert status={alert?.status} message={alert?.message} />}
 
             <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing='10'>
-              <Input control={control} name='name' label='Nombre' placeholder='Ingresa tu nombre' disabled={isSubmitting} />
+              <Input control={control} name='name' label='Name' placeholder='Ingresa tu nombre' disabled={isSubmitting} />
 
               <Input control={control} name='email' label='Email' placeholder='Ingresa tu email' disabled={isSubmitting} />
             </SimpleGrid>
 
             <Box display='flex' justifyContent='flex-end' alignItems='center' mt={6} gap={4}>
               <Button type='button' leftIcon={<MdChevronLeft />} fontSize='md' variant='outline' fontWeight='500' p={6} isDisabled={isDisabled} onClick={onCancel}>
-                Regresar
+                Back
               </Button>
               <Button type='submit' leftIcon={<MdSave />} fontSize='md' variant='brand' fontWeight='500' p={6} isDisabled={isDisabled}>
                 {isSubmitting ? 'Editando...' : 'Editar'}

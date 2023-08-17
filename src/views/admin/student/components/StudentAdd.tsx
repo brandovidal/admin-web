@@ -28,10 +28,10 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
         <GridItem colSpan={{ base: 2 }}>
           <Box display='flex' justifyContent='flex-end' alignItems='center' mt={2} gap={4}>
             <Button type='button' leftIcon={<MdChevronLeft />} fontSize='md' variant='outline' fontWeight='500' p={6} isDisabled={isSubmitting && isDisabled} onClick={onCancel}>
-              Regresar
+              Back
             </Button>
             <Button type='submit' leftIcon={<MdSave />} fontSize='md' variant='brand' fontWeight='500' p={6} isDisabled={isSubmitting && isDisabled}>
-              {isSubmitting ? 'Agregando...' : 'Agregar'}
+              {isSubmitting ? 'Adding...' : 'Add'}
             </Button>
           </Box>
         </GridItem>
@@ -41,14 +41,14 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
             <Box margin={{ base: 6, lg: 10 }}>
               <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing='8'>
                 <Heading as='h3' size='md' fontWeight='500' mb='0'>
-                  Información personal
+                  Personal Information
                 </Heading>
 
-                <Input control={control} name='name' label='Nombre' placeholder='Ingresa tu nombre' helperText='Ingresar nombres completos para su emitir su certificado' disabled={isSubmitting} />
+                <Input control={control} name='name' label='Name' placeholder='Enter full names' helperText='Enter full names to issue your certificate' disabled={isSubmitting} />
 
-                <Input control={control} name='lastname' label='Apellidos' placeholder='Ingresa tu apellido' helperText='Ingresar apellidos completos para su emitir su certificado' disabled={isSubmitting} />
+                <Input control={control} name='lastname' label='Lastname' placeholder='Enter full surnames' helperText='Enter full surnames to issue your certificate' disabled={isSubmitting} />
 
-                <Select control={control} options={modalityOptions} name='country' label='Pais' placeholder='Ingresa tu apellido' isDisabled={isSubmitting} />
+                <Select control={control} options={modalityOptions} name='country' label='Country' placeholder='Select a country' isDisabled={isSubmitting} />
               </SimpleGrid>
             </Box>
           </Card>
@@ -59,10 +59,10 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
             <Box margin={{ base: 6, lg: 10 }}>
               <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing='8'>
                 <Heading as='h3' size='md' fontWeight='500' mb='0'>
-                  Información Académica
+                  Academic Information
                 </Heading>
 
-                <Input control={control} name='studyCenter' label='Nombre' placeholder='Ingresa tu universidad / instituto' disabled={isSubmitting} />
+                <Input control={control} name='studyCenter' label='Academic Education' placeholder='Enter your university / institute' disabled={isSubmitting} />
               </SimpleGrid>
             </Box>
           </Card>
@@ -73,10 +73,10 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
             <Box margin={{ base: 6, lg: 10 }}>
               <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing='8'>
                 <Heading as='h3' size='md' fontWeight='500' mb='0'>
-                  Información Laboral
+                  Employment Information
                 </Heading>
 
-                <Input control={control} name='workplace' label='Centro de trabajo (Opcional)' placeholder='Ingresa tu universidad / instituto' disabled={isSubmitting} />
+                <Input control={control} name='workplace' label='Work center (Optional)' placeholder='Enter your university / institute' disabled={isSubmitting} />
               </SimpleGrid>
             </Box>
           </Card>
