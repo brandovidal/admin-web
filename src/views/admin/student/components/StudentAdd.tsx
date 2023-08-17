@@ -56,17 +56,17 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
 
                 <Input control={control} type='tel' name='phone' label='Phone' placeholder='987654321' maxLength={15} disabled={isSubmitting} />
 
-                <Input control={control} type='tel' name='dni' label='DNI' placeholder='87654321' disabled={isSubmitting} />
+                <Input control={control} type='tel' name='dni' label='DNI' placeholder='87654321' maxLength={8} disabled={isSubmitting} />
 
-                <Input control={control} type='email' name='email' label='Phone' placeholder='Enter your email' disabled={isSubmitting} />
+                <Input control={control} type='email' name='email' label='Phone' placeholder='Enter your email' maxLength={50} disabled={isSubmitting} />
 
-                <Input control={control} type='tel' name='ladline' label='Ladline' placeholder='Enter your ladline' disabled={isSubmitting} />
+                <Input control={control} type='tel' name='ladline' label='Ladline' placeholder='Enter your ladline' maxLength={15} disabled={isSubmitting} />
 
-                <Input control={control} type='tel' name='ruc' label='RUC' placeholder='10876543210' disabled={isSubmitting} />
+                <Input control={control} type='tel' name='ruc' label='RUC' placeholder='10876543210' maxLength={11} disabled={isSubmitting} />
 
                 <Input control={control} type='radio' name='status' label='Status' disabled={isSubmitting} />
 
-                <Input control={control} type='text' name='businessName' label='Business Name' placeholder='Enter your businessName' disabled={isSubmitting} />
+                <Input control={control} type='text' name='businessName' label='Business Name' placeholder='Enter your businessName' maxLength={50} disabled={isSubmitting} />
               </SimpleGrid>
             </Box>
           </Card>
@@ -82,7 +82,7 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
               <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing={{ sm: 6, md: 8 }}>
                 <Input control={control} type='radio' name='training' label='Academic Formation' disabled={isSubmitting} />
 
-                <Input control={control} type='text' name='studyCenter' label='Name' placeholder='Enter your university / institute' disabled={isSubmitting} />
+                <Input control={control} type='text' name='studyCenter' label='Name' placeholder='Enter your university / institute' maxLength={50} disabled={isSubmitting} />
               </SimpleGrid>
             </Box>
           </Card>
@@ -96,11 +96,11 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
               </Heading>
 
               <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing={{ sm: 6, md: 8 }}>
-                <Input control={control} type='text' name='workplace' label='Work center (Optional)' placeholder='Enter your work center' disabled={isSubmitting} />
+                <Input control={control} type='text' name='workplace' label='Work center (Optional)' placeholder='Enter your work center' maxLength={50} disabled={isSubmitting} />
 
-                <Input control={control} type='text' name='workPosition' label='Position (Optional)' placeholder='Enter your position' disabled={isSubmitting} />
+                <Input control={control} type='text' name='workPosition' label='Position (Optional)' placeholder='Enter your position' maxLength={50} disabled={isSubmitting} />
 
-                <Input control={control} type='text' name='workAddress' label='Address (Optional)' placeholder='Enter your address' disabled={isSubmitting} />
+                <Input control={control} type='text' name='workAddress' label='Address (Optional)' placeholder='Enter your address' maxLength={50} disabled={isSubmitting} />
               </SimpleGrid>
             </Box>
           </Card>
