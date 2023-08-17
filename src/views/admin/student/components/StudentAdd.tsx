@@ -16,8 +16,8 @@ import { MdChevronLeft, MdSave } from 'react-icons/md'
 
 const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ViewAddProps): JSX.Element => {
   const modalityOptions = [
-    { label: 'Presencial', value: 'faceToFaceModality' },
-    { label: 'Semi Presencial', value: 'semiFaceToFaceModality' },
+    { label: 'Presencial', value: 'presentialModality' },
+    { label: 'Semi Face To Face', value: 'semiPresentialModality' },
     { label: 'Virtual', value: 'virtualModality' }
   ]
   return (
