@@ -48,13 +48,13 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
               </Heading>
 
               <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing={{ sm: 6, md: 8 }}>
-                <Input control={control} type='text' name='name' label='Name' placeholder='Enter full names' helperText='Enter full names to issue your certificate' disabled={isSubmitting} />
+                <Input control={control} type='text' name='name' label='Name' placeholder='Enter full names' maxLength={50} helperText='Enter full names to issue your certificate' disabled={isSubmitting} />
 
-                <Input control={control} type='text' name='lastname' label='Lastname' placeholder='Enter full surnames' helperText='Enter full surnames to issue your certificate' disabled={isSubmitting} />
+                <Input control={control} type='text' name='lastname' label='Lastname' placeholder='Enter full surnames' maxLength={50} helperText='Enter full surnames to issue your certificate' disabled={isSubmitting} />
 
                 <Select control={control} options={modalityOptions} name='country' label='Country' placeholder='Select a country' isDisabled={isSubmitting} />
 
-                <Input control={control} type='tel' name='phone' label='Phone' placeholder='987654321' disabled={isSubmitting} />
+                <Input control={control} type='tel' name='phone' label='Phone' placeholder='987654321' maxLength={15} disabled={isSubmitting} />
 
                 <Input control={control} type='tel' name='dni' label='DNI' placeholder='87654321' disabled={isSubmitting} />
 

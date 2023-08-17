@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 // styles
-import { Button, FormControl, FormLabel, Input as InputUI, InputGroup, InputRightElement, Text, useColorModeValue, Icon } from '@chakra-ui/react'
+import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, Text, useColorModeValue, Icon } from '@chakra-ui/react'
 
 // interfaces
 import type { InputProps } from '@/interfaces/common/Input'
@@ -29,7 +29,7 @@ const PasswordInput = ({ control, name, label = '', placeholder, disabled = fals
         <FormControl fontSize='12' isInvalid={invalid}>
           <FormLabel>{label}</FormLabel>
           <InputGroup size='md'>
-            <InputUI
+            <Input
               pr='4.5rem'
               type={show ? 'text' : 'password'}
               placeholder={placeholder}

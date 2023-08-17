@@ -9,6 +9,7 @@ export interface InputProps {
   value?: string
   placeholder?: string
   helperText?: string
+  maxLength?: number
   error?: FieldError
   invalid?: boolean
   disabled?: boolean
