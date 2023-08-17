@@ -17,7 +17,6 @@ function Select ({ control, options = [], name, label = '', helperText = '', pla
     <Controller
       control={control}
       name={name}
-      rules={{ required: 'A country is required' }}
       render={({ field: { onChange, value = '' }, fieldState: { error, invalid } }) => (
         <FormControl fontSize='sm' isInvalid={invalid}>
           <FormLabel>{label}</FormLabel>
