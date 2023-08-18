@@ -59,9 +59,11 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
 
                 <Input control={control} type='text' name='lastname' label='Lastname' placeholder='Enter full surnames' maxLength={50} helperText='Enter full surnames to issue your certificate' disabled={isSubmitting} />
 
+                <Input control={control} type='date' name='birthday' label='Birthday' placeholder='Enter full birthday' disabled={isSubmitting} />
+
                 <Select control={control} name='country' label='Country' options={modalityOptions} placeholder='Select a country' isDisabled={isSubmitting} />
 
-                <Input control={control} type='tel' name='phone' label='Phone' placeholder='987654321' maxLength={15} disabled={isSubmitting} />
+                <Input control={control} type='tel' name='phone' label='Phone' placeholder='987654321' maxLength={12} disabled={isSubmitting} />
 
                 <Input control={control} type='tel' name='dni' label='DNI' placeholder='87654321' maxLength={8} disabled={isSubmitting} />
 

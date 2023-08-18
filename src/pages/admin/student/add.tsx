@@ -37,21 +37,21 @@ export default function StudentAdd (): JSX.Element {
     name: '',
     lastname: '',
     address: '',
-    country: undefined
-    // phone: '',
-    // dni: '',
-    // email: '',
-    // phoneFormatted: '',
-    // ladline: '',
-    // ruc: '',
-    // businessName: '',
-    // birthday: '',
-    // studyCenter: '',
-    // training: '',
-    // workplace: '',
-    // workPosition: '',
-    // workAddress: '',
-    // status: ''
+    country: undefined,
+    phone: undefined,
+    dni: undefined,
+    email: '',
+    phoneFormatted: '',
+    ladline: undefined,
+    ruc: undefined,
+    businessName: '',
+    birthday: '',
+    studyCenter: '',
+    training: undefined,
+    workplace: '',
+    workPosition: '',
+    workAddress: '',
+    status: undefined
   }
 
   const {
@@ -83,7 +83,7 @@ export default function StudentAdd (): JSX.Element {
     console.log('🚀 ~ file: add.tsx:83 ~ StudentAdd ~ data:', data)
 
     setIsSubmitting(true)
-    // addStudent(data)
+    addStudent(data)
   }, [addStudent])
 
   const onCancel = useCallback(() => { router.back() }, [router])

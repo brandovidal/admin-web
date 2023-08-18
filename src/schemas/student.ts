@@ -2,57 +2,73 @@ import { z } from 'zod'
 
 import { SelectSchema } from './select'
 
-const CountrySchema = z.string({ required_error: 'Enter your country.', invalid_type_error: 'Enter your country' })
+import { convertNullOrNumber } from '@/utils/number'
+import { convertNullOrString } from '@/utils/string'
+
+const CountrySchema = z.string({ required_error: 'Select your country.', invalid_type_error: 'Select your country' }).trim()
+const StatusSchema = z.string({ required_error: 'Select your status.', invalid_type_error: 'Select your status' }).trim()
+const TrainingSchema = z.string({ required_error: 'Select your training.', invalid_type_error: 'Select your training' }).trim()
 
 export const registerStudentSchema = z.object({
   name: z.string({ required_error: 'Enter your full name.' })
+    .trim()
     .min(3, { message: 'Enter a minimum of 3 characters.' })
-    .max(50, { message: 'Enter a maximum of 50 characters.' }),
+    .max(50, { message: 'Enter a maximum of 50 characters.' }).refine(val => val.trim()),
   lastname: z.string({ required_error: 'Enter your full name.' })
+    .trim()
     .min(3, { message: 'Enter a minimum of 3 characters.' })
     .max(50, { message: 'Enter a maximum of 50 characters.' }),
+  birthday: z.string({ required_error: 'Enter your birthday.' }).trim(),
   country: z.union([CountrySchema, SelectSchema]),
-  phone: z.string({ required_error: 'Enter your phone.' })
-    .min(9, { message: 'Enter a minimum of 9 characters.' })
-    .max(15, { message: 'Enter a maximum of 15 characters.' }).nullable(),
-  dni: z.string({ required_error: 'Enter your DNI.' })
-    .min(8, { message: 'Enter a minimum of 8 characters.' })
-    .max(11, { message: 'Enter a maximum of 11 characters.' }).nullish(),
+  phone: z.string({ required_error: 'Enter a phone.', invalid_type_error: 'Enter a phone' })
+    .trim()
+    .nullish()
+    .transform(val => convertNullOrNumber(val))
+    .pipe(
+      z.number({ required_error: 'Enter your phone.', invalid_type_error: 'Enter a valid phone' })
+        .gte(900_000_000, 'Phone must be greater than or equal to 900000000.')
+        .lte(999_999_999_999, 'Phone must be less than or equal to 999999999999')
+    ),
+  dni: z.string({ required_error: 'Enter your DNI.' }).trim().nullish().transform(val => convertNullOrNumber(val)),
   email: z.string({ required_error: 'Enter your email.' })
+    .trim()
     .min(5, { message: 'Enter a minimum of 5 characters.' })
     .max(50, { message: 'Enter a maximum of 50 characters.' })
     .email({ message: 'Enter a valid email address.' }),
-  ladline: z.string({ required_error: 'Enter your ladline.' })
-    .min(6, { message: 'Enter a minimum of 6 characters.' })
-    .max(12, { message: 'Enter a maximum of 12 characters.' }).nullish(),
-  ruc: z.string({ required_error: 'Enter your ruc.' })
-    .min(11, { message: 'Enter a minimum of 11 characters.' }).nullish(),
-  status: z.string({ required_error: 'Enter your status.' }).nullish(),
+  ladline: z.string({ required_error: 'Enter your ladline.' }).trim().nullish().transform(val => convertNullOrNumber(val)),
+  ruc: z.string({ required_error: 'Enter your ruc.' }).trim().nullish().transform(val => convertNullOrNumber(val)),
+  status: z.union([StatusSchema, SelectSchema]).nullish().transform(val => convertNullOrString(val)),
   businessName: z.string({ required_error: 'Enter your business name.' }).nullish(),
-  training: z.string({ required_error: 'Enter your training.' }).nullish(),
+  training: z.union([TrainingSchema, SelectSchema]).nullish().transform(val => convertNullOrString(val)),
   studyCenter: z.string({ required_error: 'Enter your study center.' }).nullish(),
   workplace: z.string({ required_error: 'Enter your workplace.' }).nullish(),
   workPosition: z.string({ required_error: 'Enter your work position.' }).nullish(),
   workAddress: z.string({ required_error: 'Enter your work address.' }).nullish()
 })
-  // .partial({ dni: true, ladline: true, ruc: true, businessName: true })
-  .transform(data => ({
-    ...data,
-    name: data.name.trim(),
-    lastname: data.name.trim(),
-    country: data.country,
-    phone: Number(data.phone),
-    dni: Number(data.dni),
-    email: data.email.trim().toLowerCase(),
-    ladline: Number(data.ladline),
-    ruc: Number(data.ruc),
-    status: data.status,
-    businessName: data.businessName?.trim(),
-    training: data.training,
-    studyCenter: data.studyCenter?.trim(),
-    workPosition: data.workPosition?.trim(),
-    workAddress: data.workAddress?.trim()
-  }))
+  .transform(data => {
+    console.log('🚀 ~ file: student.ts:41 ~ data:', data)
+
+    return {
+      ...data,
+      name: data.name.trim(),
+      lastname: data.name.trim(),
+      country: data.country,
+      email: data.email.trim().toLowerCase(),
+      status: data.status,
+      businessName: data.businessName?.trim(),
+      training: data.training,
+      studyCenter: data.studyCenter?.trim(),
+      workPosition: data.workPosition?.trim(),
+      workAddress: data.workAddress?.trim()
+    }
+  })
+// .refine(data => {
+//   console.log('🚀 ~ file: student.ts:71 ~ data:', data)
+
+//   return {
+//     ...data
+//   }
+// })
 
 export type RegisterStudentInput = z.infer<typeof registerStudentSchema>
 
