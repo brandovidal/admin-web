@@ -2,6 +2,8 @@ import { z } from 'zod'
 
 import { SelectSchema } from './select'
 
+const CountrySchema = z.string({ required_error: 'Enter your country.', invalid_type_error: 'Enter your country' })
+
 export const registerStudentSchema = z.object({
   name: z.string({ required_error: 'Enter your full name.' })
     .min(3, { message: 'Enter a minimum of 3 characters.' })
@@ -9,7 +11,7 @@ export const registerStudentSchema = z.object({
   lastname: z.string({ required_error: 'Enter your full name.' })
     .min(3, { message: 'Enter a minimum of 3 characters.' })
     .max(50, { message: 'Enter a maximum of 50 characters.' }),
-  country: SelectSchema,
+  country: z.union([CountrySchema, SelectSchema]),
   phone: z.string({ required_error: 'Enter your phone.' })
     .min(9, { message: 'Enter a minimum of 9 characters.' })
     .max(15, { message: 'Enter a maximum of 15 characters.' }).nullable(),
@@ -38,7 +40,7 @@ export const registerStudentSchema = z.object({
     ...data,
     name: data.name.trim(),
     lastname: data.name.trim(),
-    country: data.country?.value,
+    country: data.country,
     phone: Number(data.phone),
     dni: Number(data.dni),
     email: data.email.trim().toLowerCase(),

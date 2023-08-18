@@ -14,14 +14,14 @@ import Select from '@/common/Select/default'
 import Radio from '@/common/Radio/default'
 
 // constant
-import { MODALITY_OPTIONS, STATUS_OPTIONS, TRAINING_OPTIONS } from '@/constants/student'
+import { COUNTRY_OPTIONS, STATUS_OPTIONS, TRAINING_OPTIONS } from '@/constants/student'
 
 // styles
 import { Box, Button, Grid, GridItem, Heading, SimpleGrid } from '@chakra-ui/react'
 import { MdChevronLeft, MdSave } from 'react-icons/md'
 
 const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ViewAddProps): JSX.Element => {
-  const modalityOptions = useMemo(() => MODALITY_OPTIONS, [])
+  const modalityOptions = useMemo(() => COUNTRY_OPTIONS, [])
 
   const trainingOptions = useMemo(() => TRAINING_OPTIONS, [])
 

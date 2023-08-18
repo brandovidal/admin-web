@@ -1,3 +1,7 @@
+export const COUNTRY_OPTIONS = [
+  { label: 'Peru', value: 'PER' }
+]
+
 export const MODALITY_OPTIONS = [
   { label: 'Presencial', value: 'presentialModality' },
   { label: 'Semi Face To Face', value: 'semiPresentialModality' },

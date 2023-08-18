@@ -37,21 +37,21 @@ export default function StudentAdd (): JSX.Element {
     name: '',
     lastname: '',
     address: '',
-    dni: '',
-    country: '',
-    email: '',
-    phone: '',
-    phoneFormatted: '',
-    ladline: '',
-    ruc: '',
-    businessName: '',
-    birthday: '',
-    studyCenter: '',
-    training: '',
-    workplace: '',
-    workPosition: '',
-    workAddress: '',
-    status: ''
+    country: undefined
+    // phone: '',
+    // dni: '',
+    // email: '',
+    // phoneFormatted: '',
+    // ladline: '',
+    // ruc: '',
+    // businessName: '',
+    // birthday: '',
+    // studyCenter: '',
+    // training: '',
+    // workplace: '',
+    // workPosition: '',
+    // workAddress: '',
+    // status: ''
   }
 
   const {
@@ -59,8 +59,8 @@ export default function StudentAdd (): JSX.Element {
     handleSubmit,
     formState: { isValid }
   } = useForm<RegisterStudentInput>({
-    resolver: zodResolver(registerStudentSchema)
-    // defaultValues
+    resolver: zodResolver(registerStudentSchema),
+    defaultValues
   })
 
   const [alert, setAlert] = useState<AlertProps>()
@@ -83,7 +83,7 @@ export default function StudentAdd (): JSX.Element {
     console.log('🚀 ~ file: add.tsx:83 ~ StudentAdd ~ data:', data)
 
     setIsSubmitting(true)
-    addStudent(data)
+    // addStudent(data)
   }, [addStudent])
 
   const onCancel = useCallback(() => { router.back() }, [router])
