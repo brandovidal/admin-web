@@ -83,7 +83,7 @@ export default function StudentAdd (): JSX.Element {
     console.log('🚀 ~ file: add.tsx:83 ~ StudentAdd ~ data:', data)
 
     setIsSubmitting(true)
-    // addStudent(data)
+    addStudent(data)
   }, [addStudent])
 
   const onCancel = useCallback(() => { router.back() }, [router])
