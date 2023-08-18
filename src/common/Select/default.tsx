@@ -12,7 +12,7 @@ import type { SelectProps } from '@/interfaces/common/Select'
 
 import { ReactSelect } from '@/libs/ReactSelect/default'
 
-function Select ({ control, options = [], name, label = '', helperText = '', placeholder = 'Select an option', noOptionsMessage = 'No data available', isMulti = false, isSearchable = true, isClearable = true, isDisabled = false }: SelectProps): JSX.Element {
+function Default ({ control, options = [], name, label = '', helperText = '', placeholder = 'Select an option', noOptionsMessage = 'No data available', isMulti = false, isSearchable = true, isClearable = true, isDisabled = false }: SelectProps): JSX.Element {
   return (
     <Controller
       control={control}
@@ -45,4 +45,4 @@ function Select ({ control, options = [], name, label = '', helperText = '', pla
   )
 }
 
-export default Select
+export default Default

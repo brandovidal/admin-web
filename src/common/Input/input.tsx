@@ -11,7 +11,7 @@ const Custom = ({ type = 'text', label = '', value = '', placeholder, error, inv
   const textColor = useColorModeValue('secondaryGray.900', 'white')
 
   return (
-    <FormControl fontSize='12' isInvalid={invalid}>
+    <FormControl fontSize='sm' isInvalid={invalid}>
       <FormLabel>{label}</FormLabel>
       <Input
         type={type}

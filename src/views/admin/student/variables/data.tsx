@@ -35,6 +35,7 @@ function generateActions (student: Student, router: NextRouter, addStudent: (stu
     }
   ]
 }
+
 function Status (status = 'active'): JSX.Element {
   const data = {
     active: {

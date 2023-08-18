@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+
 // libs
 import isEmpty from 'just-is-empty'
 
@@ -9,17 +11,22 @@ import Alert from '@/common/Alert/default'
 import Card from '@/components/card/Card'
 import Input from '@/common/Input/default'
 import Select from '@/common/Select/default'
+import Radio from '@/common/Radio/default'
+
+// constant
+import { MODALITY_OPTIONS, STATUS_OPTIONS, TRAINING_OPTIONS } from '@/constants/student'
 
 // styles
 import { Box, Button, Grid, GridItem, Heading, SimpleGrid } from '@chakra-ui/react'
 import { MdChevronLeft, MdSave } from 'react-icons/md'
 
 const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ViewAddProps): JSX.Element => {
-  const modalityOptions = [
-    { label: 'Presencial', value: 'presentialModality' },
-    { label: 'Semi Face To Face', value: 'semiPresentialModality' },
-    { label: 'Virtual', value: 'virtualModality' }
-  ]
+  const modalityOptions = useMemo(() => MODALITY_OPTIONS, [])
+
+  const trainingOptions = useMemo(() => TRAINING_OPTIONS, [])
+
+  const statusOptions = useMemo(() => STATUS_OPTIONS, [])
+
   return (
     <form onSubmit={onSubmit}>
       {!isEmpty(alert) && <Alert status={alert?.status} message={alert?.message} />}
@@ -47,26 +54,26 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
                 Personal Information
               </Heading>
 
-              <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing={{ sm: 6, md: 8 }}>
+              <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing={{ base: 6, md: 8 }}>
                 <Input control={control} type='text' name='name' label='Name' placeholder='Enter full names' maxLength={50} helperText='Enter full names to issue your certificate' disabled={isSubmitting} />
 
                 <Input control={control} type='text' name='lastname' label='Lastname' placeholder='Enter full surnames' maxLength={50} helperText='Enter full surnames to issue your certificate' disabled={isSubmitting} />
 
-                <Select control={control} options={modalityOptions} name='country' label='Country' placeholder='Select a country' isDisabled={isSubmitting} />
+                <Select control={control} name='country' label='Country' options={modalityOptions} placeholder='Select a country' isDisabled={isSubmitting} />
 
                 <Input control={control} type='tel' name='phone' label='Phone' placeholder='987654321' maxLength={15} disabled={isSubmitting} />
 
                 <Input control={control} type='tel' name='dni' label='DNI' placeholder='87654321' maxLength={8} disabled={isSubmitting} />
 
-                <Input control={control} type='email' name='email' label='Phone' placeholder='Enter your email' maxLength={50} disabled={isSubmitting} />
+                <Input control={control} type='email' name='email' label='Email' placeholder='Enter your email' maxLength={50} disabled={isSubmitting} />
 
-                <Input control={control} type='tel' name='ladline' label='Ladline' placeholder='Enter your ladline' maxLength={15} disabled={isSubmitting} />
+                <Input control={control} type='tel' name='ladline' label='Ladline' placeholder='Enter your ladline' maxLength={12} disabled={isSubmitting} />
 
                 <Input control={control} type='tel' name='ruc' label='RUC' placeholder='10876543210' maxLength={11} disabled={isSubmitting} />
 
-                <Input control={control} type='radio' name='status' label='Status' disabled={isSubmitting} />
+                <Radio control={control} name='status' label='Status' options={statusOptions} disabled={isSubmitting} />
 
-                <Input control={control} type='text' name='businessName' label='Business Name' placeholder='Enter your businessName' maxLength={50} disabled={isSubmitting} />
+                <Input control={control} type='text' name='businessName' label='Business Name' placeholder='Enter your business name' maxLength={50} disabled={isSubmitting} />
               </SimpleGrid>
             </Box>
           </Card>
@@ -79,8 +86,8 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
                 Academic Information
               </Heading>
 
-              <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing={{ sm: 6, md: 8 }}>
-                <Input control={control} type='radio' name='training' label='Academic Formation' disabled={isSubmitting} />
+              <SimpleGrid columns={{ base: 1 }} spacing={{ base: 6, md: 8 }}>
+                <Radio control={control} name='training' label='Academic Formation' options={trainingOptions} disabled={isSubmitting} />
 
                 <Input control={control} type='text' name='studyCenter' label='Name' placeholder='Enter your university / institute' maxLength={50} disabled={isSubmitting} />
               </SimpleGrid>
@@ -95,7 +102,7 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
                 Employment Information
               </Heading>
 
-              <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing={{ sm: 6, md: 8 }}>
+              <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing={{ base: 6, md: 8 }}>
                 <Input control={control} type='text' name='workplace' label='Work center (Optional)' placeholder='Enter your work center' maxLength={50} disabled={isSubmitting} />
 
                 <Input control={control} type='text' name='workPosition' label='Position (Optional)' placeholder='Enter your position' maxLength={50} disabled={isSubmitting} />

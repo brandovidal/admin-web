@@ -33,12 +33,34 @@ export default function StudentAdd (): JSX.Element {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  const defaultValues = {
+    name: '',
+    lastname: '',
+    address: '',
+    dni: '',
+    country: '',
+    email: '',
+    phone: '',
+    phoneFormatted: '',
+    ladline: '',
+    ruc: '',
+    businessName: '',
+    birthday: '',
+    studyCenter: '',
+    training: '',
+    workplace: '',
+    workPosition: '',
+    workAddress: '',
+    status: ''
+  }
+
   const {
     control,
     handleSubmit,
     formState: { isValid }
   } = useForm<RegisterStudentInput>({
     resolver: zodResolver(registerStudentSchema)
+    // defaultValues
   })
 
   const [alert, setAlert] = useState<AlertProps>()
@@ -58,9 +80,10 @@ export default function StudentAdd (): JSX.Element {
   const { mutate: addStudent } = useCreateStudent({ onSuccess, onError })
 
   const useOnSubmit: SubmitHandler<RegisterStudentInput> = useCallback(data => {
+    console.log('🚀 ~ file: add.tsx:83 ~ StudentAdd ~ data:', data)
+
     setIsSubmitting(true)
-    console.log(data)
-    addStudent(data)
+    // addStudent(data)
   }, [addStudent])
 
   const onCancel = useCallback(() => { router.back() }, [router])
