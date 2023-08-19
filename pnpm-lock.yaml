@@ -46,6 +46,9 @@ dependencies:
   axios:
     specifier: 1.4.0
     version: 1.4.0
+  classnames:
+    specifier: 2.3.2
+    version: 2.3.2
   dayjs:
     specifier: 1.11.9
     version: 1.11.9
@@ -91,6 +94,9 @@ dependencies:
   react-is:
     specifier: 18.2.0
     version: 18.2.0
+  react-number-format:
+    specifier: 5.3.0
+    version: 5.3.0(react-dom@18.2.0)(react@18.2.0)
   react-select:
     specifier: 5.7.4
     version: 5.7.4(@types/react@18.2.7)(react-dom@18.2.0)(react@18.2.0)
@@ -2354,6 +2360,10 @@ packages:
     resolution: {integrity: sha512-eXTggHWSooYhq49F2opQhuHWgzucfF2YgODK4e1566GQs5BIfP30B0oenwBJHfWxAs2fyPB1s7Mg949zLf61Yw==}
     engines: {node: '>=8'}
 
+  /classnames@2.3.2:
+    resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
+    dev: false
+
   /client-only@0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
     dev: false
@@ -4550,6 +4560,17 @@ packages:
 
   /react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
+
+  /react-number-format@5.3.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-3h5kuO5x9HpifEgCzvw6kDljzjsI3OhgnT/BRzZbzdbHVb755eVzJuNnRUZr3h/ATu3Sct9O+XrYc9HrAj/6bQ==}
+    peerDependencies:
+      react: ^0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /react-remove-scroll-bar@2.3.4(@types/react@18.2.7)(react@18.2.0):
     resolution: {integrity: sha512-63C4YQBUt0m6ALadE9XV56hV8BgJWDmmTPY758iIJjfQKt2nYwoUrPk0LXRXcB/yIj82T1/Ixfdpdk68LwIB0A==}

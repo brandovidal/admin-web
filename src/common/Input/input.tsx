@@ -7,7 +7,7 @@ import type { InputProps } from '@/interfaces/common/Input'
 // libs
 import isEmpty from 'just-is-empty'
 
-const Custom = ({ type = 'text', label = '', value = '', placeholder, error, invalid, disabled = false, hasAutoComplete = true, onChange }: InputProps): JSX.Element => {
+const CustomInput = ({ type = 'text', label = '', value = '', placeholder, error, invalid, disabled = false, hasAutoComplete = true, onChange }: InputProps): JSX.Element => {
   const textColor = useColorModeValue('secondaryGray.900', 'white')
 
   return (
@@ -32,4 +32,4 @@ const Custom = ({ type = 'text', label = '', value = '', placeholder, error, inv
   )
 }
 
-export default Custom
+export default CustomInput

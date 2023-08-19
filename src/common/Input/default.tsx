@@ -10,7 +10,7 @@ import { Controller } from 'react-hook-form'
 // libs
 import isEmpty from 'just-is-empty'
 
-function Default ({ control, name, type = 'text', label = '', helperText = '', placeholder, maxLength, disabled = false, hasAutoComplete = true }: InputProps): JSX.Element {
+function DefaultInput ({ control, name, type = 'text', label = '', helperText = '', placeholder, maxLength, disabled = false, hasAutoComplete = true }: InputProps): JSX.Element {
   const inputColor = useColorModeValue('secondaryGray.800', 'white')
   const labelColor = useColorModeValue('gray.800', 'whiteAlpha.800')
 
@@ -40,4 +40,4 @@ function Default ({ control, name, type = 'text', label = '', helperText = '', p
   )
 }
 
-export default Default
+export default DefaultInput

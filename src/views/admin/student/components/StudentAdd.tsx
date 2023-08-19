@@ -10,6 +10,7 @@ import type { ViewAddProps } from '@/interfaces/views/default'
 import Alert from '@/common/Alert/default'
 import Card from '@/components/card/Card'
 import Input from '@/common/Input/default'
+import NumberInput from '@/common/Input/number'
 import Select from '@/common/Select/default'
 import Radio from '@/common/Radio/default'
 
@@ -63,7 +64,7 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
 
                 <Select control={control} name='country' label='Country' options={modalityOptions} placeholder='Select a country' isDisabled={isSubmitting} />
 
-                <Input control={control} type='tel' name='phone' label='Phone' placeholder='987654321' maxLength={12} disabled={isSubmitting} />
+                <NumberInput control={control} type='tel' name='phone' label='Phone' placeholder='987654321' maxLength={12} disabled={isSubmitting} />
 
                 <Input control={control} type='tel' name='dni' label='DNI' placeholder='87654321' maxLength={8} disabled={isSubmitting} />
 
