@@ -36,6 +36,7 @@ export default function StudentAdd (): JSX.Element {
   const defaultValues = {
     name: '',
     lastname: '',
+    birthday: undefined,
     address: '',
     country: undefined,
     phone: undefined,
@@ -45,7 +46,6 @@ export default function StudentAdd (): JSX.Element {
     ladline: undefined,
     ruc: undefined,
     businessName: '',
-    birthday: '',
     studyCenter: '',
     training: undefined,
     workplace: '',
@@ -83,7 +83,7 @@ export default function StudentAdd (): JSX.Element {
     console.log('🚀 ~ file: add.tsx:83 ~ StudentAdd ~ data:', data)
 
     setIsSubmitting(true)
-    addStudent(data)
+    // addStudent(data)
   }, [addStudent])
 
   const onCancel = useCallback(() => { router.back() }, [router])
