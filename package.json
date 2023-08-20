@@ -2,6 +2,9 @@
   "name": "nextjs-chakra-ui-skeleton",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "NODE_ENV='development' next dev",
     "build": "next build && next export",

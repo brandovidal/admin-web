@@ -10,7 +10,7 @@ import { Controller } from 'react-hook-form'
 // libs
 import isEmpty from 'just-is-empty'
 
-function DefaultInput ({ control, name, type = 'text', label = '', helperText = '', placeholder, maxLength, disabled = false, hasAutoComplete = true }: InputProps): JSX.Element {
+function DefaultInput ({ control, rules, name, type = 'text', label = '', helperText = '', placeholder, maxLength, disabled = false, hasAutoComplete = true }: InputProps): JSX.Element {
   const inputColor = useColorModeValue('secondaryGray.800', 'white')
   const labelColor = useColorModeValue('gray.800', 'whiteAlpha.800')
 
@@ -18,6 +18,7 @@ function DefaultInput ({ control, name, type = 'text', label = '', helperText = 
     <Controller
       control={control}
       name={name}
+      rules={rules}
       render={({ field: { onChange, value = '' }, fieldState: { error, invalid } }) => (
         <FormControl fontSize='sm' isInvalid={invalid} >
           <FormLabel color={labelColor} fontWeight='medium'>{label}</FormLabel>
