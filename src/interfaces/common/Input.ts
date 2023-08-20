@@ -4,6 +4,7 @@ import type { FieldError } from 'react-hook-form'
 export interface InputProps {
   name: string
   control?: any
+  rules?: any
   type?: React.HTMLInputTypeAttribute
   label?: string
   value?: string
