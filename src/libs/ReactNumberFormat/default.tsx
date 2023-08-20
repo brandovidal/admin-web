@@ -3,9 +3,9 @@ import { PatternFormat } from 'react-number-format'
 import { Input, useColorMode } from '@chakra-ui/react'
 import classNames from 'classnames'
 
-import { NO_OP, ASTERIK_SYMBOL } from '@/constants/default'
+import { NO_OP, PHONE_PLACEHOLDER } from '@/constants/default'
 
-import { type ReactNumberFormatProps } from '@/interfaces/common/Number'
+import { type ReactNumberFormatProps } from '@/interfaces/libs/ReactNumberFormat'
 
 export const ReactNumberFormat = ({
   type = 'tel',
@@ -23,7 +23,7 @@ export const ReactNumberFormat = ({
   const { colorMode } = useColorMode()
   const isDark = colorMode === 'dark'
 
-  const formatValue = format === '' ? String(ASTERIK_SYMBOL).repeat(maxLength) : format
+  const formatValue = format === '' ? String(PHONE_PLACEHOLDER).repeat(maxLength) : format
 
   const className = classNames(
     'custom-datapicker-input',

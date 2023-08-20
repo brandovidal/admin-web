@@ -16,12 +16,13 @@ import Radio from '@/common/Radio/default'
 
 // constant
 import { COUNTRY_OPTIONS, STATUS_OPTIONS, TRAINING_OPTIONS } from '@/constants/student'
+import { PHONE_PREFIX } from '@/constants/default'
 
 // styles
 import { Box, Button, Grid, GridItem, Heading, SimpleGrid } from '@chakra-ui/react'
 import { MdChevronLeft, MdSave } from 'react-icons/md'
 
-const StudentAddView = ({ control, watch, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ViewAddProps): JSX.Element => {
+const StudentAddView = ({ control, watch, setValue, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ViewAddProps): JSX.Element => {
   const countryOptions = useMemo(() => COUNTRY_OPTIONS, [])
 
   const trainingOptions = useMemo(() => TRAINING_OPTIONS, [])
@@ -32,16 +33,14 @@ const StudentAddView = ({ control, watch, alert, isSubmitting = false, isDisable
   const phone = watch('phone', null)
 
   const phoneCodeText = useMemo(() => {
-    if (isEmpty(country) || isEmpty(phone)) return '+'
-
-    console.log({ country, countryOptions })
+    if (isEmpty(country) || isEmpty(phone)) return PHONE_PREFIX
 
     const phoneCode = countryOptions.find((option) => option.value === country.value)?.phoneCode as string
-    if (isEmpty(phoneCode)) return '+'
+    if (isEmpty(phoneCode)) return PHONE_PREFIX
 
-    // setValue('phoneCode', phoneCode)
-    return `+${phoneCode}`
-  }, [country, phone, countryOptions])
+    setValue('phoneCode', phoneCode)
+    return `${PHONE_PREFIX}${phoneCode}`
+  }, [country, phone, countryOptions, setValue])
 
   return (
     <form onSubmit={onSubmit}>

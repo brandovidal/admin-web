@@ -58,6 +58,7 @@ export default function StudentAdd (): JSX.Element {
     control,
     handleSubmit,
     watch,
+    setValue,
     formState: { isValid }
   } = useForm<RegisterStudentInput>({
     resolver: zodResolver(registerStudentSchema),
@@ -74,17 +75,34 @@ export default function StudentAdd (): JSX.Element {
   }
 
   const onError = (): void => {
-    setAlert({ message: 'El usuario o correo ya existe', status: 'warning' })
-    showErrorToast({ title: 'El usuario o correo ya existe', description: 'Por favor, ingresar otro usuario o correo' })
+    setAlert({ message: "Student can't save", status: 'warning' })
+    showErrorToast({ title: "Student can't save", description: 'Please, verify your data' })
   }
 
   const { mutate: addStudent } = useCreateStudent({ onSuccess, onError })
 
   const useOnSubmit: SubmitHandler<RegisterStudentInput> = useCallback(data => {
-    console.log('🚀 ~ file: add.tsx:83 ~ StudentAdd ~ data:', data)
+    const { training, ...rest } = data
 
-    setIsSubmitting(true)
-    // addStudent(data)
+    const status = data.status === 'active'
+
+    const postgraduateTraining = training === 'postgraduateTraining'
+    const graduateTraining = training === 'graduateTraining'
+    const bachelorTraining = training === 'bachelorTraining'
+    const studentTraining = training === 'studentTraining'
+
+    const studentData = {
+      ...rest,
+      status,
+      postgraduateTraining,
+      graduateTraining,
+      bachelorTraining,
+      studentTraining
+    }
+    console.log('🚀 ~ file: add.tsx:90 ~ StudentAdd ~ studentData:', studentData)
+
+    setIsSubmitting(false)
+    addStudent(studentData)
   }, [addStudent])
 
   const onCancel = useCallback(() => { router.back() }, [router])
@@ -92,7 +110,7 @@ export default function StudentAdd (): JSX.Element {
   return (
     <AdminLayout navbarText='Add Student'>
       <Box pt={{ base: '28', md: '24', xl: '24' }}>
-        <StudentAddView control={control} watch={watch} alert={alert} isDisabled={!isValid || isSubmitting} isSubmitting={isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
+        <StudentAddView control={control} watch={watch} setValue={setValue} alert={alert} isDisabled={!isValid || isSubmitting} isSubmitting={isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
       </Box>
     </AdminLayout>
   )

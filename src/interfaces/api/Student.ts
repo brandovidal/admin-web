@@ -13,6 +13,7 @@ export interface Student {
   businessName?: string | null
   address?: string | null
   country?: object | string | null
+  phoneCode?: string | null
   phone?: number | string | null
   phoneWithFormat?: string | null
   ladline?: number | null
@@ -25,7 +26,7 @@ export interface Student {
   workplace?: string | null
   workPosition?: string | null
   workAddress?: string | null
-  status?: StudentStatusEnumType | object | string | null
+  status?: StudentStatusEnumType | object | string | boolean | null
   createdAt?: string
   updatedAt?: string
 }

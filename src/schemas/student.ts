@@ -7,6 +7,7 @@ import { convertNullOrString } from '@/utils/string'
 // schemas
 import { SelectSchema } from './select'
 import { NumberSchema } from './number'
+import { saveDate } from '@/utils/date'
 
 const CountrySchema = z.string({ required_error: 'Select your country.', invalid_type_error: 'Select your country.' }).trim()
 const StatusSchema = z.string({ required_error: 'Select your status.', invalid_type_error: 'Select your status.' }).trim()
@@ -32,6 +33,7 @@ export const registerStudentSchema = z.object({
     .max(50, { message: 'Enter a maximum of 50 characters.' }),
   birthday: z.string({ required_error: 'Enter your birthday.' }).trim(),
   country: z.union([CountrySchema, SelectSchema]),
+  phoneCode: z.string({ required_error: 'Enter your phone code.' }),
   phone: z.union([PhoneSchema, NumberSchema]),
   dni: z.string({ required_error: 'Enter your DNI.' }).trim().nullish().transform(val => convertNullOrNumber(val)),
   email: z.string({ required_error: 'Enter your email.' })
@@ -56,6 +58,7 @@ export const registerStudentSchema = z.object({
       ...data,
       name: data.name.trim(),
       lastname: data.name.trim(),
+      birthday: saveDate(data.birthday),
       email: data.email.trim().toLowerCase(),
       businessName: data.businessName?.trim(),
       studyCenter: data.studyCenter?.trim(),
