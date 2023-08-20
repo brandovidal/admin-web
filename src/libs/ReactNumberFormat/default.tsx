@@ -1,27 +1,25 @@
 import { PatternFormat } from 'react-number-format'
 
+import { Input, useColorMode } from '@chakra-ui/react'
 import classNames from 'classnames'
-import { useColorMode } from '@chakra-ui/react'
 
 import { NO_OP, ASTERIK_SYMBOL } from '@/constants/default'
+
+import { type ReactNumberFormatProps } from '@/interfaces/common/Number'
 
 export const ReactNumberFormat = ({
   type = 'tel',
   value = '',
+  inputColor = '',
   maxLength = 8,
   placeholder = '87654321',
   prefix = '',
   format = '',
   mask = '',
-  decimalScale = 2,
-  fixedDecimalScale = true,
-  thousandSeparator = true,
-  allowLeadingZeros = true,
-  errors = false,
+  invalid = false,
   disabled = false,
-  onValueChange = NO_OP,
-  other
-}): JSX.Element => {
+  onValueChange = NO_OP
+}: ReactNumberFormatProps): JSX.Element => {
   const { colorMode } = useColorMode()
   const isDark = colorMode === 'dark'
 
@@ -30,29 +28,28 @@ export const ReactNumberFormat = ({
   const className = classNames(
     'custom-datapicker-input',
     !isDark || 'custom-datapicker-input-dark',
-    !errors || 'custom-datapicker-input-error',
-    (!errors && !isDark) || 'custom-datapicker-input-error-dark'
+    !invalid || 'custom-datapicker-input-error',
+    (!invalid && isDark) || 'custom-datapicker-input-error-dark'
   )
+
+  console.log('value', value)
 
   return (
     <PatternFormat
-      itemRef='input'
-      {...other}
       type={type}
+      customInput={Input}
+      className={className}
+      color={inputColor}
       autoComplete='off'
-      // maxLength={maxLength}
-      // className={className}
-      // placeholder={placeholder}
-      // prefix={prefix}
-      // format={formatValue}
-      // mask={mask}
-      // decimalScale={decimalScale}
-      // fixedDecimalScale={fixedDecimalScale}
-      // thousandSeparator={thousandSeparator}
-      // allowLeadingZeros={allowLeadingZeros}
+      format={formatValue}
+      maxLength={maxLength}
+      placeholder={placeholder}
+      prefix={prefix}
+      mask={mask}
+      disabled={disabled}
       value={value}
       onValueChange={onValueChange}
-    //   disabled={disabled}
+      valueIsNumericString={true}
     />
   )
 }

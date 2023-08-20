@@ -1,54 +1,52 @@
 // styles
 import { FormControl, FormHelperText, FormLabel, Text, useColorModeValue } from '@chakra-ui/react'
 
-// interfaces
-import type { NumberProps } from '@/interfaces/common/Number'
-
 // form
 import { Controller } from 'react-hook-form'
 
-// libs
 import isEmpty from 'just-is-empty'
+
+// interfaces
+import type { NumberProps } from '@/interfaces/common/Number'
+
+// libs
 import { ReactNumberFormat } from '@/libs/ReactNumberFormat/default'
 
 function NumberInput ({
   control,
   name,
-  type,
+  format,
+  type = 'tel',
   label,
   helperText,
   placeholder,
   prefix,
   mask,
   maxLength,
-  decimalScale,
-  fixedDecimalScale,
-  thousandSeparator,
-  allowLeadingZeros,
   disabled
 }: NumberProps): JSX.Element {
   const labelColor = useColorModeValue('gray.800', 'whiteAlpha.800')
+  const inputColor = useColorModeValue('secondaryGray.800', 'white')
 
   return (
     <Controller
       control={control}
       name={name}
-      render={({ field: { onChange, ...other }, fieldState: { error, invalid } }) => (
+      render={({ field: { onChange, value = '' }, fieldState: { error, invalid } }) => (
         <FormControl fontSize='sm' isInvalid={invalid} >
           <FormLabel color={labelColor} fontWeight='medium'>{label}</FormLabel>
           <ReactNumberFormat
             type={type}
+            inputColor={inputColor}
+            format={format}
             maxLength={maxLength}
             placeholder={placeholder}
             prefix={prefix}
             mask={mask}
-            decimalScale={decimalScale}
-            thousandSeparator={fixedDecimalScale}
-            fixedDecimalScale={thousandSeparator}
-            allowLeadingZeros={allowLeadingZeros}
             onValueChange={onChange}
+            value={value}
             disabled={disabled}
-            other={other}
+            invalid={invalid}
           />
           {!isEmpty(error?.message) && (<Text color='red.300' mt='2'>{error?.message}</Text>)}
           {!isEmpty(helperText) && (<FormHelperText color='secondaryGray.500'>{helperText}</FormHelperText>)}

@@ -1,13 +1,25 @@
 import { z } from 'zod'
 
-import { SelectSchema } from './select'
-
+// utils
 import { convertNullOrNumber } from '@/utils/number'
 import { convertNullOrString } from '@/utils/string'
 
-const CountrySchema = z.string({ required_error: 'Select your country.', invalid_type_error: 'Select your country' }).trim()
-const StatusSchema = z.string({ required_error: 'Select your status.', invalid_type_error: 'Select your status' }).trim()
-const TrainingSchema = z.string({ required_error: 'Select your training.', invalid_type_error: 'Select your training' }).trim()
+// schemas
+import { SelectSchema } from './select'
+import { NumberSchema } from './number'
+
+const CountrySchema = z.string({ required_error: 'Select your country.', invalid_type_error: 'Select your country.' }).trim()
+const StatusSchema = z.string({ required_error: 'Select your status.', invalid_type_error: 'Select your status.' }).trim()
+const TrainingSchema = z.string({ required_error: 'Select your training.', invalid_type_error: 'Select your training.' }).trim()
+const PhoneSchema = z.string({ required_error: 'Enter a phone.', invalid_type_error: 'Enter a phone.' })
+  .trim()
+  .nullish()
+  .transform(val => convertNullOrNumber(val))
+  .pipe(
+    z.number({ required_error: 'Enter your phone.', invalid_type_error: 'Enter a valid phone.' })
+      .gte(900_000_000, 'Phone must be greater than or equal to 900000000.')
+      .lte(999_999_999_999, 'Phone must be less than or equal to 999999999999.')
+  )
 
 export const registerStudentSchema = z.object({
   name: z.string({ required_error: 'Enter your full name.' })
@@ -20,15 +32,7 @@ export const registerStudentSchema = z.object({
     .max(50, { message: 'Enter a maximum of 50 characters.' }),
   birthday: z.string({ required_error: 'Enter your birthday.' }).trim(),
   country: z.union([CountrySchema, SelectSchema]),
-  phone: z.string({ required_error: 'Enter a phone.', invalid_type_error: 'Enter a phone' })
-    .trim()
-    .nullish()
-    .transform(val => convertNullOrNumber(val))
-    .pipe(
-      z.number({ required_error: 'Enter your phone.', invalid_type_error: 'Enter a valid phone' })
-        .gte(900_000_000, 'Phone must be greater than or equal to 900000000.')
-        .lte(999_999_999_999, 'Phone must be less than or equal to 999999999999')
-    ),
+  phone: z.union([PhoneSchema, NumberSchema]),
   dni: z.string({ required_error: 'Enter your DNI.' }).trim().nullish().transform(val => convertNullOrNumber(val)),
   email: z.string({ required_error: 'Enter your email.' })
     .trim()
@@ -62,13 +66,6 @@ export const registerStudentSchema = z.object({
       workAddress: data.workAddress?.trim()
     }
   })
-// .refine(data => {
-//   console.log('🚀 ~ file: student.ts:71 ~ data:', data)
-
-//   return {
-//     ...data
-//   }
-// })
 
 export type RegisterStudentInput = z.infer<typeof registerStudentSchema>
 
