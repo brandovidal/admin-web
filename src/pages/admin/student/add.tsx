@@ -33,12 +33,35 @@ export default function StudentAdd (): JSX.Element {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  const defaultValues = {
+    name: '',
+    lastname: '',
+    birthday: undefined,
+    address: '',
+    country: undefined,
+    phone: undefined,
+    dni: undefined,
+    email: '',
+    phoneFormatted: '',
+    ladline: undefined,
+    ruc: undefined,
+    businessName: '',
+    studyCenter: '',
+    training: undefined,
+    workplace: '',
+    workPosition: '',
+    workAddress: '',
+    status: undefined
+  }
+
   const {
     control,
     handleSubmit,
+    watch,
     formState: { isValid }
   } = useForm<RegisterStudentInput>({
-    resolver: zodResolver(registerStudentSchema)
+    resolver: zodResolver(registerStudentSchema),
+    defaultValues
   })
 
   const [alert, setAlert] = useState<AlertProps>()
@@ -58,9 +81,10 @@ export default function StudentAdd (): JSX.Element {
   const { mutate: addStudent } = useCreateStudent({ onSuccess, onError })
 
   const useOnSubmit: SubmitHandler<RegisterStudentInput> = useCallback(data => {
+    console.log('🚀 ~ file: add.tsx:83 ~ StudentAdd ~ data:', data)
+
     setIsSubmitting(true)
-    console.log(data)
-    addStudent(data)
+    // addStudent(data)
   }, [addStudent])
 
   const onCancel = useCallback(() => { router.back() }, [router])
@@ -68,7 +92,7 @@ export default function StudentAdd (): JSX.Element {
   return (
     <AdminLayout navbarText='Add Student'>
       <Box pt={{ base: '28', md: '24', xl: '24' }}>
-        <StudentAddView control={control} alert={alert} isDisabled={!isValid || isSubmitting} isSubmitting={isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
+        <StudentAddView control={control} watch={watch} alert={alert} isDisabled={!isValid || isSubmitting} isSubmitting={isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
       </Box>
     </AdminLayout>
   )

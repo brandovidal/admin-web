@@ -12,20 +12,20 @@ export interface Student {
   ruc?: number | null
   businessName?: string | null
   address?: string | null
-  country?: string | null
-  phone?: number | null
+  country?: object | string | null
+  phone?: number | string | null
   phoneWithFormat?: string | null
   ladline?: number | null
   ladlineWithFormat?: string | null
-  postgradoTraining?: boolean | null
-  qualifiedTraining?: boolean | null
-  highSchoolTraining?: boolean | null
+  postgraduateTraining?: boolean | null
+  graduateTraining?: boolean | null
+  bachelorTraining?: boolean | null
   studentTraining?: boolean | null
   studyCenter?: string | null
   workplace?: string | null
   workPosition?: string | null
   workAddress?: string | null
-  status?: StudentStatusEnumType
+  status?: StudentStatusEnumType | object | string | null
   createdAt?: string
   updatedAt?: string
 }

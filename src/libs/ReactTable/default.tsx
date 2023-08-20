@@ -1,6 +1,6 @@
 import { Center, Flex, Table, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react'
 
-import type { ReactTableProps } from '@/interfaces/common/Table'
+import type { ReactTableProps } from '@/interfaces/libs/ReactTable'
 
 const ReactTable = ({
   getTableProps,

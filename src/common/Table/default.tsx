@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { Flex, Text, useColorModeValue } from '@chakra-ui/react'
 
-import ReactTable from '@/libs/ReactTable/ReactTable'
+import ReactTable from '@/libs/ReactTable/default'
 import Pagination from '@/libs/ReactTable/Pagination'
 import { PageSizeFilter } from '@/libs/ReactTable/PageSizeFilter'
 import { GlobalFilter } from '@/libs/ReactTable/GlobalFilter'

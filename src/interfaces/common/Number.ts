@@ -1,18 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { FieldError } from 'react-hook-form'
+import type { ReactNumberFormatProps } from '../libs/ReactNumberFormat'
 
-export interface InputProps {
+export interface NumberProps extends ReactNumberFormatProps {
   name: string
   control?: any
-  type?: React.HTMLInputTypeAttribute
   label?: string
-  value?: string
+  leftIconText?: string
+  rightIconText?: string
   placeholder?: string
   helperText?: string
-  maxLength?: number
   error?: FieldError
-  invalid?: boolean
-  disabled?: boolean
-  hasAutoComplete?: boolean
+  value?: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }

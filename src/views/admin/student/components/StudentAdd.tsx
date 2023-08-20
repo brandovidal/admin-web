@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+
 // libs
 import isEmpty from 'just-is-empty'
 
@@ -8,39 +10,88 @@ import type { ViewAddProps } from '@/interfaces/views/default'
 import Alert from '@/common/Alert/default'
 import Card from '@/components/card/Card'
 import Input from '@/common/Input/default'
+import NumberInput from '@/common/Input/number'
+import Select from '@/common/Select/default'
+import Radio from '@/common/Radio/default'
+
+// constant
+import { COUNTRY_OPTIONS, STATUS_OPTIONS, TRAINING_OPTIONS } from '@/constants/student'
 
 // styles
 import { Box, Button, Grid, GridItem, Heading, SimpleGrid } from '@chakra-ui/react'
 import { MdChevronLeft, MdSave } from 'react-icons/md'
 
-const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ViewAddProps): JSX.Element => {
+const StudentAddView = ({ control, watch, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ViewAddProps): JSX.Element => {
+  const countryOptions = useMemo(() => COUNTRY_OPTIONS, [])
+
+  const trainingOptions = useMemo(() => TRAINING_OPTIONS, [])
+
+  const statusOptions = useMemo(() => STATUS_OPTIONS, [])
+
+  const country = watch('country', null)
+  const phone = watch('phone', null)
+
+  const phoneCodeText = useMemo(() => {
+    if (isEmpty(country) || isEmpty(phone)) return '+'
+
+    console.log({ country, countryOptions })
+
+    const phoneCode = countryOptions.find((option) => option.value === country.value)?.phoneCode as string
+    if (isEmpty(phoneCode)) return '+'
+
+    // setValue('phoneCode', phoneCode)
+    return `+${phoneCode}`
+  }, [country, phone, countryOptions])
+
   return (
     <form onSubmit={onSubmit}>
       {!isEmpty(alert) && <Alert status={alert?.status} message={alert?.message} />}
 
-      <Grid mb='20px' templateColumns='repeat(2, 1fr)' gap={{ base: '6', lg: '12' }}>
+      <Grid
+        templateColumns='repeat(2, 1fr)'
+        gap={{ base: '6', lg: '12' }}
+        mb='20px'
+      >
         <GridItem colSpan={{ base: 2 }}>
           <Box display='flex' justifyContent='flex-end' alignItems='center' mt={2} gap={4}>
-            <Button type='button' leftIcon={<MdChevronLeft />} fontSize='md' variant='outline' fontWeight='500' p={6} isDisabled={isSubmitting && isDisabled} onClick={onCancel}>
-              Regresar
+            <Button type='button' leftIcon={<MdChevronLeft />} fontSize='md' variant='outline' fontWeight='400' p={6} isDisabled={isSubmitting && isDisabled} onClick={onCancel}>
+              Back
             </Button>
-            <Button type='submit' leftIcon={<MdSave />} fontSize='md' variant='brand' fontWeight='500' p={6} isDisabled={isSubmitting && isDisabled}>
-              {isSubmitting ? 'Agregando...' : 'Agregar'}
+            <Button type='submit' leftIcon={<MdSave />} fontSize='md' variant='brand' fontWeight='400' p={6} isDisabled={isSubmitting && isDisabled}>
+              {isSubmitting ? 'Adding...' : 'Add'}
             </Button>
           </Box>
         </GridItem>
 
         <GridItem colSpan={{ base: 2, md: 1 }} rowSpan={{ base: 1, md: 2 }}>
           <Card flexDirection='column' w='100%' px='0px'>
-            <Box margin={{ base: 6, lg: 10 }}>
-              <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing='8'>
-                <Heading as='h3' size='md' fontWeight='500' mb='0'>
-                  Información personal
-                </Heading>
+            <Box margin={{ base: 6, lg: 8 }}>
+              <Heading as='h3' size='md' fontWeight='bold' mb={{ base: 4, md: 6 }}>
+                Personal Information
+              </Heading>
 
-                <Input control={control} name='name' label='Nombre' placeholder='Ingresa tu nombre' helperText='Ingresar nombres completos para su emitir su certificado' disabled={isSubmitting} />
+              <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing={{ base: 6, md: 8 }}>
+                <Input control={control} type='text' name='name' label='Name' placeholder='Enter full names' maxLength={50} helperText='Enter full names to issue your certificate' disabled={isSubmitting} />
 
-                <Input control={control} name='lastname' label='Apellidos' placeholder='Ingresa tu apellido' helperText='Ingresar apellidos completos para su emitir su certificado' disabled={isSubmitting} />
+                <Input control={control} type='text' name='lastname' label='Lastname' placeholder='Enter full surnames' maxLength={50} helperText='Enter full surnames to issue your certificate' disabled={isSubmitting} />
+
+                <Input control={control} type='date' name='birthday' label='Birthday' placeholder='Enter birthday' disabled={isSubmitting} />
+
+                <Select control={control} name='country' label='Country' options={countryOptions} placeholder='Select a country' isDisabled={isSubmitting} />
+
+                <NumberInput control={control} type='tel' name='phone' label='Phone' format='### ### ### ###' placeholder='987654321' leftIconText={phoneCodeText} maxLength={12} disabled={isSubmitting} />
+
+                <Input control={control} type='tel' name='dni' label='DNI' placeholder='87654321' maxLength={8} disabled={isSubmitting} />
+
+                <Input control={control} type='email' name='email' label='Email' placeholder='Enter your email' maxLength={50} disabled={isSubmitting} />
+
+                <Input control={control} type='tel' name='ladline' label='Ladline' placeholder='Enter your ladline' maxLength={12} disabled={isSubmitting} />
+
+                <Input control={control} type='tel' name='ruc' label='RUC' placeholder='10876543210' maxLength={11} disabled={isSubmitting} />
+
+                <Radio control={control} name='status' label='Status' options={statusOptions} disabled={isSubmitting} />
+
+                <Input control={control} type='text' name='businessName' label='Business Name' placeholder='Enter your business name' maxLength={50} disabled={isSubmitting} />
               </SimpleGrid>
             </Box>
           </Card>
@@ -48,13 +99,15 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
 
         <GridItem colSpan={{ base: 2, md: 1 }}>
           <Card flexDirection='column' w='100%' px='0px'>
-            <Box margin={{ base: 6, lg: 10 }}>
-              <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing='8'>
-                <Heading as='h3' size='md' fontWeight='500' mb='0'>
-                  Información Académica
-                </Heading>
+            <Box margin={{ base: 6, lg: 8 }}>
+              <Heading as='h3' size='md' fontWeight='bold' mb={{ base: 4, md: 6 }}>
+                Academic Information
+              </Heading>
 
-                <Input control={control} name='studyCenter' label='Nombre' placeholder='Ingresa tu universidad / instituto' disabled={isSubmitting} />
+              <SimpleGrid columns={{ base: 1 }} spacing={{ base: 6, md: 8 }}>
+                <Radio control={control} name='training' label='Academic Formation' options={trainingOptions} disabled={isSubmitting} />
+
+                <Input control={control} type='text' name='studyCenter' label='Name' placeholder='Enter your university / institute' maxLength={50} disabled={isSubmitting} />
               </SimpleGrid>
             </Box>
           </Card>
@@ -62,13 +115,17 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
 
         <GridItem colSpan={{ base: 2, md: 1 }}>
           <Card flexDirection='column' w='100%' px='0px'>
-            <Box margin={{ base: 6, lg: 10 }}>
-              <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing='8'>
-                <Heading as='h3' size='md' fontWeight='500' mb='0'>
-                  Información Laboral
-                </Heading>
+            <Box margin={{ base: 6, lg: 8 }}>
+              <Heading as='h3' size='md' fontWeight='bold' mb={{ base: 4, md: 6 }}>
+                Employment Information
+              </Heading>
 
-                <Input control={control} name='workplace' label='Centro de trabajo (Opcional)' placeholder='Ingresa tu universidad / instituto' disabled={isSubmitting} />
+              <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing={{ base: 6, md: 8 }}>
+                <Input control={control} type='text' name='workplace' label='Work center (Optional)' placeholder='Enter your work center' maxLength={50} disabled={isSubmitting} />
+
+                <Input control={control} type='text' name='workPosition' label='Position (Optional)' placeholder='Enter your position' maxLength={50} disabled={isSubmitting} />
+
+                <Input control={control} type='text' name='workAddress' label='Address (Optional)' placeholder='Enter your address' maxLength={50} disabled={isSubmitting} />
               </SimpleGrid>
             </Box>
           </Card>

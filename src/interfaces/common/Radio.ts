@@ -1,18 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { FieldError } from 'react-hook-form'
 
-export interface InputProps {
-  name: string
+export interface RadioOptionProps {
+  label: string
+  value: string
+}
+
+export interface RadioProps {
   control?: any
-  type?: React.HTMLInputTypeAttribute
+  name: string
   label?: string
   value?: string
-  placeholder?: string
   helperText?: string
-  maxLength?: number
+  options: RadioOptionProps[]
   error?: FieldError
   invalid?: boolean
   disabled?: boolean
-  hasAutoComplete?: boolean
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }

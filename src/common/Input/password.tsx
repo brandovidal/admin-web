@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 // styles
-import { Button, FormControl, FormLabel, Input as InputUI, InputGroup, InputRightElement, Text, useColorModeValue, Icon } from '@chakra-ui/react'
+import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, Text, useColorModeValue, Icon } from '@chakra-ui/react'
 
 // interfaces
 import type { InputProps } from '@/interfaces/common/Input'
@@ -15,6 +15,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
 const PasswordInput = ({ control, name, label = '', placeholder, disabled = false, hasAutoComplete = true }: InputProps): JSX.Element => {
   const textColor = useColorModeValue('secondaryGray.900', 'white')
+  const labelColor = useColorModeValue('gray.800', 'whiteAlpha.800')
 
   const [show, setShow] = useState(false)
   const handleShow = (): void => {
@@ -27,9 +28,9 @@ const PasswordInput = ({ control, name, label = '', placeholder, disabled = fals
       name={name}
       render={({ field: { onChange, value = '' }, fieldState: { error, invalid } }) => (
         <FormControl fontSize='12' isInvalid={invalid}>
-          <FormLabel>{label}</FormLabel>
+        <FormLabel color={labelColor} fontWeight='medium'>{label}</FormLabel>
           <InputGroup size='md'>
-            <InputUI
+            <Input
               pr='4.5rem'
               type={show ? 'text' : 'password'}
               placeholder={placeholder}

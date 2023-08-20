@@ -12,11 +12,14 @@ import { ChakraProvider } from '@chakra-ui/react'
 import theme from '@theme/theme'
 
 import '@styles/Fonts.css'
-import '@styles/App.css'
 import '@styles/Contact.css'
+import '@styles/MiniCalendar.css'
+
+import '@styles/App.css'
+import '@styles/index.css'
 
 import 'react-calendar/dist/Calendar.css'
-import '@styles/MiniCalendar.css'
+// import 'flatpickr/dist/themes/airbnb.css'
 
 function MyApp ({ Component, pageProps }: AppProps): JSX.Element {
   const queryClient = new QueryClient()
@@ -26,7 +29,7 @@ function MyApp ({ Component, pageProps }: AppProps): JSX.Element {
         <Head>
           <title>Panel Dashboard</title>
           <meta name='viewport' content='width=device-width, initial-scale=1' />
-          <meta name='@theme-color' content='#000000' />
+          <meta name='@theme-color' content='#707EAE' />
         </Head>
         <React.StrictMode>
           <Component {...pageProps} />
