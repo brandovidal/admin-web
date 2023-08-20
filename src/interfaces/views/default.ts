@@ -14,9 +14,11 @@ export interface ViewProps {
   isSubmitting: boolean
   isDisabled: boolean
   control: unknown
+  watch?: any
+  setValue?: any
   onSubmit: React.FormEventHandler
   onCancel: () => void
 }
-export interface ViewAddProps extends ViewProps {
-}
+export interface ViewAddProps extends ViewProps { }
+
 export interface ViewEditProps extends ViewProps { }

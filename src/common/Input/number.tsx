@@ -1,5 +1,5 @@
 // styles
-import { FormControl, FormHelperText, FormLabel, Text, useColorModeValue } from '@chakra-ui/react'
+import { FormControl, FormHelperText, FormLabel, Input, InputGroup, InputLeftAddon, InputRightAddon, Text, useColorModeValue } from '@chakra-ui/react'
 
 // form
 import { Controller } from 'react-hook-form'
@@ -18,6 +18,8 @@ function NumberInput ({
   format,
   type = 'tel',
   label,
+  leftIconText = '',
+  rightIconText = '',
   helperText,
   placeholder,
   prefix,
@@ -35,19 +37,23 @@ function NumberInput ({
       render={({ field: { onChange, value = '' }, fieldState: { error, invalid } }) => (
         <FormControl fontSize='sm' isInvalid={invalid} >
           <FormLabel color={labelColor} fontWeight='medium'>{label}</FormLabel>
-          <ReactNumberFormat
-            type={type}
-            inputColor={inputColor}
-            format={format}
-            maxLength={maxLength}
-            placeholder={placeholder}
-            prefix={prefix}
-            mask={mask}
-            onValueChange={onChange}
-            value={value}
-            disabled={disabled}
-            invalid={invalid}
-          />
+          <InputGroup>
+          {!isEmpty(leftIconText) && <InputLeftAddon>{leftIconText}</InputLeftAddon>}
+            <ReactNumberFormat
+              type={type}
+              inputColor={inputColor}
+              format={format}
+              maxLength={maxLength}
+              placeholder={placeholder}
+              prefix={prefix}
+              mask={mask}
+              onValueChange={onChange}
+              value={value}
+              disabled={disabled}
+              invalid={invalid}
+            />
+            {!isEmpty(rightIconText) && <InputRightAddon>{rightIconText}</InputRightAddon>}
+          </InputGroup>
           {!isEmpty(error?.message) && (<Text color='red.300' mt='2'>{error?.message}</Text>)}
           {!isEmpty(helperText) && (<FormHelperText color='secondaryGray.500'>{helperText}</FormHelperText>)}
         </FormControl>

@@ -57,6 +57,7 @@ export default function StudentAdd (): JSX.Element {
   const {
     control,
     handleSubmit,
+    watch,
     formState: { isValid }
   } = useForm<RegisterStudentInput>({
     resolver: zodResolver(registerStudentSchema),
@@ -91,7 +92,7 @@ export default function StudentAdd (): JSX.Element {
   return (
     <AdminLayout navbarText='Add Student'>
       <Box pt={{ base: '28', md: '24', xl: '24' }}>
-        <StudentAddView control={control} alert={alert} isDisabled={!isValid || isSubmitting} isSubmitting={isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
+        <StudentAddView control={control} watch={watch} alert={alert} isDisabled={!isValid || isSubmitting} isSubmitting={isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
       </Box>
     </AdminLayout>
   )

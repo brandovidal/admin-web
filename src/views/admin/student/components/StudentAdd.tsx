@@ -21,12 +21,27 @@ import { COUNTRY_OPTIONS, STATUS_OPTIONS, TRAINING_OPTIONS } from '@/constants/s
 import { Box, Button, Grid, GridItem, Heading, SimpleGrid } from '@chakra-ui/react'
 import { MdChevronLeft, MdSave } from 'react-icons/md'
 
-const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ViewAddProps): JSX.Element => {
-  const modalityOptions = useMemo(() => COUNTRY_OPTIONS, [])
+const StudentAddView = ({ control, watch, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ViewAddProps): JSX.Element => {
+  const countryOptions = useMemo(() => COUNTRY_OPTIONS, [])
 
   const trainingOptions = useMemo(() => TRAINING_OPTIONS, [])
 
   const statusOptions = useMemo(() => STATUS_OPTIONS, [])
+
+  const country = watch('country', null)
+  const phone = watch('phone', null)
+
+  const phoneCodeText = useMemo(() => {
+    if (isEmpty(country) || isEmpty(phone)) return '+'
+
+    console.log({ country, countryOptions })
+
+    const phoneCode = countryOptions.find((option) => option.value === country.value)?.phoneCode as string
+    if (isEmpty(phoneCode)) return '+'
+
+    // setValue('phoneCode', phoneCode)
+    return `+${phoneCode}`
+  }, [country, phone, countryOptions])
 
   return (
     <form onSubmit={onSubmit}>
@@ -60,11 +75,11 @@ const StudentAddView = ({ control, alert, isSubmitting = false, isDisabled = fal
 
                 <Input control={control} type='text' name='lastname' label='Lastname' placeholder='Enter full surnames' maxLength={50} helperText='Enter full surnames to issue your certificate' disabled={isSubmitting} />
 
-                <Input control={control} type='date' name='birthday' label='Birthday' placeholder='Enter full birthday' disabled={isSubmitting} />
+                <Input control={control} type='date' name='birthday' label='Birthday' placeholder='Enter birthday' disabled={isSubmitting} />
 
-                <Select control={control} name='country' label='Country' options={modalityOptions} placeholder='Select a country' isDisabled={isSubmitting} />
+                <Select control={control} name='country' label='Country' options={countryOptions} placeholder='Select a country' isDisabled={isSubmitting} />
 
-                <NumberInput control={control} type='tel' name='phone' label='Phone' format='### ### ### ###' placeholder='987654321' maxLength={12} disabled={isSubmitting} />
+                <NumberInput control={control} type='tel' name='phone' label='Phone' format='### ### ### ###' placeholder='987654321' leftIconText={phoneCodeText} maxLength={12} disabled={isSubmitting} />
 
                 <Input control={control} type='tel' name='dni' label='DNI' placeholder='87654321' maxLength={8} disabled={isSubmitting} />
 

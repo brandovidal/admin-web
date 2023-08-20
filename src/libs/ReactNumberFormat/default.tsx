@@ -32,8 +32,6 @@ export const ReactNumberFormat = ({
     (!invalid && isDark) || 'custom-datapicker-input-error-dark'
   )
 
-  console.log('value', value)
-
   return (
     <PatternFormat
       type={type}
