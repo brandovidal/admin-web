@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import { Button, Flex, Stack, Text, useColorModeValue } from '@chakra-ui/react'
 
-import type { PaginationProps } from '@/interfaces/common/Table'
+import { type PaginationProps } from '@/interfaces/libs/ReactTable'
 
 const Pagination = ({ pagination, isLoading = false, pageChangeHandler }: PaginationProps): JSX.Element => {
   // Calculating max number of pages

@@ -11,7 +11,7 @@
     "start": "next start",
     "lint": "next lint",
     "lint-fix": "next lint --fix",
-    "clean-build": "rimraf build",
+    "clean-build": "rimraf out/ .next/",
     "clean-install": "rimraf node_modules .next package-lock.json yarn.lock pnpm-lock.yaml",
     "clean": "pnpm run clean-build && pnpm run clean-install",
     "predeploy": "yarn run build",
