@@ -9,12 +9,18 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 // Custom components
 import Card from '@/components/card/Card'
 
+type ValuePiece = Date | null
+
+export type Value = ValuePiece | [ValuePiece, ValuePiece]
+
 export default function MiniCalendar (props: {
   selectRange: boolean
   [x: string]: any
 }): JSX.Element {
   const { selectRange, ...rest } = props
-  const [value, onChange] = useState<Date>(new Date())
+
+  const [value, onChange] = useState<ValuePiece | [ValuePiece, ValuePiece]>(new Date())
+
   return (
     <Card
       alignItems='center'
