@@ -2,6 +2,12 @@
 
 This project contains a minimal starter for Next.js project with Typescript, ESLint, TS-Standard, ChakraUI, React Query and Zustand already configured
 
+## 🌐 URL
+
+```
+https://panel-web.pages.dev/
+```
+
 ## 🚀 Project Structure
 
 Inside of your project, you'll see the following folders and files:
