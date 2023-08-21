@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Input } from '@chakra-ui/react'
 import debounce from 'just-debounce-it'
 
-import type { GlobalFilterProps } from '@/interfaces/common/Table'
+import type { GlobalFilterProps } from '@/interfaces/libs/ReactTable'
 
 export const GlobalFilter = ({
   globalFilter,

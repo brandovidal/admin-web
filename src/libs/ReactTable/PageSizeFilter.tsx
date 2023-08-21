@@ -1,6 +1,6 @@
 import { Select } from '@chakra-ui/react'
 
-import type { PageSizeFilterProps } from '@/interfaces/common/Table'
+import type { PageSizeFilterProps } from '@/interfaces/libs/ReactTable'
 
 export const PageSizeFilter = ({
   pageSize = 10,
