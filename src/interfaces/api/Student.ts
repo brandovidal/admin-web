@@ -32,7 +32,7 @@ export interface Student {
 }
 export interface StudentData {
   fullName: string
-  phone?: number | null
+  phone?: number | string | null
   numberDocument?: number | string
   createdAt: string | null
   status: StudentStatusEnumType | ReactElement | null
