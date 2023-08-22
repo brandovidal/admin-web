@@ -4,23 +4,22 @@ import React from 'react'
 import type { MenuActionsProps } from '@/interfaces/common/MenuActions'
 
 // utils
-import isEmpty from 'just-is-empty'
 
 // styles
 import { Icon, Flex, Text, Menu, MenuButton, MenuItem, MenuList, useDisclosure, useColorModeValue } from '@chakra-ui/react'
 
 // icons
-import { MdOutlineMoreHoriz } from 'react-icons/md'
+import { MdKeyboardArrowDown } from 'react-icons/md'
 
 export default function MenuActions ({ actions = [] }: MenuActionsProps): JSX.Element {
-  const textColor = useColorModeValue('secondaryGray.700', 'whiteAlpha.700')
-  const textHover = useColorModeValue({ color: 'secondaryGray.900', bg: 'white' }, { color: 'white', bg: 'brand.400' })
-  const iconColor = useColorModeValue('brand.500', 'white')
-  const bgList = useColorModeValue('whiteAlpha.300', 'secondaryGray.900')
+  const textColor = useColorModeValue('gray.700', 'whiteAlpha.700')
+  const textHover = useColorModeValue({ color: 'gray.900', bg: 'white' }, { color: 'white', bg: 'brand.800' })
+  const bgList = useColorModeValue('whiteAlpha.300', 'gray.900')
   const bgShadow = useColorModeValue('14px 17px 40px 4px rgba(112, 144, 176, 0.08)', 'unset')
-  const bgButton = useColorModeValue('secondaryGray.400', 'whiteAlpha.400')
-  const bgHover = useColorModeValue({ bg: 'secondaryGray.400' }, { bg: 'whiteAlpha.300' })
-  const bgFocus = useColorModeValue({ bg: 'secondaryGray.300' }, { bg: 'whiteAlpha.500' })
+  const bgButton = useColorModeValue('gray.100', 'whiteAlpha.4100')
+  const bgColor = useColorModeValue('brand.500', 'brand.400')
+  const bgHover = useColorModeValue({ bg: 'gray.200' }, { bg: 'whiteAlpha.200' })
+  const bgFocus = useColorModeValue({ bg: 'gray.200' }, { bg: 'whiteAlpha.200' })
 
   // Ellipsis modals
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -30,19 +29,25 @@ export default function MenuActions ({ actions = [] }: MenuActionsProps): JSX.El
   return (
     <Menu isOpen={isOpen} onClose={onClose}>
       <MenuButton
+        display='flex'
+        flexDir='row'
         alignItems='center'
         justifyContent='center'
         bg={bgButton}
+        color={bgColor}
         _hover={bgHover}
         _focus={bgFocus}
         _active={bgFocus}
         lineHeight='100%'
         onClick={onOpen}
-        borderRadius='10px'
+        borderRadius='0.5rem'
       >
-        <Icon as={MdOutlineMoreHoriz} color={iconColor} w='24px' h='24px' />
+        <Flex align='center' m='0.5rem' gap='0.25rem'>
+          Actions
+          <Icon as={MdKeyboardArrowDown} color={bgColor} w='1rem' h='1rem' />
+        </Flex>
       </MenuButton>
-      <MenuList w='150px' minW='unset' maxW='150px !important' backdropFilter='blur(6px)' bg={bgList} boxShadow={bgShadow} borderRadius='10px' p='10px'>
+      <MenuList w='150px' minW='unset' maxW='150px !important' backdropFilter='blur(6px)' bg={bgList} boxShadow={bgShadow} borderRadius='0.5rem' p='10px'>
         {actions.map(({ icon, label, onClick }, index) => (
           <MenuItem
             key={index}
