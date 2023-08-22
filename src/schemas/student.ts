@@ -1,13 +1,13 @@
 import { z } from 'zod'
 
 // utils
-import { convertNullOrNumber } from '@/utils/number'
+import { convertNullOrNumber, convertNumber } from '@/utils/number'
 import { convertNullOrString } from '@/utils/string'
+import { saveDate } from '@/utils/date'
 
 // schemas
 import { SelectSchema } from './select'
 import { NumberSchema } from './number'
-import { saveDate } from '@/utils/date'
 
 const CountrySchema = z.string({ required_error: 'Select your country.', invalid_type_error: 'Select your country.' }).trim()
 const StatusSchema = z.string({ required_error: 'Select your status.', invalid_type_error: 'Select your status.' }).trim()
@@ -22,20 +22,40 @@ const PhoneSchema = z.string({ required_error: 'Enter a phone.', invalid_type_er
       .lte(999_999_999_999, 'Phone must be less than or equal to 999999999999.')
   )
 
-export const registerStudentSchema = z.object({
+export const countryStudentSchema = z.object({
+  country: z.union([CountrySchema, SelectSchema]),
+  dni: z.string({ required_error: 'Enter your DNI.', invalid_type_error: 'Enter a valid DNI.' }).trim().nullish().transform(val => convertNumber(val))
+})
+  .superRefine((arg, ctx) => {
+    if (arg.country === 'PER' && arg.dni === null) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Enter your DNI.',
+        path: ['dni']
+      })
+    }
+
+    if (arg.dni !== null && String(arg.dni).length < 8) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Enter a minimum of 8 characters.',
+        path: ['dni']
+      })
+    }
+  })
+
+export const createStudentSchema = z.object({
   name: z.string({ required_error: 'Enter your full name.' })
     .trim()
     .min(3, { message: 'Enter a minimum of 3 characters.' })
-    .max(50, { message: 'Enter a maximum of 50 characters.' }).refine(val => val.trim()),
+    .max(50, { message: 'Enter a maximum of 50 characters.' }),
   lastname: z.string({ required_error: 'Enter your full name.' })
     .trim()
     .min(3, { message: 'Enter a minimum of 3 characters.' })
     .max(50, { message: 'Enter a maximum of 50 characters.' }),
   birthday: z.string({ required_error: 'Enter your birthday.' }).trim(),
-  country: z.union([CountrySchema, SelectSchema]),
   phoneCode: z.string({ required_error: 'Enter your phone code.' }),
   phone: z.union([PhoneSchema, NumberSchema]),
-  dni: z.string({ required_error: 'Enter your DNI.' }).trim().nullish().transform(val => convertNullOrNumber(val)),
   email: z.string({ required_error: 'Enter your email.' })
     .trim()
     .min(5, { message: 'Enter a minimum of 5 characters.' })
@@ -46,14 +66,19 @@ export const registerStudentSchema = z.object({
   status: z.union([StatusSchema, SelectSchema]).transform(val => convertNullOrString(val)),
   businessName: z.string({ required_error: 'Enter your business name.' }).nullish(),
   training: z.union([TrainingSchema, SelectSchema]).nullish().transform(val => convertNullOrString(val)),
+  postgraduateTraining: z.boolean().nullish().default(false),
+  graduateTraining: z.boolean().nullish().default(false),
+  bachelorTraining: z.boolean().nullish().default(false),
+  studentTraining: z.boolean().nullish().default(false),
   studyCenter: z.string({ required_error: 'Enter your study center.' }).nullish(),
   workplace: z.string({ required_error: 'Enter your workplace.' }).nullish(),
   workPosition: z.string({ required_error: 'Enter your work position.' }).nullish(),
   workAddress: z.string({ required_error: 'Enter your work address.' }).nullish()
 })
-  .transform(data => {
-    console.log('🚀 ~ file: student.ts:41 ~ data:', data)
 
+export const registerStudentSchema = z.intersection(countryStudentSchema, createStudentSchema)
+  .transform(arg => {
+    const { training, ...data } = arg
     return {
       ...data,
       name: data.name.trim(),
@@ -63,7 +88,12 @@ export const registerStudentSchema = z.object({
       businessName: data.businessName?.trim(),
       studyCenter: data.studyCenter?.trim(),
       workPosition: data.workPosition?.trim(),
-      workAddress: data.workAddress?.trim()
+      workAddress: data.workAddress?.trim(),
+      status: data.status?.trim() === 'active',
+      postgraduateTraining: training === 'postgraduateTraining',
+      graduateTraining: training === 'graduateTraining',
+      bachelorTraining: training === 'bachelorTraining',
+      studentTraining: training === 'studentTraining'
     }
   })
 

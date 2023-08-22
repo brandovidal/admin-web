@@ -48,6 +48,10 @@ export default function StudentAdd (): JSX.Element {
     businessName: '',
     studyCenter: '',
     training: undefined,
+    postgraduateTraining: false,
+    graduateTraining: false,
+    bachelorTraining: true,
+    studentTraining: false,
     workplace: '',
     workPosition: '',
     workAddress: '',
@@ -82,27 +86,28 @@ export default function StudentAdd (): JSX.Element {
   const { mutate: addStudent } = useCreateStudent({ onSuccess, onError })
 
   const useOnSubmit: SubmitHandler<RegisterStudentInput> = useCallback(data => {
-    const { training, ...rest } = data
+    console.log('🚀 ~ file: add.tsx:89 ~ StudentAdd ~ data:', data)
+    // const { training, ...rest } = data
 
-    const status = data.status === 'active'
+    // const status = data.status === 'active'
 
-    const postgraduateTraining = training === 'postgraduateTraining'
-    const graduateTraining = training === 'graduateTraining'
-    const bachelorTraining = training === 'bachelorTraining'
-    const studentTraining = training === 'studentTraining'
+    // const postgraduateTraining = training === 'postgraduateTraining'
+    // const graduateTraining = training === 'graduateTraining'
+    // const bachelorTraining = training === 'bachelorTraining'
+    // const studentTraining = training === 'studentTraining'
 
-    const studentData = {
-      ...rest,
-      status,
-      postgraduateTraining,
-      graduateTraining,
-      bachelorTraining,
-      studentTraining
-    }
-    console.log('🚀 ~ file: add.tsx:90 ~ StudentAdd ~ studentData:', studentData)
+    // const studentData = {
+    //   ...rest,
+    //   status,
+    //   postgraduateTraining,
+    //   graduateTraining,
+    //   bachelorTraining,
+    //   studentTraining
+    // }
+    // console.log('🚀 ~ file: add.tsx:90 ~ StudentAdd ~ studentData:', studentData)
 
     setIsSubmitting(false)
-    addStudent(studentData)
+    addStudent(data)
   }, [addStudent])
 
   const onCancel = useCallback(() => { router.back() }, [router])
