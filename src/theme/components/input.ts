@@ -12,7 +12,7 @@ export const inputStyles = {
       variants: {
         main: (props: StyleFunctionProps) => ({
           field: {
-            bg: mode('transparent', 'navy.800')(props),
+            bg: mode('transparent', 'gray.800')(props),
             border: '1px solid',
             color: mode('secondaryGray.900', 'white')(props),
             borderColor: mode('secondaryGray.100', 'whiteAlpha.100')(props),
@@ -25,7 +25,7 @@ export const inputStyles = {
         auth: (props: StyleFunctionProps) => ({
           field: {
             fontWeight: '500',
-            color: mode('navy.700', 'white')(props),
+            color: mode('gray.700', 'white')(props),
             bg: mode('transparent', 'transparent')(props),
             border: '1px solid',
             borderColor: mode(
@@ -113,7 +113,7 @@ export const inputStyles = {
       variants: {
         main: (props: StyleFunctionProps) => ({
           field: {
-            bg: mode('transparent', 'navy.800')(props),
+            bg: mode('transparent', 'gray.800')(props),
             border: '1px solid',
             color: 'secondaryGray.600',
             borderColor: mode('secondaryGray.100', 'whiteAlpha.100')(props),
@@ -126,7 +126,7 @@ export const inputStyles = {
         }),
         mini: (props: StyleFunctionProps) => ({
           field: {
-            bg: mode('transparent', 'navy.800')(props),
+            bg: mode('transparent', 'gray.800')(props),
             border: '0px solid transparent',
             fontSize: '0px',
             p: '10px',

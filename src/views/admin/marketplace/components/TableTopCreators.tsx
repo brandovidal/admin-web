@@ -41,7 +41,7 @@ function TopCreatorTable (props: TableProps): JSX.Element {
   const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow } =
     tableInstance
 
-  const textColor = useColorModeValue('navy.700', 'white')
+  const textColor = useColorModeValue('gray.700', 'white')
   const textColorSecondary = useColorModeValue('secondaryGray.600', 'white')
 
   return (

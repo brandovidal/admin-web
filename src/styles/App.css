@@ -3,5 +3,5 @@ body {
 }
 
 option {
-  color: black;
+  color: var(black);
 }

@@ -1,5 +1,5 @@
 // styles
-import { FormControl, FormHelperText, FormLabel, Text } from '@chakra-ui/react'
+import { FormControl, FormHelperText, FormLabel, Text, useColorModeValue } from '@chakra-ui/react'
 
 // form
 import { Controller } from 'react-hook-form'
@@ -13,13 +13,15 @@ import type { SelectProps } from '@/interfaces/common/Select'
 import { ReactSelect } from '@/libs/ReactSelect/default'
 
 function Default ({ control, options = [], name, label = '', helperText = '', placeholder = 'Select an option', noOptionsMessage = 'No data available', isMulti = false, isSearchable = true, isClearable = true, isDisabled = false }: SelectProps): JSX.Element {
+  const labelColor = useColorModeValue('gray.800', 'whiteAlpha.800')
+
   return (
     <Controller
       control={control}
       name={name}
       render={({ field: { onChange, value = '' }, fieldState: { error, invalid } }) => (
         <FormControl fontSize='sm' isInvalid={invalid}>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel color={labelColor} fontWeight='medium'>{label}</FormLabel>
           <ReactSelect
             placeholder={placeholder}
             noOptionsMessage={noOptionsMessage}

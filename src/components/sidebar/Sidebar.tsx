@@ -26,7 +26,7 @@ function Sidebar (props: SidebarProps): JSX.Element {
   const variantChange = '0.2s linear'
   const shadow = useColorModeValue('14px 17px 40px 4px rgba(112, 144, 176, 0.08)', 'unset')
   // Chakra Color Mode
-  const sidebarBg = useColorModeValue('white', 'navy.800')
+  const sidebarBg = useColorModeValue('white', 'gray.800')
   const sidebarMargins = '0px'
 
   // SIDEBAR
@@ -44,7 +44,7 @@ function Sidebar (props: SidebarProps): JSX.Element {
 // FUNCTIONS
 
 export function SidebarResponsive (props: SidebarResponsiveProps): JSX.Element {
-  const sidebarBackgroundColor = useColorModeValue('white', 'navy.800')
+  const sidebarBackgroundColor = useColorModeValue('white', 'gray.800')
   const menuColor = useColorModeValue('gray.400', 'white')
   // // SIDEBAR
   const { isOpen, onOpen, onClose } = useDisclosure()

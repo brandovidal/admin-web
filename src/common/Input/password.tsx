@@ -15,6 +15,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
 const PasswordInput = ({ control, name, label = '', placeholder, disabled = false, hasAutoComplete = true }: InputProps): JSX.Element => {
   const textColor = useColorModeValue('secondaryGray.900', 'white')
+  const inputBg = useColorModeValue('white', 'gray.700')
   const labelColor = useColorModeValue('gray.800', 'whiteAlpha.800')
 
   const [show, setShow] = useState(false)
@@ -35,6 +36,7 @@ const PasswordInput = ({ control, name, label = '', placeholder, disabled = fals
               type={show ? 'text' : 'password'}
               placeholder={placeholder}
               color={textColor}
+              backgroundColor={inputBg}
               {...(hasAutoComplete && { autoComplete: 'new-password' })}
               onChange={onChange}
               value={value}

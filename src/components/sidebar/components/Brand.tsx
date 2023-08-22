@@ -7,7 +7,7 @@ import { HSeparator } from '@/components/separator/Separator'
 
 export function SidebarBrand (): JSX.Element {
   //   Chakra color mode
-  const logoColor = useColorModeValue('navy.700', 'white')
+  const logoColor = useColorModeValue('gray.700', 'white')
 
   return (
 		<Flex alignItems='center' flexDirection='column'>

@@ -11,7 +11,7 @@ function AuthIllustration (props: {
   children: ReactNode
   illustrationBackground: string
 }): JSX.Element {
-  const authBg = useColorModeValue('white', 'navy.900')
+  const authBg = useColorModeValue('white', 'gray.900')
   const { children, illustrationBackground } = props
   // Chakra color mode
   return (

@@ -23,13 +23,13 @@ export default function HeaderLinks (props: HeaderLinksProps): JSX.Element {
   const { colorMode, toggleColorMode } = useColorMode()
   // Chakra Color Mode
   const navbarIcon = useColorModeValue('gray.400', 'white')
-  const menuBg = useColorModeValue('white', 'navy.800')
+  const menuBg = useColorModeValue('white', 'gray.800')
   const textColor = useColorModeValue('secondaryGray.900', 'white')
   const textColorBrand = useColorModeValue('brand.700', 'brand.400')
   const ethColor = useColorModeValue('gray.700', 'white')
   const borderColor = useColorModeValue('#E6ECFA', 'rgba(135, 140, 189, 0.3)')
-  const ethBg = useColorModeValue('secondaryGray.300', 'navy.900')
-  const ethBox = useColorModeValue('white', 'navy.800')
+  const ethBg = useColorModeValue('secondaryGray.300', 'gray.900')
+  const ethBox = useColorModeValue('white', 'gray.800')
   const shadow = useColorModeValue('14px 17px 40px 4px rgba(112, 144, 176, 0.18)', '14px 17px 40px 4px rgba(112, 144, 176, 0.06)')
 
   return (

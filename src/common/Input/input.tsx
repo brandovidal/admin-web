@@ -8,7 +8,8 @@ import type { InputProps } from '@/interfaces/common/Input'
 import isEmpty from 'just-is-empty'
 
 const CustomInput = ({ type = 'text', label = '', value = '', placeholder, error, invalid, disabled = false, hasAutoComplete = true, onChange }: InputProps): JSX.Element => {
-  const textColor = useColorModeValue('secondaryGray.900', 'white')
+  const inputColor = useColorModeValue('secondaryGray.800', 'white')
+  const inputBg = useColorModeValue('white', 'gray.700')
 
   return (
     <FormControl fontSize='sm' isInvalid={invalid}>
@@ -16,18 +17,15 @@ const CustomInput = ({ type = 'text', label = '', value = '', placeholder, error
       <Input
         type={type}
         placeholder={placeholder}
-        color={textColor}
+        color={inputColor}
+        backgroundColor={inputBg}
         {...(hasAutoComplete && { autoComplete: 'new-password' })}
         errorBorderColor='red.300'
         onChange={onChange}
         value={value}
         disabled={disabled}
       />
-      {!isEmpty(error?.message) && (
-        <Text color='red.300' mt='2'>
-          {error?.message}
-        </Text>
-      )}
+      {!isEmpty(error?.message) && (<Text color='red.300' mt='2'>{error?.message}</Text>)}
     </FormControl>
   )
 }

@@ -1,38 +1,38 @@
 import { mode, type StyleFunctionProps } from '@chakra-ui/theme-tools'
 export const globalStyles = {
   colors: {
+    black: '#16161D',
+    bg: {
+      light: '#FFFFFF',
+      dark: '#2D3748'
+    },
+    light: {
+      white: '#FFFFFF',
+      dark: '#2D3748'
+    },
     brand: {
-      100: '#E9E3FF',
-      200: '#422AFB',
-      300: '#422AFB',
-      400: '#7551FF',
-      500: '#422AFB',
-      600: '#3311DB',
-      700: '#02044A',
-      800: '#190793',
-      900: '#11047A'
+      50: '#EBF8FF',
+      100: '#BEE3F8',
+      200: '#90CDF4',
+      300: '#63B3ED',
+      400: '#4299E1',
+      500: '#3182CE',
+      600: '#2B6CB0',
+      700: '#2C5282',
+      800: '#2A4365',
+      900: '#1A365D'
     },
     brandScheme: {
-      100: '#E9E3FF',
-      200: '#7551FF',
-      300: '#7551FF',
-      400: '#7551FF',
-      500: '#422AFB',
-      600: '#3311DB',
-      700: '#02044A',
-      800: '#190793',
-      900: '#02044A'
-    },
-    brandTabs: {
-      100: '#E9E3FF',
-      200: '#422AFB',
-      300: '#422AFB',
-      400: '#422AFB',
-      500: '#422AFB',
-      600: '#3311DB',
-      700: '#02044A',
-      800: '#190793',
-      900: '#02044A'
+      50: '#EBF8FF',
+      100: '#BEE3F8',
+      200: '#90CDF4',
+      300: '#63B3ED',
+      400: '#4299E1',
+      500: '#3182CE',
+      600: '#2B6CB0',
+      700: '#2C5282',
+      800: '#2A4365',
+      900: '#1A365D'
     },
     secondaryGray: {
       100: '#E0E5F2',
@@ -62,18 +62,6 @@ export const globalStyles = {
       100: '#E6FAF5',
       500: '#01B574'
     },
-    navy: {
-      50: '#d0dcfb',
-      100: '#aac0fe',
-      200: '#a3b9f8',
-      300: '#728fea',
-      400: '#3652ba',
-      500: '#1b3bbb',
-      600: '#24388a',
-      700: '#1B254B',
-      800: '#111c44',
-      900: '#0b1437'
-    },
     gray: {
       100: '#FAFCFE'
     }
@@ -82,7 +70,7 @@ export const globalStyles = {
     global: (props: StyleFunctionProps) => ({
       'html, body': {
         overflowX: 'hidden',
-        bg: mode('secondaryGray.300', 'navy.700')(props),
+        bg: mode('secondaryGray.300', 'gray.900')(props),
         fontFamily: 'DM Sans',
         fontSize: '14px',
         letterSpacing: '-0.5px'

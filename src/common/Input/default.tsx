@@ -12,6 +12,7 @@ import isEmpty from 'just-is-empty'
 
 function DefaultInput ({ control, rules, name, type = 'text', label = '', helperText = '', placeholder, maxLength, disabled = false, hasAutoComplete = true }: InputProps): JSX.Element {
   const inputColor = useColorModeValue('secondaryGray.800', 'white')
+  const inputBg = useColorModeValue('white', 'gray.700')
   const labelColor = useColorModeValue('gray.800', 'whiteAlpha.800')
 
   return (
@@ -26,6 +27,7 @@ function DefaultInput ({ control, rules, name, type = 'text', label = '', helper
             type={type}
             placeholder={placeholder}
             color={inputColor}
+            backgroundColor={inputBg}
             {...(hasAutoComplete && { autoComplete: 'new-password' })}
             errorBorderColor='red.300'
             onChange={onChange}

@@ -1,5 +1,5 @@
 // styles
-import { FormControl, FormHelperText, FormLabel, Input, InputGroup, InputLeftAddon, InputRightAddon, Text, useColorModeValue } from '@chakra-ui/react'
+import { FormControl, FormHelperText, FormLabel, InputGroup, InputLeftAddon, InputRightAddon, Text, useColorModeValue } from '@chakra-ui/react'
 
 // form
 import { Controller } from 'react-hook-form'
@@ -28,7 +28,6 @@ function NumberInput ({
   disabled
 }: NumberProps): JSX.Element {
   const labelColor = useColorModeValue('gray.800', 'whiteAlpha.800')
-  const inputColor = useColorModeValue('secondaryGray.800', 'white')
 
   return (
     <Controller
@@ -41,7 +40,7 @@ function NumberInput ({
           {!isEmpty(leftIconText) && <InputLeftAddon>{leftIconText}</InputLeftAddon>}
             <ReactNumberFormat
               type={type}
-              inputColor={inputColor}
+              color='secondaryGray.800'
               format={format}
               maxLength={maxLength}
               placeholder={placeholder}

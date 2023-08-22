@@ -18,7 +18,7 @@ export default function NFT (props: {
 }): JSX.Element {
   const { image, name, author, bidders, download, currentbid } = props
   const [like, setLike] = useState(false)
-  const textColor = useColorModeValue('navy.700', 'white')
+  const textColor = useColorModeValue('gray.700', 'white')
   const textColorBid = useColorModeValue('brand.500', 'white')
   return (
     <Card p='20px'>

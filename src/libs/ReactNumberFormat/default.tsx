@@ -1,6 +1,6 @@
 import { PatternFormat } from 'react-number-format'
 
-import { Input, useColorMode } from '@chakra-ui/react'
+import { Input, useColorMode, useColorModeValue } from '@chakra-ui/react'
 import classNames from 'classnames'
 
 import { NO_OP, PHONE_PLACEHOLDER } from '@/constants/default'
@@ -10,7 +10,6 @@ import { type ReactNumberFormatProps } from '@/interfaces/libs/ReactNumberFormat
 export const ReactNumberFormat = ({
   type = 'tel',
   value = '',
-  inputColor = '',
   maxLength = 8,
   placeholder = '87654321',
   prefix = '',
@@ -32,12 +31,16 @@ export const ReactNumberFormat = ({
     (!invalid && isDark) || 'custom-datapicker-input-error-dark'
   )
 
+  const inputColor = useColorModeValue('secondaryGray.800', 'white')
+  const inputBg = useColorModeValue('white', 'gray.700')
+
   return (
     <PatternFormat
       type={type}
       customInput={Input}
       className={className}
       color={inputColor}
+      backgroundColor={inputBg}
       autoComplete='off'
       format={formatValue}
       maxLength={maxLength}
