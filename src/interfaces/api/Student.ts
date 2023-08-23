@@ -26,7 +26,7 @@ export interface Student {
   workplace?: string | null
   workPosition?: string | null
   workAddress?: string | null
-  status?: StudentStatusEnumType | object | string | boolean | null
+  status?: boolean | null
   createdAt?: string
   updatedAt?: string
 }
