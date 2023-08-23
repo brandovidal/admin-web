@@ -8,5 +8,6 @@ export const colors = {
   darkColor: '#2D3748',
   darkBackground: '#4A5568',
   darkBackgrounColor: '#CBD5E0',
-  darkText: '#ffffff'
+  darkText: '#ffffff',
+  errorColor: '#FC8181'
 }

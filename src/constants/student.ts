@@ -1,5 +1,6 @@
 export const COUNTRY_OPTIONS = [
-  { label: 'Peru', value: 'PER', phoneCode: '51' }
+  { label: 'Peru', value: 'PER', phoneCode: '51' },
+  { label: 'Colombia', value: 'COL', phoneCode: '57' }
 ]
 
 export const MODALITY_OPTIONS = [
