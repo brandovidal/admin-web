@@ -26,9 +26,9 @@ export const ReactNumberFormat = ({
 
   const className = classNames(
     'custom-datapicker-input',
-    !isDark || 'custom-datapicker-input-dark',
-    !invalid || 'custom-datapicker-input-error',
-    (!invalid && isDark) || 'custom-datapicker-input-error-dark'
+    isDark && 'custom-datapicker-input-dark',
+    invalid && 'custom-datapicker-input-error',
+    (invalid && isDark) && 'custom-datapicker-input-error-dark'
   )
 
   const inputColor = useColorModeValue('secondaryGray.800', 'white')

@@ -36,8 +36,8 @@ function NumberInput ({
       render={({ field: { onChange, value = '' }, fieldState: { error, invalid } }) => (
         <FormControl fontSize='sm' isInvalid={invalid} >
           <FormLabel color={labelColor} fontWeight='medium'>{label}</FormLabel>
-          <InputGroup>
-          {!isEmpty(leftIconText) && <InputLeftAddon>{leftIconText}</InputLeftAddon>}
+          <InputGroup gap={2}>
+            {!isEmpty(leftIconText) && <InputLeftAddon borderWidth={2} borderColor={invalid ? 'red.300' : 'inherit'} borderRadius='md'>{leftIconText}</InputLeftAddon>}
             <ReactNumberFormat
               type={type}
               color='secondaryGray.800'
