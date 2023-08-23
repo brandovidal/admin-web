@@ -15,6 +15,7 @@ export interface ReactSelectProps {
   value?: PropsValue<IconOptionProps>
   placeholder?: string
   noOptionsMessage?: string
+  invalid?: boolean
   isMulti?: boolean
   isSearchable?: boolean
   isClearable?: boolean

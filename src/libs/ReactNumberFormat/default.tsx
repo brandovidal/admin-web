@@ -7,6 +7,8 @@ import { NO_OP, PHONE_PLACEHOLDER } from '@/constants/default'
 
 import { type ReactNumberFormatProps } from '@/interfaces/libs/ReactNumberFormat'
 
+import isEmpty from 'just-is-empty'
+
 export const ReactNumberFormat = ({
   type = 'tel',
   value = '',
@@ -22,13 +24,13 @@ export const ReactNumberFormat = ({
   const { colorMode } = useColorMode()
   const isDark = colorMode === 'dark'
 
-  const formatValue = format === '' ? String(PHONE_PLACEHOLDER).repeat(maxLength) : format
+  const formatValue = isEmpty(format) ? String(PHONE_PLACEHOLDER).repeat(maxLength) : format
 
   const className = classNames(
     'custom-datapicker-input',
-    !isDark || 'custom-datapicker-input-dark',
-    !invalid || 'custom-datapicker-input-error',
-    (!invalid && isDark) || 'custom-datapicker-input-error-dark'
+    isDark && 'custom-datapicker-input-dark',
+    invalid && 'custom-datapicker-input-error',
+    (invalid && isDark) && 'custom-datapicker-input-error-dark'
   )
 
   const inputColor = useColorModeValue('secondaryGray.800', 'white')

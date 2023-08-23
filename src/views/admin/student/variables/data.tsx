@@ -1,7 +1,7 @@
 import type { NextRouter } from 'next/router'
 
 // interfaces
-import type { Student, StudentData, StudentStatusEnumType } from '@/interfaces/api/Student'
+import type { Student, StudentData } from '@/interfaces/api/Student'
 import type { ActionsProps } from '@/interfaces/common/MenuActions'
 
 // Components
@@ -36,7 +36,7 @@ function generateActions (student: Student, router: NextRouter, addStudent: (stu
   ]
 }
 
-function Status (status = 'active'): JSX.Element {
+function Status (status = false): JSX.Element {
   const data = {
     active: {
       label: 'Active',
@@ -45,18 +45,12 @@ function Status (status = 'active'): JSX.Element {
     inactive: {
       label: 'Inactive',
       color: 'yellow'
-    },
-    deleted: {
-      label: 'Deleted',
-      color: 'red'
-    },
-    banned: {
-      label: 'Banned',
-      color: 'purple'
     }
   }
-  const roleLabel = data[status]?.label ?? data.inactive.label
-  const roleColor = data[status]?.color ?? data.inactive.color
+  const option = status ? 'active' : 'inactive'
+
+  const roleLabel = data[option]?.label ?? data.inactive.label
+  const roleColor = data[option]?.color ?? data.inactive.color
 
   return <Badge variant='subtle' colorScheme={roleColor}>{roleLabel}</Badge>
 }
@@ -70,6 +64,6 @@ export const formatData = (data: Student[] = [], router: NextRouter, addStudent:
     const actions = generateActions(student, router, addStudent, deleteStudent)
     const createdAt = formatDate(String(date))
 
-    return { fullName, email, phone, numberDocument, createdAt, status: Status(status as StudentStatusEnumType), actions: <MenuActions actions={actions}></MenuActions> }
+    return { fullName, email, phone, numberDocument, createdAt, status: Status(status as boolean), actions: <MenuActions actions={actions}></MenuActions> }
   })
 }

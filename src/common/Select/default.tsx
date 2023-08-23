@@ -34,6 +34,7 @@ function Default ({ control, options = [], name, label = '', helperText = '', pl
               onChange(option)
             }}
             value={value}
+            invalid={invalid}
             isMulti={isMulti}
             isSearchable={isSearchable}
             isClearable={isClearable}

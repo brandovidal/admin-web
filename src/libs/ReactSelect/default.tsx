@@ -32,6 +32,7 @@ export function ReactSelect ({
   value = null,
   placeholder = 'Seleccione una opción',
   noOptionsMessage = 'No existen opciones',
+  invalid = false,
   isMulti = false,
   isSearchable = true,
   isClearable = true,
@@ -50,7 +51,7 @@ export function ReactSelect ({
       borderBottom: '1px solid #cccccc',
       backgroundColor: isDark ? (isSelected ? colors.dark : colors.darkColor) : isSelected ? '#BEE3F8' : colors.darkText,
       color: isDark ? (isSelected ? colors.lightText : colors.lightColor) : isSelected ? colors.light : colors.darkBackground,
-      padding: 10,
+      padding: 8,
       ':hover': {
         backgroundColor: isDark ? colors.darkBackground : colors.lightBackground,
         color: isDark ? colors.lightColor : colors.light
@@ -58,13 +59,23 @@ export function ReactSelect ({
     }),
     control: (provided: OptionProps) => ({
       ...provided,
+      padding: '0 0.25rem',
+      minHeight: '2.55rem',
+      borderWidth: '2px',
+      borderColor: isDark ? invalid ? colors.errorColor : colors.darkBackground : invalid ? colors.errorColor : colors.lightColor,
       backgroundColor: isDark ? colors.darkColor : colors.darkText,
-      color: isDark ? colors.lightText : colors.darkBackground
+      color: isDark ? colors.lightText : colors.darkBackground,
+      ':hover': {
+        borderColor: isDark ? invalid ? colors.errorColor : colors.darkBackground : invalid ? colors.errorColor : colors.lightColor
+      }
     }),
     singleValue: (provided: OptionProps) => {
-      const opacity = isDisabled ? 0.5 : 1
-      const transition = 'opacity 300ms'
-      return { ...provided, opacity, transition, color: 'inherit' }
+      return {
+        ...provided,
+        opacity: isDisabled ? 0.5 : 1,
+        transition: 'opacity 300ms',
+        color: 'inherit'
+      }
     },
     multiValue: (styles: StylesConfig) => {
       return {
@@ -77,8 +88,26 @@ export function ReactSelect ({
       ...styles,
       color: colorValue
     }),
+    valueContainer: (styles: StylesConfig) => ({
+      ...styles,
+      margin: '0 0.5rem',
+      padding: '0',
+      color: isDark ? colors.lightText : colors.darkBackground
+    }),
+    clearIndicator: (styles: StylesConfig) => ({
+      ...styles,
+      margin: '0 0.25rem',
+      padding: 0
+    }),
+    dropdownIndicator: (styles: StylesConfig) => ({
+      ...styles,
+      margin: '0 0.25rem',
+      padding: 0
+    }),
     input: (styles: StylesConfig) => ({
       ...styles,
+      margin: '0',
+      padding: '0',
       color: colorInput
     })
   }
