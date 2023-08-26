@@ -13,6 +13,7 @@ import Input from '@/common/Input/default'
 import NumberInput from '@/common/Input/number'
 import Select from '@/common/Select/default'
 import Radio from '@/common/Radio/default'
+import Date from '@/common/Date/default'
 
 // constant
 import { COUNTRY_OPTIONS, STATUS_OPTIONS, TRAINING_OPTIONS } from '@/constants/student'
@@ -74,7 +75,7 @@ const StudentAddView = ({ control, watch, setValue, alert, isSubmitting = false,
 
                 <Input control={control} type='text' name='lastname' label='Lastname' placeholder='Enter full surnames' maxLength={50} helperText='Enter full surnames to issue your certificate' disabled={isSubmitting} />
 
-                <Input control={control} type='date' name='birthday' label='Birthday' placeholder='Enter birthday' disabled={isSubmitting} />
+                <Date control={control} name='birthday' label='Birthday' placeholder='Enter birthday' disabled={isSubmitting} />
 
                 <Select control={control} name='country' label='Country' options={countryOptions} placeholder='Select a country' isDisabled={isSubmitting} />
 

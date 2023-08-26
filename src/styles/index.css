@@ -21,6 +21,7 @@ html {
 .custom-datapicker-input-dark {
   background: inherit;
   border-color: inherit;
+  background-color: var(--chakra-colors-gray-700) !important;
   color: var(--chakra-colors-white);
 }
 .custom-datapicker-input-error {

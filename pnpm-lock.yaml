@@ -56,6 +56,9 @@ dependencies:
   dayjs:
     specifier: 1.11.9
     version: 1.11.9
+  flatpickr:
+    specifier: 4.6.13
+    version: 4.6.13
   framer-motion:
     specifier: 10.12.16
     version: 10.12.16(react-dom@18.2.0)(react@18.2.0)
@@ -89,6 +92,9 @@ dependencies:
   react-dropzone:
     specifier: 14.2.3
     version: 14.2.3(react@18.2.0)
+  react-flatpickr:
+    specifier: 3.10.13
+    version: 3.10.13(react@18.2.0)
   react-hook-form:
     specifier: 7.44.1
     version: 7.44.1(react@18.2.0)
@@ -145,6 +151,9 @@ devDependencies:
   '@types/react-dom':
     specifier: 18.2.4
     version: 18.2.4
+  '@types/react-flatpickr':
+    specifier: 3.8.8
+    version: 3.8.8
   '@types/react-table':
     specifier: 7.7.14
     version: 7.7.14
@@ -1889,6 +1898,13 @@ packages:
     dependencies:
       '@types/react': 18.2.7
 
+  /@types/react-flatpickr@3.8.8:
+    resolution: {integrity: sha512-wxpSvmO23Qj6Ig0grw+nLAf2CzJZsS6WljXm6PiljSIZPAZrXLH1ggJPShi/uZZ1BPWIIRLJcehH685NiSFjzw==}
+    dependencies:
+      '@types/react': 18.2.7
+      flatpickr: 4.6.13
+    dev: true
+
   /@types/react-table@7.7.14:
     resolution: {integrity: sha512-TYrv7onCiakaG1uAu/UpQ9FojNEt/4/ht87EgJQaEGFoWV606ZLWUZAcUHzMxgc3v1mywP1cDyz3qB4ho3hWOw==}
     dependencies:
@@ -3271,6 +3287,9 @@ packages:
       rimraf: 3.0.2
     dev: true
 
+  /flatpickr@4.6.13:
+    resolution: {integrity: sha512-97PMG/aywoYpB4IvbvUJi0RQi8vearvU0oov1WW3k0WZPBMrTQVqekSX5CjSG/M4Q3i6A/0FKXC7RyAoAUUSPw==}
+
   /flatted@3.2.7:
     resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
     dev: true
@@ -4435,8 +4454,23 @@ packages:
     resolution: {integrity: sha512-xTYf9zFim2pEif/Fw16dBiXpe0hoy5PxcD8+OwBnTtNLfIm3g6WxhKNurY+6OmdH1u6Ta/W/Vl6vjbYP1MFnDg==}
     dev: false
 
+<<<<<<< HEAD
   /react-focus-lock@2.9.5(@types/react@18.2.7)(react@18.2.0):
     resolution: {integrity: sha512-h6vrdgUbsH2HeD5I7I3Cx1PPrmwGuKYICS+kB9m+32X/9xHRrAbxgvaBpG7BFBN9h3tO+C3qX1QAVESmi4CiIA==}
+=======
+  /react-flatpickr@3.10.13(react@18.2.0):
+    resolution: {integrity: sha512-4m+K1K8jhvRFI8J/AHmQfA5hLALzhebEtEK8mLevXjX24MV3u502crzBn+EGFIBOfNUtrL5PId9FsGwgtuz/og==}
+    peerDependencies:
+      react: '>=16, <=18'
+    dependencies:
+      flatpickr: 4.6.13
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
+  /react-focus-lock@2.9.4(@types/react@18.2.7)(react@18.2.0):
+    resolution: {integrity: sha512-7pEdXyMseqm3kVjhdVH18sovparAzLg5h6WvIx7/Ck3ekjhrrDMEegHSa3swwC8wgfdd7DIdUVRGeiHT9/7Sgg==}
+>>>>>>> ea3f725 (🚀  create Flatpickr)
     peerDependencies:
       '@types/react': ^16.8.0 || ^17.0.0 || ^18.0.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
