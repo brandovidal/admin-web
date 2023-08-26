@@ -32,8 +32,6 @@ export const ReactFlatpickr = ({ placeholder = 'DD-MM-YYYY', value = '', onChang
   }
   import('flatpickr/dist/themes/airbnb.css')
 
-  console.log({ invalid })
-
   const className = classNames(
     'custom-datapicker-input',
     isDark && 'custom-datapicker-input-dark',

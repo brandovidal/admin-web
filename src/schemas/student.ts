@@ -80,13 +80,11 @@ export const createStudentSchema = z.object({
 
 export const registerStudentSchema = z.intersection(countryStudentSchema, createStudentSchema)
   .transform(arg => {
-    console.log('🚀 ~ file: student.ts:92 ~ arg:', arg)
     const { training, ...data } = arg
     return {
       ...data,
       name: data.name.trim(),
       lastname: data.name.trim(),
-      birthday: saveDate(data.birthday),
       email: data.email.trim().toLowerCase(),
       businessName: data.businessName?.trim(),
       studyCenter: data.studyCenter?.trim(),

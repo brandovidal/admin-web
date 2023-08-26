@@ -31,18 +31,15 @@ export function toDate (value: string): Date {
   return getDate(value).toDate()
 }
 
-export function saveDate (value: string | Date): string | Date {
-  if (isEmpty(value)) return value
-  console.log('🚀 ~ file: date.ts:35 ~ saveDate ~ value:', value)
-
-  return dayjs(value).isValid() ? getDate(value).utc().toISOString() : ''
-}
-
 export function formatDate (date: string, formatDay = 'DD-MM-YYYY'): string {
   return getDate(date).utc().format(formatDay)
 }
 
-export function updateDate (value: string): string | Date {
+export function saveDate (value: string | Date): string {
+  return dayjs(value).isValid() ? getDate(value).utc().toISOString() : ''
+}
+
+export function updateDate (value: string): string {
   return saveDate(parseDate(value))
 }
 
