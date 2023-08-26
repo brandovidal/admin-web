@@ -8,6 +8,7 @@ import { saveDate } from '@/utils/date'
 // schemas
 import { SelectSchema } from './select'
 import { NumberSchema } from './number'
+import { DateSchema } from './date'
 
 const CountrySchema = z.string({ required_error: 'Select your country.', invalid_type_error: 'Select your country.' }).trim()
 const StatusSchema = z.string({ required_error: 'Select your status.', invalid_type_error: 'Select your status.' }).trim()
@@ -21,6 +22,7 @@ const PhoneSchema = z.string({ required_error: 'Enter a phone.', invalid_type_er
       .gte(900_000_000, 'Phone must be greater than or equal to 900000000.')
       .lte(999_999_999_999, 'Phone must be less than or equal to 999999999999.')
   )
+const BirthdaySchema = z.date({ required_error: 'Select your birthday.', invalid_type_error: 'Select your birthday.' })
 
 export const countryStudentSchema = z.object({
   country: z.union([CountrySchema, SelectSchema]),
@@ -53,7 +55,7 @@ export const createStudentSchema = z.object({
     .trim()
     .min(3, { message: 'Enter a minimum of 3 characters.' })
     .max(50, { message: 'Enter a maximum of 50 characters.' }),
-  birthday: z.string({ required_error: 'Enter your birthday.' }).trim(),
+  birthday: DateSchema(BirthdaySchema),
   phoneCode: z.string({ required_error: 'Enter your phone code.' }),
   phone: z.union([PhoneSchema, NumberSchema]),
   email: z.string({ required_error: 'Enter your email.' })
@@ -78,6 +80,7 @@ export const createStudentSchema = z.object({
 
 export const registerStudentSchema = z.intersection(countryStudentSchema, createStudentSchema)
   .transform(arg => {
+    console.log('🚀 ~ file: student.ts:92 ~ arg:', arg)
     const { training, ...data } = arg
     return {
       ...data,

@@ -19,7 +19,7 @@ export function parseDate (value: string): string {
   return `${year}-${month}-${day}`
 }
 
-export function getDate (value: string): dayjs.Dayjs {
+export function getDate (value: string | Date): dayjs.Dayjs {
   return dayjs(value)
 }
 
@@ -31,8 +31,9 @@ export function toDate (value: string): Date {
   return getDate(value).toDate()
 }
 
-export function saveDate (value: string): string {
+export function saveDate (value: string | Date): string | Date {
   if (isEmpty(value)) return value
+  console.log('🚀 ~ file: date.ts:35 ~ saveDate ~ value:', value)
 
   return dayjs(value).isValid() ? getDate(value).utc().toISOString() : ''
 }
@@ -41,7 +42,7 @@ export function formatDate (date: string, formatDay = 'DD-MM-YYYY'): string {
   return getDate(date).utc().format(formatDay)
 }
 
-export function updateDate (value: string): string {
+export function updateDate (value: string): string | Date {
   return saveDate(parseDate(value))
 }
 
