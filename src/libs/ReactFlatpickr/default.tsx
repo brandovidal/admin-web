@@ -6,7 +6,6 @@ import Flatpickr from 'react-flatpickr'
 import { Spanish } from 'flatpickr/dist/l10n/es.js'
 
 // styles
-import 'flatpickr/dist/themes/airbnb.css'
 import { Flex, IconButton, useColorMode } from '@chakra-ui/react'
 import { FiX } from 'react-icons/fi'
 
@@ -28,15 +27,18 @@ export const ReactFlatpickr = ({ placeholder = 'DD-MM-YYYY', value = '', onChang
   const { colorMode } = useColorMode()
   const isDark = colorMode === 'dark'
 
-  if (!isDark) {
+  if (isDark) {
     import('flatpickr/dist/themes/dark.css')
   }
+  import('flatpickr/dist/themes/airbnb.css')
+
+  console.log({ invalid })
 
   const className = classNames(
     'custom-datapicker-input',
-    !isDark || 'custom-datapicker-input-dark',
-    !invalid || 'custom-datapicker-input-error',
-    (!invalid && isDark) || 'custom-datapicker-input-error-dark'
+    isDark && 'custom-datapicker-input-dark',
+    invalid && 'custom-datapicker-input-error',
+    (isDark && invalid) && 'custom-datapicker-input-error-dark'
   )
 
   return (

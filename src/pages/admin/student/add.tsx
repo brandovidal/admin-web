@@ -87,7 +87,7 @@ export default function StudentAdd (): JSX.Element {
 
   const useOnSubmit: SubmitHandler<RegisterStudentInput> = useCallback(data => {
     console.log('🚀 ~ file: add.tsx:89 ~ StudentAdd ~ data:', data)
-    setIsSubmitting(true)
+    // setIsSubmitting(true)
     // addStudent(data)
   }, [addStudent])
 
