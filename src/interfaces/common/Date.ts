@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { FieldError } from 'react-hook-form'
+import type { DateOption } from 'flatpickr/dist/types/options'
 
 export interface DateProps {
   name: string
@@ -7,6 +8,8 @@ export interface DateProps {
   rules?: any
   label?: string
   value?: string
+  maxDate?: DateOption
+  minDate?: DateOption
   placeholder?: string
   helperText?: string
   error?: FieldError

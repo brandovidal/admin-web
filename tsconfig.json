@@ -24,7 +24,6 @@
     "rootDir": "./src",
     "baseUrl": "./",
     "paths": {
-      "#/*": ["./*"],
       "@/*": ["./src/*"],
       "@api/*": ["./src/api/*"],
       "@assets/*": ["./src/assets/*"],

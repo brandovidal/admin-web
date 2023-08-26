@@ -12,17 +12,18 @@ import { FiX } from 'react-icons/fi'
 import Tooltip from '@/common/ToolTip/default'
 
 import { DELETE, NO_OP } from '@/constants/default'
+import { FORMAT_DATE_FLATPICKR } from '@/constants/date'
 
 import type { DatePickerProps, ReactFlatpickrOptionsProps, ReactFlatpickrProps } from '@/interfaces/libs/ReactFlatpickr'
 
 import isEmpty from 'just-is-empty'
 
-export const ReactFlatpickr = ({ placeholder = 'DD-MM-YYYY', value = '', onChange = NO_OP, invalid = false, disabled = false }: ReactFlatpickrProps): JSX.Element => {
+export const ReactFlatpickr = ({ placeholder = 'DD-MM-YYYY', value = '', minDate, maxDate, onChange = NO_OP, invalid = false, disabled = false }: ReactFlatpickrProps): JSX.Element => {
   const refElm = useRef<DatePickerProps>(null)
 
   const clearDate = (): void => refElm.current?.flatpickr.clear()
 
-  const options: ReactFlatpickrOptionsProps = { dateFormat: 'd-m-Y', locale: Spanish, clickOpens: !disabled }
+  const options: ReactFlatpickrOptionsProps = { dateFormat: FORMAT_DATE_FLATPICKR, locale: Spanish, clickOpens: !disabled, minDate, maxDate }
 
   const { colorMode } = useColorMode()
   const isDark = colorMode === 'dark'

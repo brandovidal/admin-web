@@ -12,7 +12,7 @@ import type { DateProps } from '@/interfaces/common/Date'
 // libs
 import isEmpty from 'just-is-empty'
 
-function Date ({ control, rules, name, label = '', helperText = '', placeholder, disabled = false }: DateProps): JSX.Element {
+function Date ({ control, rules, name, label = '', helperText = '', placeholder, minDate, maxDate, disabled = false }: DateProps): JSX.Element {
   const inputColor = useColorModeValue('secondaryGray.800', 'white')
   const labelColor = useColorModeValue('gray.800', 'whiteAlpha.800')
 
@@ -29,6 +29,8 @@ function Date ({ control, rules, name, label = '', helperText = '', placeholder,
             color={inputColor}
             onChange={onChange}
             value={value}
+            minDate={minDate}
+            maxDate={maxDate}
             invalid={invalid}
             disabled={disabled}
           />
