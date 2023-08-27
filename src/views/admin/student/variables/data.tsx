@@ -30,7 +30,6 @@ function generateActions (student: Student, router: NextRouter, addStudent: (stu
       icon: <Icon as={MdOutlineDelete} h='16px' w='16px' me='8px' />,
       onClick: () => {
         deleteStudent(student)
-        console.log('Eliminar', student.id as string)
       }
     }
   ]

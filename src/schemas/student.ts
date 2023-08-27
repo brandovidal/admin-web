@@ -34,7 +34,6 @@ export const countryStudentSchema = z.object({
   dni: DniSchema.nullish().transform(val => convertNullOrNumber(val))
 })
   .superRefine((arg, ctx) => {
-    console.log('🚀 ~ file: student.ts:37 ~ .superRefine ~ arg:', arg)
     if (arg.country === 'PER' && arg.dni === null) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
@@ -86,7 +85,6 @@ export const studentSchema = z.object({
 
 export const registerStudentSchema = z.intersection(countryStudentSchema, studentSchema)
   .transform(arg => {
-    console.log('🚀 ~ file: student.ts:84 ~ arg:', arg)
     const { training, ...data } = arg
     return {
       ...data,
@@ -109,7 +107,6 @@ export type RegisterStudentInput = z.infer<typeof registerStudentSchema>
 
 export const updateStudentSchema = z.intersection(countryStudentSchema, studentSchema).and(IdSchema)
   .transform(arg => {
-    console.log('🚀 ~ file: student.ts:118 ~ arg:', arg)
     const { training, ...data } = arg
     return {
       ...data,
