@@ -44,7 +44,7 @@ export default function UserAdd (): JSX.Element {
   const [alert, setAlert] = useState<AlertProps>()
 
   const onSuccess = (): void => {
-    showToast({ title: 'Usuario creado correctamente', description: 'El usuario se ha creado correctamente' })
+    showToast({ title: 'User successfully created', description: 'The user has been successfully created' })
     setIsSubmitting(false)
     void router.push('/admin/user/list')
   }

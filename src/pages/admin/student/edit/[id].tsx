@@ -16,7 +16,7 @@ import StudentEditView from '@/views/admin/student/components/StudentEdit'
 import { useNotification } from '@/hooks/useNotification'
 
 // services
-import { useCreateStudent } from '@/services/student'
+import { useUpdateStudent } from '@/services/student'
 
 import { useStudentStore } from '@/store/student'
 
@@ -96,8 +96,9 @@ export default function StudentEdit (): JSX.Element {
       return
     }
 
-    const country = countryOptions.find(option => option.value === student?.country) ?? { value: '', label: '' }
+    console.log(student?.dni)
 
+    const country = countryOptions.find(option => option.value === student?.country) ?? { value: '', label: '' }
     const birthday = formatDate(student?.birthday ?? '')
     const formattedValue = student?.phone ?? null
     const phone = { formattedValue: String(formattedValue), value: formattedValue, floatValue: formattedValue }
@@ -128,7 +129,7 @@ export default function StudentEdit (): JSX.Element {
   const [alert, setAlert] = useState<AlertProps>()
 
   const onSuccess = (): void => {
-    showToast({ title: 'Usuario creado correctamente', description: 'El usuario se ha creado correctamente' })
+    showToast({ title: 'Student successfully updated', description: 'The student has been successfully updated' })
     setIsSubmitting(false)
 
     void router.push('/admin/student/list')
@@ -139,12 +140,12 @@ export default function StudentEdit (): JSX.Element {
     showErrorToast({ title: "Student can't save", description: 'Please, verify your data' })
   }
 
-  const { mutate: addStudent } = useCreateStudent({ onSuccess, onError })
+  const { mutate: updateStudent } = useUpdateStudent({ onSuccess, onError })
 
   const useOnSubmit: SubmitHandler<UpdateStudentInput> = useCallback(data => {
     setIsSubmitting(true)
-    addStudent(data)
-  }, [addStudent])
+    updateStudent(data)
+  }, [updateStudent])
 
   const onCancel = useCallback((): void => {
     cleanUser()

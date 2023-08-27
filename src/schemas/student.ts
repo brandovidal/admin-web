@@ -24,16 +24,17 @@ const PhoneSchema = z.number({ required_error: 'Enter a phone.', invalid_type_er
       .lte(999_999_999_999, 'Phone must be less than or equal to 999999999999.')
   )
 const DniSchema = z.union([
-  z.string({ required_error: 'Select your country.', invalid_type_error: 'Select your country.' }).trim(),
-  z.number({ required_error: 'Select your country.', invalid_type_error: 'Select your country.' })
+  z.string({ required_error: 'Select your dni.', invalid_type_error: 'Select your dni.' }).trim().nullish(),
+  z.number({ required_error: 'Select your dni.', invalid_type_error: 'Select your dni.' }).nullish()
 ])
 const BirthdaySchema = z.date({ required_error: 'Select your birthday.', invalid_type_error: 'Select your birthday.' })
 
 export const countryStudentSchema = z.object({
   country: z.union([SelectSchema, CountrySchema]),
-  dni: DniSchema.nullish().transform(val => convertNumber(val))
+  dni: DniSchema.nullish().transform(val => convertNullOrNumber(val))
 })
   .superRefine((arg, ctx) => {
+    console.log('🚀 ~ file: student.ts:37 ~ .superRefine ~ arg:', arg)
     if (arg.country === 'PER' && arg.dni === null) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
@@ -68,8 +69,8 @@ export const studentSchema = z.object({
     .min(5, { message: 'Enter a minimum of 5 characters.' })
     .max(50, { message: 'Enter a maximum of 50 characters.' })
     .email({ message: 'Enter a valid email address.' }),
-  ladline: z.string({ required_error: 'Enter your ladline.' }).nullish().transform(val => convertNullOrNumber(val)),
-  ruc: z.string({ required_error: 'Enter your ruc.' }).nullish().transform(val => convertNullOrNumber(val)),
+  ladline: z.string({ required_error: 'Enter your ladline.' }).nullish().transform(val => convertNumber(val)),
+  ruc: z.string({ required_error: 'Enter your ruc.' }).nullish().transform(val => convertNumber(val)),
   status: z.union([StatusSchema, SelectSchema]).transform(val => convertNullOrString(val)),
   businessName: z.string({ required_error: 'Enter your business name.' }).nullish(),
   training: z.union([TrainingSchema, SelectSchema]).nullish().transform(val => convertNullOrString(val)),
@@ -90,7 +91,7 @@ export const registerStudentSchema = z.intersection(countryStudentSchema, studen
     return {
       ...data,
       name: data.name.trim(),
-      lastname: data.name.trim(),
+      lastname: data.lastname.trim(),
       email: data.email.trim().toLowerCase(),
       businessName: data.businessName?.trim(),
       studyCenter: data.studyCenter?.trim(),
@@ -112,9 +113,8 @@ export const updateStudentSchema = z.intersection(countryStudentSchema, studentS
     const { training, ...data } = arg
     return {
       ...data,
-      // dni: data.dni ?? null,
       name: data.name.trim(),
-      lastname: data.name.trim(),
+      lastname: data.lastname.trim(),
       email: data.email.trim().toLowerCase(),
       businessName: data.businessName?.trim(),
       studyCenter: data.studyCenter?.trim(),
