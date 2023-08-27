@@ -1,7 +1,6 @@
 // libs
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
-import isEmpty from 'just-is-empty'
 
 // interfaces
 import type { AlertProps } from '@/interfaces/common/Alert'
@@ -13,24 +12,29 @@ import AdminLayout from '@/layouts/admin'
 // Views
 import StudentEditView from '@/views/admin/student/components/StudentEdit'
 
-// store
-import { useStudentStore } from '@/store/student'
-
 // hooks
 import { useNotification } from '@/hooks/useNotification'
+
+// services
+import { useCreateStudent } from '@/services/student'
+
+import { useStudentStore } from '@/store/student'
+
+import { COUNTRY_OPTIONS, STATUS_OPTIONS, TRAINING_OPTIONS } from '@/constants/student'
 
 // form
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 // schema
-import { registerStudentSchema, type RegisterStudentInput } from '@/schemas/student'
+import { updateStudentSchema, type UpdateStudentInput } from '@/schemas/student'
 
-// services
-import { useUpdateStudent } from '@/services/student'
+import { formatDate } from '@/utils/date'
 
 // styles
 import { Box } from '@chakra-ui/react'
+
+import isEmpty from 'just-is-empty'
 
 export default function StudentEdit (): JSX.Element {
   const router = useRouter()
@@ -39,63 +43,131 @@ export default function StudentEdit (): JSX.Element {
   const studentId = useMemo(() => router.query.id as string, [router.query.id])
 
   const student = useStudentStore(state => state.student) as Student
-  const cleanStudent = useStudentStore(state => state.cleanStudent)
+  const cleanUser = useStudentStore(state => state.cleanStudent)
+
+  const countryOptions = useMemo(() => COUNTRY_OPTIONS, [])
+
+  const trainingOptions = useMemo(() => TRAINING_OPTIONS, [])
+
+  const statusOptions = useMemo(() => STATUS_OPTIONS, [])
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const defaultValues = {
+    name: '',
+    lastname: '',
+    birthday: undefined,
+    address: '',
+    country: undefined,
+    phone: undefined,
+    dni: undefined,
+    email: '',
+    phoneFormatted: '',
+    ladline: undefined,
+    ruc: undefined,
+    businessName: '',
+    studyCenter: '',
+    training: undefined,
+    postgraduateTraining: false,
+    graduateTraining: false,
+    bachelorTraining: true,
+    studentTraining: false,
+    workplace: '',
+    workPosition: '',
+    workAddress: '',
+    status: undefined
+  }
 
   const {
     control,
     handleSubmit,
+    watch,
     setValue,
     formState: { isValid }
-  } = useForm<RegisterStudentInput>({
-    resolver: zodResolver(registerStudentSchema)
+  } = useForm<UpdateStudentInput>({
+    resolver: zodResolver(updateStudentSchema),
+    defaultValues
   })
 
   useEffect(() => {
     if (isEmpty(student)) {
-      showErrorToast({ title: 'No se pudo encontrar el estudiante', description: 'Por favor, intentar más tarde' })
+      // showErrorToast({ title: 'No se pudo encontrar el estudiante', description: 'Por favor, intentar más tarde' })
       void router.push('/admin/student/list')
       return
     }
 
+    const country = countryOptions.find(option => option.value === student?.country) ?? { value: '', label: '' }
+
+    const birthday = formatDate(student?.birthday ?? '')
+    const phoneFormatted = student?.phone ?? null
+    const phone = { formattedValue: String(phoneFormatted), value: String(phoneFormatted), floatValue: phoneFormatted } as unknown as number
+    console.log('🚀 ~ file: [id].tsx:106 ~ useEffect ~ phone:', phone, student?.phone)
+
+    const status = (student?.status ?? false) ? 'active' : 'inactive'
+
+    setValue('id', studentId ?? '')
     setValue('name', student.name)
-    setValue('email', student.email)
-  }, [student, router, setValue, showErrorToast])
+    setValue('lastname', student.lastname)
+    setValue('birthday', birthday as unknown as string)
+    setValue('country', country as unknown as string)
+    setValue('phone', phone)
+    setValue('dni', student?.dni as number)
+    setValue('email', student?.email)
+    setValue('ladline', (student?.ladline ?? '') as number)
+    setValue('ruc', (student?.ruc ?? '') as number)
+    setValue('status', status as unknown as boolean)
+    setValue('businessName', student?.businessName ?? '')
+    setValue('studyCenter', student?.studyCenter ?? '')
+    setValue('postgraduateTraining', student?.postgraduateTraining ?? false)
+    setValue('graduateTraining', student?.graduateTraining ?? false)
+    setValue('bachelorTraining', student?.bachelorTraining ?? false)
+    setValue('studentTraining', student?.studentTraining ?? false)
+    setValue('workplace', student?.workplace ?? '')
+    setValue('workPosition', student?.workPosition ?? '')
+    setValue('workAddress', student?.workAddress ?? '')
+  }, [student, router, studentId, setValue, countryOptions])
 
   const [alert, setAlert] = useState<AlertProps>()
 
-  const onCreateSuccess = useCallback((): void => {
-    showToast({ title: 'Usuario editado correctamente', description: 'El usuario se ha editado correctamente' })
+  const onSuccess = (): void => {
+    showToast({ title: 'Usuario creado correctamente', description: 'El usuario se ha creado correctamente' })
     setIsSubmitting(false)
 
     void router.push('/admin/student/list')
-  }, [router, showToast])
+  }
 
-  const onCreateError = useCallback((): void => {
-    setAlert({ message: 'El usuario o correo ya existe', status: 'warning' })
-    showErrorToast({ title: 'El usuario o correo ya existe', description: 'Por favor, ingresar otro usuario o correo' })
-  }, [showErrorToast])
+  const onError = (): void => {
+    setAlert({ message: "Student can't save", status: 'warning' })
+    showErrorToast({ title: "Student can't save", description: 'Please, verify your data' })
+  }
 
-  const { mutate: updateStudent } = useUpdateStudent({ onSuccess: onCreateSuccess, onError: onCreateError })
+  const { mutate: addStudent } = useCreateStudent({ onSuccess, onError })
 
-  const useOnSubmit: SubmitHandler<RegisterStudentInput> = useCallback(
-    data => {
-      setIsSubmitting(true)
-      updateStudent({ id: studentId, ...data })
-    },
-    [updateStudent, studentId]
-  )
+  const useOnSubmit: SubmitHandler<UpdateStudentInput> = useCallback(data => {
+    setIsSubmitting(true)
+    addStudent(data)
+  }, [addStudent])
 
   const onCancel = useCallback((): void => {
-    cleanStudent()
+    cleanUser()
     router.back()
-  }, [router, cleanStudent])
+  }, [router, cleanUser])
 
   return (
-    <AdminLayout navbarText='Editar Usuario'>
+    <AdminLayout navbarText='Edit Student'>
       <Box pt={{ base: '28', md: '24', xl: '24' }}>
-        <StudentEditView control={control} alert={alert} isDisabled={!isValid || isSubmitting} isSubmitting={isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
+        <StudentEditView
+          countryOptions={countryOptions}
+          trainingOptions={trainingOptions}
+          statusOptions={statusOptions}
+          control={control}
+          watch={watch}
+          setValue={setValue}
+          alert={alert}
+          isDisabled={!isValid || isSubmitting}
+          isSubmitting={isSubmitting}
+          onSubmit={handleSubmit(useOnSubmit)}
+          onCancel={onCancel} />
       </Box>
     </AdminLayout>
   )

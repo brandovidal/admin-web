@@ -11,7 +11,7 @@ import isEmpty from 'just-is-empty'
 
 export const ReactNumberFormat = ({
   type = 'tel',
-  value = '',
+  value,
   maxLength = 8,
   placeholder = '87654321',
   prefix = '',
@@ -52,7 +52,7 @@ export const ReactNumberFormat = ({
       disabled={disabled}
       value={value}
       onValueChange={onValueChange}
-      valueIsNumericString={true}
+      valueIsNumericString
     />
   )
 }

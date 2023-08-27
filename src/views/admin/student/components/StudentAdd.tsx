@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import isEmpty from 'just-is-empty'
 
 // interfaces
-import type { ViewAddProps } from '@/interfaces/views/default'
+import type { StudentViewProps } from '@/interfaces/views/student'
 
 // common
 import Alert from '@/common/Alert/default'
@@ -25,7 +25,7 @@ import { over18Years, over1900Years } from '@/utils/date'
 import { Box, Button, Grid, GridItem, Heading, SimpleGrid } from '@chakra-ui/react'
 import { MdChevronLeft, MdSave } from 'react-icons/md'
 
-const StudentAddView = ({ control, watch, setValue, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ViewAddProps): JSX.Element => {
+const StudentAddView = ({ control, watch, setValue, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: StudentViewProps): JSX.Element => {
   const countryOptions = useMemo(() => COUNTRY_OPTIONS, [])
 
   const trainingOptions = useMemo(() => TRAINING_OPTIONS, [])
