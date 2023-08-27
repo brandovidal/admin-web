@@ -62,7 +62,7 @@ export default function StudentEdit (): JSX.Element {
     phone: undefined,
     dni: undefined,
     email: '',
-    phoneFormatted: '',
+    formattedValue: '',
     ladline: undefined,
     ruc: undefined,
     businessName: '',
@@ -99,10 +99,8 @@ export default function StudentEdit (): JSX.Element {
     const country = countryOptions.find(option => option.value === student?.country) ?? { value: '', label: '' }
 
     const birthday = formatDate(student?.birthday ?? '')
-    const phoneFormatted = student?.phone ?? null
-    const phone = { formattedValue: String(phoneFormatted), value: String(phoneFormatted), floatValue: phoneFormatted } as unknown as number
-    console.log('🚀 ~ file: [id].tsx:106 ~ useEffect ~ phone:', phone, student?.phone)
-
+    const formattedValue = student?.phone ?? null
+    const phone = { formattedValue: String(formattedValue), value: formattedValue, floatValue: formattedValue }
     const status = (student?.status ?? false) ? 'active' : 'inactive'
 
     setValue('id', studentId ?? '')
@@ -110,7 +108,7 @@ export default function StudentEdit (): JSX.Element {
     setValue('lastname', student.lastname)
     setValue('birthday', birthday as unknown as string)
     setValue('country', country as unknown as string)
-    setValue('phone', phone)
+    setValue('phone', phone as unknown as number)
     setValue('dni', student?.dni as number)
     setValue('email', student?.email)
     setValue('ladline', (student?.ladline ?? '') as number)

@@ -26,7 +26,7 @@ import { MdChevronLeft, MdSave } from 'react-icons/md'
 
 const StudentEditView = ({ countryOptions, trainingOptions, statusOptions, control, watch, setValue, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: StudentViewProps): JSX.Element => {
   const country = watch('country', null)
-  const phone = watch('phone', null)
+  const phone = watch('phone')
 
   const phoneCodeText = useMemo(() => {
     if (isEmpty(country) || isEmpty(phone)) return PHONE_PREFIX

@@ -47,7 +47,7 @@ function NumberInput ({
               prefix={prefix}
               mask={mask}
               onValueChange={onChange}
-              value={value}
+              value={value?.value ?? value}
               disabled={disabled}
               invalid={invalid}
             />
