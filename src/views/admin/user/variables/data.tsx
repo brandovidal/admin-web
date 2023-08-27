@@ -28,7 +28,6 @@ function generateActions (user: User, router: NextRouter, addUser: (user: User) 
       icon: <Icon as={MdOutlineDelete} h='16px' w='16px' me='8px' />,
       onClick: () => {
         deleteUser(user)
-        console.log('Eliminar', user.id as string)
       }
     }
   ]

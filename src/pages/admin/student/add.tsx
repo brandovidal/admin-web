@@ -1,5 +1,5 @@
 // libs
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // interfaces
@@ -11,6 +11,14 @@ import AdminLayout from '@/layouts/admin'
 // Views
 import StudentAddView from '@/views/admin/student/components/StudentAdd'
 
+// hooks
+import { useNotification } from '@/hooks/useNotification'
+
+// services
+import { useCreateStudent } from '@/services/student'
+
+import { COUNTRY_OPTIONS, STATUS_OPTIONS, TRAINING_OPTIONS } from '@/constants/student'
+
 // form
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -18,18 +26,18 @@ import { zodResolver } from '@hookform/resolvers/zod'
 // schema
 import { registerStudentSchema, type RegisterStudentInput } from '@/schemas/student'
 
-// hooks
-import { useNotification } from '@/hooks/useNotification'
-
-// services
-import { useCreateStudent } from '@/services/student'
-
 // styles
 import { Box } from '@chakra-ui/react'
 
 export default function StudentAdd (): JSX.Element {
   const router = useRouter()
   const { showToast, showErrorToast } = useNotification()
+
+  const countryOptions = useMemo(() => COUNTRY_OPTIONS, [])
+
+  const trainingOptions = useMemo(() => TRAINING_OPTIONS, [])
+
+  const statusOptions = useMemo(() => STATUS_OPTIONS, [])
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -72,7 +80,7 @@ export default function StudentAdd (): JSX.Element {
   const [alert, setAlert] = useState<AlertProps>()
 
   const onSuccess = (): void => {
-    showToast({ title: 'Usuario creado correctamente', description: 'El usuario se ha creado correctamente' })
+    showToast({ title: 'User successfully created', description: 'The user has been successfully created' })
     setIsSubmitting(false)
 
     void router.push('/admin/student/list')
@@ -86,7 +94,6 @@ export default function StudentAdd (): JSX.Element {
   const { mutate: addStudent } = useCreateStudent({ onSuccess, onError })
 
   const useOnSubmit: SubmitHandler<RegisterStudentInput> = useCallback(data => {
-    console.log('🚀 ~ file: add.tsx:89 ~ StudentAdd ~ data:', data)
     setIsSubmitting(true)
     addStudent(data)
   }, [addStudent])
@@ -96,7 +103,18 @@ export default function StudentAdd (): JSX.Element {
   return (
     <AdminLayout navbarText='Add Student'>
       <Box pt={{ base: '28', md: '24', xl: '24' }}>
-        <StudentAddView control={control} watch={watch} setValue={setValue} alert={alert} isDisabled={!isValid || isSubmitting} isSubmitting={isSubmitting} onSubmit={handleSubmit(useOnSubmit)} onCancel={onCancel} />
+        <StudentAddView
+          countryOptions={countryOptions}
+          trainingOptions={trainingOptions}
+          statusOptions={statusOptions}
+          control={control}
+          watch={watch}
+          setValue={setValue}
+          alert={alert}
+          isDisabled={!isValid || isSubmitting}
+          isSubmitting={isSubmitting}
+          onSubmit={handleSubmit(useOnSubmit)}
+          onCancel={onCancel} />
       </Box>
     </AdminLayout>
   )

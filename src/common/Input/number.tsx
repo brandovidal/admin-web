@@ -33,7 +33,7 @@ function NumberInput ({
     <Controller
       control={control}
       name={name}
-      render={({ field: { onChange, value = '' }, fieldState: { error, invalid } }) => (
+      render={({ field: { onChange, value }, fieldState: { error, invalid } }) => (
         <FormControl fontSize='sm' isInvalid={invalid} >
           <FormLabel color={labelColor} fontWeight='medium'>{label}</FormLabel>
           <InputGroup gap={2}>
@@ -47,7 +47,7 @@ function NumberInput ({
               prefix={prefix}
               mask={mask}
               onValueChange={onChange}
-              value={value}
+              value={value?.value ?? value}
               disabled={disabled}
               invalid={invalid}
             />

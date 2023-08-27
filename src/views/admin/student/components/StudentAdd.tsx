@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import isEmpty from 'just-is-empty'
 
 // interfaces
-import type { ViewAddProps } from '@/interfaces/views/default'
+import type { StudentViewProps } from '@/interfaces/views/student'
 
 // common
 import Alert from '@/common/Alert/default'
@@ -13,16 +13,19 @@ import Input from '@/common/Input/default'
 import NumberInput from '@/common/Input/number'
 import Select from '@/common/Select/default'
 import Radio from '@/common/Radio/default'
+import Date from '@/common/Date/default'
 
 // constant
 import { COUNTRY_OPTIONS, STATUS_OPTIONS, TRAINING_OPTIONS } from '@/constants/student'
 import { PHONE_PREFIX } from '@/constants/default'
 
+import { over18Years, over1900Years } from '@/utils/date'
+
 // styles
 import { Box, Button, Grid, GridItem, Heading, SimpleGrid } from '@chakra-ui/react'
 import { MdChevronLeft, MdSave } from 'react-icons/md'
 
-const StudentAddView = ({ control, watch, setValue, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ViewAddProps): JSX.Element => {
+const StudentAddView = ({ control, watch, setValue, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: StudentViewProps): JSX.Element => {
   const countryOptions = useMemo(() => COUNTRY_OPTIONS, [])
 
   const trainingOptions = useMemo(() => TRAINING_OPTIONS, [])
@@ -74,7 +77,7 @@ const StudentAddView = ({ control, watch, setValue, alert, isSubmitting = false,
 
                 <Input control={control} type='text' name='lastname' label='Lastname' placeholder='Enter full surnames' maxLength={50} helperText='Enter full surnames to issue your certificate' disabled={isSubmitting} />
 
-                <Input control={control} type='date' name='birthday' label='Birthday' placeholder='Enter birthday' disabled={isSubmitting} />
+                <Date control={control} name='birthday' label='Birthday' placeholder='Enter birthday' disabled={isSubmitting} minDate={over1900Years} maxDate={over18Years} />
 
                 <Select control={control} name='country' label='Country' options={countryOptions} placeholder='Select a country' isDisabled={isSubmitting} />
 

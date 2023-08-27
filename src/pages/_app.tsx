@@ -19,7 +19,6 @@ import '@styles/App.css'
 import '@styles/index.css'
 
 import 'react-calendar/dist/Calendar.css'
-// import 'flatpickr/dist/themes/airbnb.css'
 
 function MyApp ({ Component, pageProps }: AppProps): JSX.Element {
   const queryClient = new QueryClient()

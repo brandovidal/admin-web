@@ -7,14 +7,14 @@ export interface Student {
   name: string
   lastname: string
   birthday?: string | null
-  dni?: number | null
+  dni?: string | number | null
   email: string
   ruc?: number | null
   businessName?: string | null
   address?: string | null
   country?: object | string | null
   phoneCode?: string | null
-  phone?: number | string | null
+  phone?: number | null
   phoneWithFormat?: string | null
   ladline?: number | null
   ladlineWithFormat?: string | null
