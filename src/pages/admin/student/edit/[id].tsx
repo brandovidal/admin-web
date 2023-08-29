@@ -96,8 +96,6 @@ export default function StudentEdit (): JSX.Element {
       return
     }
 
-    console.log(student?.dni)
-
     const country = countryOptions.find(option => option.value === student?.country) ?? { value: '', label: '' }
     const birthday = formatDate(student?.birthday ?? '')
     const formattedValue = student?.phone ?? null
