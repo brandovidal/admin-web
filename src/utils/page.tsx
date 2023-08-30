@@ -2,7 +2,7 @@ import MenuActions from '@/components/menu/Actions'
 
 import { NO_OP } from '@/constants/default'
 
-import { Icon } from '@chakra-ui/react'
+import { Badge, Icon } from '@chakra-ui/react'
 import { MdModeEditOutline, MdOutlineDelete } from 'react-icons/md'
 
 export const generateRecord = (isLoading: boolean, total: number): string => {
@@ -16,6 +16,25 @@ export const generateRecord = (isLoading: boolean, total: number): string => {
     return `${total} record`
   }
   return `${total} records`
+}
+
+export function generateStatus (status = false): JSX.Element {
+  const data = {
+    active: {
+      label: 'Active',
+      color: 'green'
+    },
+    inactive: {
+      label: 'Inactive',
+      color: 'yellow'
+    }
+  }
+  const option = status ? 'active' : 'inactive'
+
+  const roleLabel = data[option]?.label ?? data.inactive.label
+  const roleColor = data[option]?.color ?? data.inactive.color
+
+  return <Badge variant='subtle' colorScheme={roleColor}>{roleLabel}</Badge>
 }
 
 export function generateActions (handleEditClick = NO_OP, handleDeleteClick = NO_OP): JSX.Element {

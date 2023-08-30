@@ -89,16 +89,16 @@ export default function ProgramList (): JSX.Element {
     onClose()
   }, [program, onClose, deleteProgram])
 
-  const handleEditClick = useCallback(() => {
+  const handleEdit = useCallback((program: Program) => {
     addProgram(program)
     void router.push(`/admin/program/edit/${program.id as string}`)
-  }, [addProgram, program, router])
+  }, [addProgram, router])
 
-  const handleDeleteClick = useCallback(() => {
+  const handleDelete = useCallback((program: Program) => {
     confirmDelete(program)
-  }, [confirmDelete, program])
+  }, [confirmDelete])
 
-  const tableData = useMemo(() => formatData(programs?.data, handleEditClick, handleDeleteClick), [programs, handleEditClick, handleDeleteClick])
+  const tableData = useMemo(() => formatData(programs?.data, handleEdit, handleDelete), [programs, handleEdit, handleDelete])
   const pagination = useMemo(() => programs?.meta?.pagination, [programs?.meta?.pagination])
 
   useEffect(() => {

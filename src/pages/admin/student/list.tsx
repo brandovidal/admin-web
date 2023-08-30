@@ -89,7 +89,16 @@ export default function StudentList (): JSX.Element {
     onClose()
   }, [student, onClose, deleteStudent])
 
-  const tableData = useMemo(() => formatData(students?.data, router, addStudent, confirmDelete), [students, router, addStudent, confirmDelete])
+  const handleEdit = useCallback((student: Student) => {
+    addStudent(student)
+    void router.push(`/admin/student/edit/${student.id as string}`)
+  }, [addStudent, router])
+
+  const handleDelete = useCallback((student: Student) => {
+    confirmDelete(student)
+  }, [confirmDelete])
+
+  const tableData = useMemo(() => formatData(students?.data, handleEdit, handleDelete), [students, handleEdit, handleDelete])
   const pagination = useMemo(() => students?.meta?.pagination, [students?.meta?.pagination])
 
   useEffect(() => {
