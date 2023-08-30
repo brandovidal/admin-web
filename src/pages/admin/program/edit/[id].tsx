@@ -4,7 +4,6 @@ import { useRouter } from 'next/router'
 
 // interfaces
 import type { AlertProps } from '@/interfaces/common/Alert'
-import type { Program } from '@/interfaces/api/Program'
 
 // Layout
 import AdminLayout from '@/layouts/admin'
@@ -18,9 +17,11 @@ import { useNotification } from '@/hooks/useNotification'
 // services
 import { useUpdateProgram } from '@/services/program'
 
-import { useProgramStore } from '@/store/program'
+import type { Program } from '@/interfaces/api/Program'
 
-import { COUNTRY_OPTIONS, STATUS_OPTIONS, TRAINING_OPTIONS } from '@/constants/program'
+import { COUNTRY_OPTIONS } from '@/constants/program'
+
+import { useProgramStore } from '@/store/program'
 
 // form
 import { type SubmitHandler, useForm } from 'react-hook-form'
@@ -29,12 +30,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 // schema
 import { updateProgramSchema, type UpdateProgramInput } from '@/schemas/program'
 
-import { formatDate } from '@/utils/date'
-
 // styles
 import { Box } from '@chakra-ui/react'
-
 import isEmpty from 'just-is-empty'
+import { formatDate } from '@/utils/date'
 
 export default function ProgramEdit (): JSX.Element {
   const router = useRouter()
@@ -43,38 +42,21 @@ export default function ProgramEdit (): JSX.Element {
   const programId = useMemo(() => router.query.id as string, [router.query.id])
 
   const program = useProgramStore(state => state.program) as Program
-  const cleanProgram = useProgramStore(state => state.cleanProgram)
+  const cleanUser = useProgramStore(state => state.cleanProgram)
 
-  const countryOptions = useMemo(() => COUNTRY_OPTIONS, [])
-
-  const trainingOptions = useMemo(() => TRAINING_OPTIONS, [])
-
-  const statusOptions = useMemo(() => STATUS_OPTIONS, [])
+  const courseOptions = useMemo(() => COUNTRY_OPTIONS, [])
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const defaultValues = {
     name: '',
-    lastname: '',
-    birthday: undefined,
-    address: '',
-    country: undefined,
-    phone: undefined,
-    dni: undefined,
-    email: '',
-    formattedValue: '',
-    ladline: undefined,
-    ruc: undefined,
-    businessName: '',
-    studyCenter: '',
-    training: undefined,
-    postgraduateTraining: false,
-    graduateTraining: false,
-    bachelorTraining: true,
-    programTraining: false,
-    workplace: '',
-    workPosition: '',
-    workAddress: '',
+    code: '',
+    courseId: '',
+    startDate: undefined,
+    endDate: undefined,
+    amount: undefined,
+    discount: undefined,
+    total: undefined,
     status: undefined
   }
 
@@ -96,33 +78,23 @@ export default function ProgramEdit (): JSX.Element {
       return
     }
 
-    const country = countryOptions.find(option => option.value === program?.country) ?? { value: '', label: '' }
-    const birthday = formatDate(program?.birthday ?? '')
-    const formattedValue = program?.phone ?? null
-    const phone = { formattedValue: String(formattedValue), value: formattedValue, floatValue: formattedValue }
-    const status = (program?.status ?? false) ? 'active' : 'inactive'
+    const course = courseOptions.find(option => option.value === program?.courseId) ?? { value: '', label: '' }
+    console.log('🚀 ~ file: [id].tsx:82 ~ useEffect ~ course:', course)
+    const startDate = formatDate(program?.startDate ?? '')
+    const endDate = formatDate(program?.endDate ?? '')
+    // const formattedValue = program?.amount ?? null
+    // const amount = { formattedValue: String(formattedValue), value: formattedValue, floatValue: formattedValue }
 
     setValue('id', programId ?? '')
     setValue('name', program.name)
-    setValue('lastname', program.lastname)
-    setValue('birthday', birthday as unknown as string)
-    setValue('country', country as unknown as string)
-    setValue('phone', phone as unknown as number)
-    setValue('dni', program?.dni as number)
-    setValue('email', program?.email)
-    setValue('ladline', (program?.ladline ?? '') as number)
-    setValue('ruc', (program?.ruc ?? '') as number)
-    setValue('status', status as unknown as boolean)
-    setValue('businessName', program?.businessName ?? '')
-    setValue('studyCenter', program?.studyCenter ?? '')
-    setValue('postgraduateTraining', program?.postgraduateTraining ?? false)
-    setValue('graduateTraining', program?.graduateTraining ?? false)
-    setValue('bachelorTraining', program?.bachelorTraining ?? false)
-    setValue('programTraining', program?.programTraining ?? false)
-    setValue('workplace', program?.workplace ?? '')
-    setValue('workPosition', program?.workPosition ?? '')
-    setValue('workAddress', program?.workAddress ?? '')
-  }, [program, router, programId, setValue, countryOptions])
+    setValue('startDate', startDate)
+    setValue('endDate', endDate)
+    setValue('course', course as unknown as string)
+    // setValue('amount', amount as unknown as number)
+    setValue('amount', (program?.amount ?? '') as number)
+    setValue('discount', (program?.discount ?? '') as number)
+    setValue('total', (program?.total ?? '') as number)
+  }, [program, router, programId, setValue, courseOptions])
 
   const [alert, setAlert] = useState<AlertProps>()
 
@@ -138,25 +110,24 @@ export default function ProgramEdit (): JSX.Element {
     showErrorToast({ title: "Program can't save", description: 'Please, verify your data' })
   }
 
-  const { mutate: updateProgram } = useUpdateProgram({ onSuccess, onError })
+  const { mutate: editProgram } = useUpdateProgram({ onSuccess, onError })
 
   const useOnSubmit: SubmitHandler<UpdateProgramInput> = useCallback(data => {
+    console.log('🚀 ~ file: add.tsx:97 ~ ProgramEdit ~ data:', data)
     setIsSubmitting(true)
-    updateProgram(data)
-  }, [updateProgram])
+    editProgram(data)
+  }, [editProgram])
 
   const onCancel = useCallback((): void => {
-    cleanProgram()
+    cleanUser()
     router.back()
-  }, [router, cleanProgram])
+  }, [router, cleanUser])
 
   return (
     <AdminLayout navbarText='Edit Program'>
       <Box pt={{ base: '28', md: '24', xl: '24' }}>
         <ProgramEditView
-          countryOptions={countryOptions}
-          trainingOptions={trainingOptions}
-          statusOptions={statusOptions}
+          courseOptions={courseOptions}
           control={control}
           watch={watch}
           setValue={setValue}

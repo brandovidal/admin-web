@@ -16,7 +16,6 @@ import Radio from '@/common/Radio/default'
 import Date from '@/common/Date/default'
 
 // constant
-import { COUNTRY_OPTIONS, STATUS_OPTIONS, TRAINING_OPTIONS } from '@/constants/student'
 import { PHONE_PREFIX } from '@/constants/default'
 
 import { over18Years, over1900Years } from '@/utils/date'
@@ -25,13 +24,7 @@ import { over18Years, over1900Years } from '@/utils/date'
 import { Box, Button, Grid, GridItem, Heading, SimpleGrid } from '@chakra-ui/react'
 import { MdChevronLeft, MdSave } from 'react-icons/md'
 
-const StudentAddView = ({ control, watch, setValue, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: StudentViewProps): JSX.Element => {
-  const countryOptions = useMemo(() => COUNTRY_OPTIONS, [])
-
-  const trainingOptions = useMemo(() => TRAINING_OPTIONS, [])
-
-  const statusOptions = useMemo(() => STATUS_OPTIONS, [])
-
+const StudentAddView = ({ countryOptions, trainingOptions, statusOptions, control, watch, setValue, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: StudentViewProps): JSX.Element => {
   const country = watch('country', null)
   const phone = watch('phone', null)
 

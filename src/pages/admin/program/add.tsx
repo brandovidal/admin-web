@@ -17,7 +17,7 @@ import { useNotification } from '@/hooks/useNotification'
 // services
 import { useCreateProgram } from '@/services/program'
 
-import { COUNTRY_OPTIONS, STATUS_OPTIONS, TRAINING_OPTIONS } from '@/constants/program'
+import { COUNTRY_OPTIONS } from '@/constants/program'
 
 // form
 import { type SubmitHandler, useForm } from 'react-hook-form'
@@ -33,36 +33,18 @@ export default function ProgramAdd (): JSX.Element {
   const router = useRouter()
   const { showToast, showErrorToast } = useNotification()
 
-  const countryOptions = useMemo(() => COUNTRY_OPTIONS, [])
-
-  const trainingOptions = useMemo(() => TRAINING_OPTIONS, [])
-
-  const statusOptions = useMemo(() => STATUS_OPTIONS, [])
+  const courseOptions = useMemo(() => COUNTRY_OPTIONS, [])
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const defaultValues = {
     name: '',
-    lastname: '',
-    birthday: undefined,
-    address: '',
-    country: undefined,
-    phone: undefined,
-    dni: undefined,
-    email: '',
-    phoneFormatted: '',
-    ladline: undefined,
-    ruc: undefined,
-    businessName: '',
-    studyCenter: '',
-    training: undefined,
-    postgraduateTraining: false,
-    graduateTraining: false,
-    bachelorTraining: true,
-    programTraining: false,
-    workplace: '',
-    workPosition: '',
-    workAddress: '',
+    code: '',
+    startDate: undefined,
+    endDate: undefined,
+    amount: undefined,
+    discount: undefined,
+    total: undefined,
     status: undefined
   }
 
@@ -95,7 +77,7 @@ export default function ProgramAdd (): JSX.Element {
 
   const useOnSubmit: SubmitHandler<RegisterProgramInput> = useCallback(data => {
     console.log('🚀 ~ file: add.tsx:97 ~ ProgramAdd ~ data:', data)
-    // setIsSubmitting(true)
+    setIsSubmitting(true)
     addProgram(data)
   }, [addProgram])
 
@@ -105,9 +87,7 @@ export default function ProgramAdd (): JSX.Element {
     <AdminLayout navbarText='Add Program'>
       <Box pt={{ base: '28', md: '24', xl: '24' }}>
         <ProgramAddView
-          countryOptions={countryOptions}
-          trainingOptions={trainingOptions}
-          statusOptions={statusOptions}
+          courseOptions={courseOptions}
           control={control}
           watch={watch}
           setValue={setValue}

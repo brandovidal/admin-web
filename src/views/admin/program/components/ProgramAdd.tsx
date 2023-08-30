@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 
 // libs
 import isEmpty from 'just-is-empty'
@@ -13,9 +13,7 @@ import Input from '@/common/Input/default'
 import Select from '@/common/Select/default'
 import Date from '@/common/Date/default'
 
-// constant
-import { COUNTRY_OPTIONS } from '@/constants/program'
-
+// utils
 import { overToday } from '@/utils/date'
 import { sanitize } from '@/utils/string'
 
@@ -24,9 +22,7 @@ import { Box, Button, Grid, GridItem, Heading, SimpleGrid } from '@chakra-ui/rea
 import { MdChevronLeft, MdSave } from 'react-icons/md'
 import NumericInput from '@/common/Input/numeric'
 
-const ProgramAddView = ({ control, watch, setValue, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ProgramViewProps): JSX.Element => {
-  const courseOptions = useMemo(() => COUNTRY_OPTIONS, [])
-
+const ProgramAddView = ({ courseOptions, control, watch, setValue, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ProgramViewProps): JSX.Element => {
   const name = watch('name', null)
   const course = watch('course', null)
   const amount = watch('amount', null)
