@@ -6,7 +6,8 @@ import {
   MdLock,
   MdOutlineShoppingCart,
   MdPeople,
-  MdContacts
+  MdContacts,
+  MdOutlinePhonelinkSetup
 } from 'react-icons/md'
 
 import type { IRoute } from '@/types/navigation'
@@ -65,6 +66,13 @@ const routes: IRoute[] = [
     layout: '/admin',
     path: '/student/list',
     icon: <Icon as={MdContacts} width="20px" height="20px" color="inherit" />,
+    component: StudentList
+  },
+  {
+    name: 'Program',
+    layout: '/admin',
+    path: '/program/list',
+    icon: <Icon as={MdOutlinePhonelinkSetup} width="20px" height="20px" color="inherit" />,
     component: StudentList
   },
   {
