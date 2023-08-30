@@ -31,15 +31,12 @@ export const courseSchema = object({
   endDate: DateSchema(EndDateSchema),
   amount: union([AmountSchema, NumberSchema]).nullish(),
   discount: union([DiscountSchema, NumberSchema]).nullish(),
-  total: union([TotalSchema, NumberSchema]).nullish(),
-  course: union([CourseSchema, SelectSchema]).nullable(),
-  courseId: string({
-    required_error: 'Course ID is required'
-  }).length(24, { message: 'Enter 24 characters' }).nullish()
+  total: union([TotalSchema, NumberSchema]).nullish()
 })
 
-function transformData (data = registerCourseSchema) {
-  console.log('🚀 ~ file: course.ts:43 ~ transformData ~ data:', data)
+function transformData (arg = registerCourseSchema) {
+  console.log('🚀 ~ file: course.ts:43 ~ transformData ~ arg:', arg)
+  const { amount, discount, total, ...data } = arg
   return {
     ...data,
     name: data.name.trim(),
