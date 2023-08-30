@@ -37,26 +37,23 @@ export const programSchema = object({
     required_error: 'Course ID is required'
   }).length(24, { message: 'Enter 24 characters' }).nullish()
 })
+export type ProgramInput = z.infer<typeof registerProgramSchema>
+
+function transformData (data = registerProgramSchema) {
+  console.log('🚀 ~ file: program.ts:43 ~ transformData ~ data:', data)
+  return {
+    ...data,
+    name: data.name.trim(),
+    code: data.code.trim()
+  }
+}
 
 export const registerProgramSchema = programSchema
-  .transform(data => {
-    console.log('🚀 ~ file: program.ts:43 ~ data:', data)
-    return {
-      ...data,
-      name: data.name.trim(),
-      code: data.code.trim()
-    }
-  })
+  .transform(transformData)
 
 export type RegisterProgramInput = z.infer<typeof registerProgramSchema>
 
 export const updateProgramSchema = intersection(programSchema, IdSchema)
-  .transform(data => {
-    return {
-      ...data,
-      name: data.name.trim(),
-      code: data.code.trim()
-    }
-  })
+  .transform(transformData)
 
 export type UpdateProgramInput = z.infer<typeof updateProgramSchema>
