@@ -87,6 +87,7 @@ export default function ProgramEdit (): JSX.Element {
 
     setValue('id', programId ?? '')
     setValue('name', program.name)
+    setValue('code', program.code)
     setValue('startDate', startDate)
     setValue('endDate', endDate)
     setValue('course', course as unknown as string)
