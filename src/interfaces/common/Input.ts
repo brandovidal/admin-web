@@ -14,6 +14,7 @@ export interface InputProps {
   error?: FieldError
   invalid?: boolean
   disabled?: boolean
+  isOptional?: boolean
   hasAutoComplete?: boolean
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }

@@ -13,4 +13,5 @@ export interface NumberProps extends ReactNumberFormatProps {
   error?: FieldError
   value?: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  isOptional?: boolean
 }

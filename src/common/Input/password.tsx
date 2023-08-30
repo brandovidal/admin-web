@@ -29,7 +29,7 @@ const PasswordInput = ({ control, name, label = '', placeholder, disabled = fals
       name={name}
       render={({ field: { onChange, value = '' }, fieldState: { error, invalid } }) => (
         <FormControl fontSize='12' isInvalid={invalid}>
-        <FormLabel color={labelColor} fontWeight='medium'>{label}</FormLabel>
+          <FormLabel color={labelColor} fontWeight='medium'>{label}</FormLabel>
           <InputGroup size='md'>
             <Input
               pr='4.5rem'
@@ -44,15 +44,11 @@ const PasswordInput = ({ control, name, label = '', placeholder, disabled = fals
             />
             <InputRightElement width='4.5rem' borderRadius='16px'>
               <Button h='1.75rem' size='sm' borderRadius='10px' onClick={handleShow}>
-                <Icon as={show ? FaEyeSlash : FaEye } w='24px' h='24px' />
+                <Icon as={show ? FaEyeSlash : FaEye} w='24px' h='24px' />
               </Button>
             </InputRightElement>
           </InputGroup>
-          {!isEmpty(error?.message) && (
-            <Text color='red.300' mt='2'>
-              {error?.message}
-            </Text>
-          )}
+          {!isEmpty(error?.message) && (<Text color='red.300' mt='2'>{error?.message}</Text>)}
         </FormControl>
       )}
     />

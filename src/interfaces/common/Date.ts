@@ -15,5 +15,6 @@ export interface DateProps {
   error?: FieldError
   invalid?: boolean
   disabled?: boolean
+  isOptional?: boolean
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }

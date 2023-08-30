@@ -1,5 +1,5 @@
 // styles
-import { FormControl, FormHelperText, FormLabel, InputGroup, InputLeftAddon, InputRightAddon, Text, useColorModeValue } from '@chakra-ui/react'
+import { Flex, FormControl, FormHelperText, FormLabel, InputGroup, InputLeftAddon, InputRightAddon, Text, useColorModeValue } from '@chakra-ui/react'
 
 // form
 import { Controller } from 'react-hook-form'
@@ -11,6 +11,8 @@ import type { NumberProps } from '@/interfaces/common/Number'
 
 // libs
 import { ReactNumberFormat } from '@/libs/ReactNumberFormat/default'
+
+import { OPTIONAL } from '@/constants/default'
 
 function NumberInput ({
   control,
@@ -25,6 +27,7 @@ function NumberInput ({
   prefix,
   mask,
   maxLength,
+  isOptional = false,
   disabled
 }: NumberProps): JSX.Element {
   const labelColor = useColorModeValue('gray.800', 'whiteAlpha.800')
@@ -35,7 +38,10 @@ function NumberInput ({
       name={name}
       render={({ field: { onChange, value }, fieldState: { error, invalid } }) => (
         <FormControl fontSize='sm' isInvalid={invalid} >
-          <FormLabel color={labelColor} fontWeight='medium'>{label}</FormLabel>
+        <Flex align={'center'} mb={2}>
+          <FormLabel color={labelColor} fontWeight='medium' my={0} mr={2}>{label}</FormLabel>
+          {isOptional && (<FormHelperText color='secondaryGray.500' fontSize='sm' my={0}>({OPTIONAL})</FormHelperText>)}
+        </Flex>
           <InputGroup gap={2}>
             {!isEmpty(leftIconText) && <InputLeftAddon borderWidth={2} borderColor={invalid ? 'red.300' : 'inherit'} borderRadius='md'>{leftIconText}</InputLeftAddon>}
             <ReactNumberFormat
