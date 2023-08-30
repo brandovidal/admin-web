@@ -58,16 +58,16 @@ export default function UserList (): JSX.Element {
   }, [refetch])
 
   const onDeleteSuccess = useCallback(async (): Promise<void> => {
-    setAlert({ message: 'Usuario eliminado correctamente', status: 'success' })
-    showToast({ title: 'Usuario eliminado correctamente', description: 'El usuario se ha eliminado correctamente' })
+    setAlert({ message: 'User successfully deleted', status: 'success' })
+    showToast({ title: 'User successfully deleted', description: 'The user has been successfully deleted' })
 
     await handleRefresh()
     void router.push('/admin/user/list')
   }, [handleRefresh, showToast, router])
 
   const onDeleteError = useCallback((): void => {
-    setAlert({ message: 'No se pudo eliminar al usuario', status: 'warning' })
-    showErrorToast({ title: 'No se pudo eliminar al usuario', description: 'Por favor, intentar más tarde' })
+    setAlert({ message: 'User could not be deleted', status: 'warning' })
+    showErrorToast({ title: 'User could not be deleted', description: 'Please try again later' })
   }, [showErrorToast])
 
   const { mutate: deleteUser } = useDeleteUser({ onSuccess: onDeleteSuccess, onError: onDeleteError })

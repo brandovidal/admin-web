@@ -56,7 +56,7 @@ export default function UserEdit (): JSX.Element {
   useEffect(() => {
     if (closeEdit) return
     if (isEmpty(user)) {
-      showErrorToast({ title: 'No se pudo encontrar el usuario', description: 'Por favor, intentar más tarde' })
+      showErrorToast({ title: 'No se pudo encontrar el usuario', description: 'Please try again later' })
       void router.push('/admin/user/list')
       return
     }
