@@ -63,15 +63,15 @@ export default function StudentList (): JSX.Element {
   )
 
   const onDeleteSuccess = useCallback(async (): Promise<void> => {
-    setAlert({ message: 'Usuario eliminado correctamente', status: 'success' })
-    showToast({ title: 'Usuario eliminado correctamente', description: 'El usuario se ha eliminado correctamente' })
+    setAlert({ message: 'Student successfully deleted', status: 'success' })
+    showToast({ title: 'Student successfully deleted', description: 'The student has been successfully deleted' })
     await handleRefresh()
     void router.push('/admin/student/list')
   }, [handleRefresh, showToast, router])
 
   const onDeleteError = useCallback((): void => {
-    setAlert({ message: 'No se pudo eliminar al usuario', status: 'warning' })
-    showErrorToast({ title: 'No se pudo eliminar al usuario', description: 'Por favor, intentar más tarde' })
+    setAlert({ message: 'Student could not be deleted', status: 'warning' })
+    showErrorToast({ title: 'Student could not be deleted', description: 'Please try again later' })
   }, [showErrorToast])
 
   const { mutate: deleteStudent } = useDeleteStudent({ onSuccess: onDeleteSuccess, onError: onDeleteError })

@@ -91,7 +91,7 @@ export default function StudentEdit (): JSX.Element {
 
   useEffect(() => {
     if (isEmpty(student)) {
-      // showErrorToast({ title: 'No se pudo encontrar el estudiante', description: 'Por favor, intentar más tarde' })
+      // showErrorToast({ title: 'No se pudo encontrar el estudiante', description: 'Please try again later' })
       void router.push('/admin/student/list')
       return
     }
