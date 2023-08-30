@@ -37,7 +37,6 @@ export const programSchema = object({
     required_error: 'Course ID is required'
   }).length(24, { message: 'Enter 24 characters' }).nullish()
 })
-export type ProgramInput = z.infer<typeof registerProgramSchema>
 
 function transformData (data = registerProgramSchema) {
   console.log('🚀 ~ file: program.ts:43 ~ transformData ~ data:', data)
