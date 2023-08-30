@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 
 // interfaces
 import type { AlertProps } from '@/interfaces/common/Alert'
+import type { Program } from '@/interfaces/api/Program'
 
 // Layout
 import AdminLayout from '@/layouts/admin'
@@ -17,11 +18,11 @@ import { useNotification } from '@/hooks/useNotification'
 // services
 import { useUpdateProgram } from '@/services/program'
 
-import type { Program } from '@/interfaces/api/Program'
-
 import { COUNTRY_OPTIONS } from '@/constants/program'
 
 import { useProgramStore } from '@/store/program'
+
+import { formatDate } from '@/utils/date'
 
 // form
 import { type SubmitHandler, useForm } from 'react-hook-form'
@@ -32,8 +33,8 @@ import { updateProgramSchema, type UpdateProgramInput } from '@/schemas/program'
 
 // styles
 import { Box } from '@chakra-ui/react'
+
 import isEmpty from 'just-is-empty'
-import { formatDate } from '@/utils/date'
 
 export default function ProgramEdit (): JSX.Element {
   const router = useRouter()
@@ -51,6 +52,7 @@ export default function ProgramEdit (): JSX.Element {
   const defaultValues = {
     name: '',
     code: '',
+    course: '',
     courseId: '',
     startDate: undefined,
     endDate: undefined,
@@ -78,7 +80,7 @@ export default function ProgramEdit (): JSX.Element {
       return
     }
 
-    const course = courseOptions.find(option => option.value === program?.courseId) ?? { value: '', label: '' }
+    const course = courseOptions.find(option => option.value === program?.courseId) ?? null
     console.log('🚀 ~ file: [id].tsx:82 ~ useEffect ~ course:', course)
     const startDate = formatDate(program?.startDate ?? '')
     const endDate = formatDate(program?.endDate ?? '')
@@ -115,7 +117,7 @@ export default function ProgramEdit (): JSX.Element {
 
   const useOnSubmit: SubmitHandler<UpdateProgramInput> = useCallback(data => {
     console.log('🚀 ~ file: add.tsx:97 ~ ProgramEdit ~ data:', data)
-    setIsSubmitting(true)
+    setIsSubmitting(false)
     editProgram(data)
   }, [editProgram])
 

@@ -32,7 +32,7 @@ export const programSchema = object({
   amount: union([AmountSchema, NumberSchema]).nullish(),
   discount: union([DiscountSchema, NumberSchema]).nullish(),
   total: union([TotalSchema, NumberSchema]).nullish(),
-  course: union([CourseSchema, SelectSchema]).nullish(),
+  course: union([CourseSchema, SelectSchema]).nullable(),
   courseId: string({
     required_error: 'Course ID is required'
   }).length(24, { message: 'Enter 24 characters' }).nullish()
