@@ -1,45 +1,18 @@
-import type { NextRouter } from 'next/router'
-
 // interfaces
 import type { User, UserData, UserRoleEnumType, UserStatusEnumType } from '@/interfaces/api/User'
-import type { ActionsProps } from '@/interfaces/common/MenuActions'
 
-// Components
-import MenuActions from '@/components/menu/Actions'
+import { generateActions } from '@/utils/page'
 
 // styles
-import { Badge, Icon } from '@chakra-ui/react'
+import { Badge } from '@chakra-ui/react'
 
-// icons
-import { MdModeEditOutline, MdOutlineDelete } from 'react-icons/md'
-
-function generateActions (user: User, router: NextRouter, addUser: (user: User) => void, deleteUser: (user: User) => void): ActionsProps[] {
-  return [
-    {
-      label: 'Editar',
-      icon: <Icon as={MdModeEditOutline} h='16px' w='16px' me='8px' />,
-      onClick: () => {
-        addUser(user)
-        void router.push(`/admin/user/edit/${user.id as string}`)
-      }
-    },
-    {
-      label: 'Eliminar',
-      icon: <Icon as={MdOutlineDelete} h='16px' w='16px' me='8px' />,
-      onClick: () => {
-        deleteUser(user)
-      }
-    }
-  ]
-}
-
-function Role (data = 'user'): JSX.Element {
+function generateRole (data = 'user'): JSX.Element {
   const roleLabel = data === 'admin' ? 'Admin' : 'User'
   const roleColor = data === 'admin' ? 'purple' : 'green'
 
   return <Badge variant='subtle' colorScheme={roleColor}>{roleLabel}</Badge>
 }
-function Status (status = 'active'): JSX.Element {
+function generateStatus (status = 'active'): JSX.Element {
   const data = {
     active: {
       label: 'Active',
@@ -64,11 +37,21 @@ function Status (status = 'active'): JSX.Element {
   return <Badge variant='subtle' colorScheme={roleColor}>{roleLabel}</Badge>
 }
 
-export const formatData = (data: User[] = [], router: NextRouter, addUser: (user: User) => void, deleteUser: (user: User) => void): UserData[] => {
+export const formatData = (data: User[] = [], handleEdit: (user: User) => void, handleDelete: (user: User) => void): UserData[] => {
   return data.map((user) => {
     const { username, name, email, role, status } = user
-    const actions = generateActions(user, router, addUser, deleteUser)
+    const roleFormatted = generateRole(role as UserRoleEnumType)
+    const statusFormatted = generateStatus(status as UserStatusEnumType)
 
-    return { username, name, email, role: Role(role as UserRoleEnumType), status: Status(status as UserStatusEnumType), actions: <MenuActions actions={actions} /> }
+    const handleEditClick = () => {
+      handleEdit(user)
+    }
+    const handleDeleteClick = () => {
+      handleDelete(user)
+    }
+
+    const actions = generateActions(handleEditClick, handleDeleteClick)
+
+    return { username, name, email, role: roleFormatted, status: statusFormatted, actions }
   })
 }

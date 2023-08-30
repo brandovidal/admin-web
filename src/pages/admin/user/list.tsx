@@ -85,7 +85,16 @@ export default function UserList (): JSX.Element {
     onClose()
   }, [user, onClose, deleteUser])
 
-  const tableData = useMemo(() => formatData(users?.data, router, addUser, confirmDelete), [users, router, addUser, confirmDelete])
+  const handleEdit = useCallback((user: User) => {
+    addUser(user)
+    void router.push(`/admin/user/edit/${user.id as string}`)
+  }, [addUser, router])
+
+  const handleDelete = useCallback((user: User) => {
+    confirmDelete(user)
+  }, [confirmDelete])
+
+  const tableData = useMemo(() => formatData(users?.data, handleEdit, handleDelete), [users, handleEdit, handleDelete])
   const pagination = useMemo(() => users?.meta?.pagination, [users?.meta?.pagination])
 
   useEffect(() => {
