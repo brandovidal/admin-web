@@ -8,7 +8,7 @@ import type { ActionsProps } from '@/interfaces/common/MenuActions'
 import MenuActions from '@/components/menu/Actions'
 
 // styles
-import { Badge, Icon } from '@chakra-ui/react'
+import { Icon } from '@chakra-ui/react'
 
 // icons
 import { MdModeEditOutline, MdOutlineDelete } from 'react-icons/md'
@@ -35,34 +35,14 @@ function generateActions (program: Program, router: NextRouter, addProgram: (pro
   ]
 }
 
-function Status (status = false): JSX.Element {
-  const data = {
-    active: {
-      label: 'Active',
-      color: 'green'
-    },
-    inactive: {
-      label: 'Inactive',
-      color: 'yellow'
-    }
-  }
-  const option = status ? 'active' : 'inactive'
-
-  const roleLabel = data[option]?.label ?? data.inactive.label
-  const roleColor = data[option]?.color ?? data.inactive.color
-
-  return <Badge variant='subtle' colorScheme={roleColor}>{roleLabel}</Badge>
-}
-
 export const formatData = (data: Program[] = [], router: NextRouter, addProgram: (program: Program) => void, deleteProgram: (program: Program) => void): ProgramData[] => {
   return data.map((program) => {
-    const { email, phone, dni, ruc, status, createdAt: date } = program
+    const { name, total, startDate, endDate } = program
 
-    const fullName = `${program?.name} ${program?.lastname}`
-    const numberDocument = String(dni ?? ruc)
-    const actions = generateActions(program, router, addProgram, deleteProgram)
-    const createdAt = formatDate(String(date))
+    const startDateFormatted = formatDate(startDate)
+    const endDateFormatted = formatDate(endDate)
+    const actions = <MenuActions actions={generateActions(program, router, addProgram, deleteProgram)} />
 
-    return { fullName, email, phone, numberDocument, createdAt, status: Status(status as boolean), actions: <MenuActions actions={actions}></MenuActions> }
+    return { name, total, startDate: startDateFormatted, endDate: endDateFormatted, actions }
   })
 }

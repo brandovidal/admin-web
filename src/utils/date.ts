@@ -20,7 +20,7 @@ export function parseDate (value: string): string {
   return `${year}-${month}-${day}`
 }
 
-export function getDate (value: string | Date | dayjs.Dayjs): dayjs.Dayjs {
+export function getDate (value?: string | Date | dayjs.Dayjs | null): dayjs.Dayjs {
   return dayjs(value)
 }
 
@@ -32,7 +32,7 @@ export function toDate (value: string): Date {
   return getDate(value).toDate()
 }
 
-export function formatDate (date: string | dayjs.Dayjs, formatDay = FORMAT_DATE): string {
+export function formatDate (date?: string | dayjs.Dayjs | null, formatDay = FORMAT_DATE): string {
   return getDate(date).utc().format(formatDay)
 }
 

@@ -6,20 +6,22 @@ export interface Program {
   id?: string
   name: string
   code: string
-  startDate?: Date | string | null
-  endDate?: Date | string | null
+  courseId?: string | null
+  startDate?: string | null
+  endDate?: string | null
   amount?: number | null
   discount?: number | null
   total?: number | null
   observations?: string | null
+  status?: boolean | null
   createdAt?: string
   updatedAt?: string
 }
 export interface ProgramData {
-  fullName: string
-  phone?: number | string | null
-  numberDocument?: number | string
-  createdAt: string | null
-  status: ProgramStatusEnumType | ReactElement | null
+  name: string
+  course?: string
+  startDate?: string | null
+  endDate?: string | null
+  total?: number | null
   actions?: ReactElement | null
 }
