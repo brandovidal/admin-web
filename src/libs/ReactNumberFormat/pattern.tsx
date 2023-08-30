@@ -5,11 +5,11 @@ import classNames from 'classnames'
 
 import { NO_OP, PHONE_PLACEHOLDER } from '@/constants/default'
 
-import { type ReactNumberFormatProps } from '@/interfaces/libs/ReactNumberFormat'
+import { type ReactPatternFormatProps } from '@/interfaces/libs/ReactNumberFormat'
 
 import isEmpty from 'just-is-empty'
 
-export const ReactNumberFormat = ({
+export const ReactPatternFormat = ({
   type = 'tel',
   value,
   maxLength = 8,
@@ -20,7 +20,7 @@ export const ReactNumberFormat = ({
   invalid = false,
   disabled = false,
   onValueChange = NO_OP
-}: ReactNumberFormatProps): JSX.Element => {
+}: ReactPatternFormatProps): JSX.Element => {
   const { colorMode } = useColorMode()
   const isDark = colorMode === 'dark'
 

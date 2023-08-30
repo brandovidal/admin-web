@@ -37,7 +37,10 @@ export const programSchema = object({
   total: number({
     required_error: 'Total is required',
     invalid_type_error: 'Total must be a number'
-  }).nullish().transform(val => convertNumber(val))
+  }).nullish().transform(val => convertNumber(val)),
+  courseId: string({
+    required_error: 'Course ID is required'
+  }).length(24).nullish()
 })
 
 export const registerProgramSchema = programSchema

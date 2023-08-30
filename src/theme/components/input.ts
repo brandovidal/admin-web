@@ -55,7 +55,7 @@ export const inputStyles = {
         })
       }
     },
-    NumberInput: {
+    PatternInput: {
       baseStyle: {
         field: {
           fontWeight: 400

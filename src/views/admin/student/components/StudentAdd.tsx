@@ -10,7 +10,7 @@ import type { StudentViewProps } from '@/interfaces/views/student'
 import Alert from '@/common/Alert/default'
 import Card from '@/components/card/Card'
 import Input from '@/common/Input/default'
-import NumberInput from '@/common/Input/number'
+import PatternInput from '@/common/Input/pattern'
 import Select from '@/common/Select/default'
 import Radio from '@/common/Radio/default'
 import Date from '@/common/Date/default'
@@ -81,7 +81,7 @@ const StudentAddView = ({ control, watch, setValue, alert, isSubmitting = false,
 
                 <Select control={control} name='country' label='Country' options={countryOptions} placeholder='Select a country' isDisabled={isSubmitting} />
 
-                <NumberInput control={control} type='tel' name='phone' label='Phone' format='### ### ### ###' placeholder='987654321' leftIconText={phoneCodeText} maxLength={12} disabled={isSubmitting} />
+                <PatternInput control={control} type='tel' name='phone' label='Phone' format='### ### ### ###' placeholder='987654321' leftIconText={phoneCodeText} maxLength={12} disabled={isSubmitting} />
 
                 <Input control={control} rules={{ required: true }} type='tel' name='dni' label='DNI' placeholder='87654321' maxLength={8} disabled={isSubmitting} />
 

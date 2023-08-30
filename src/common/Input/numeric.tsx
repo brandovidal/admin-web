@@ -7,17 +7,16 @@ import { Controller } from 'react-hook-form'
 import isEmpty from 'just-is-empty'
 
 // interfaces
-import type { NumberProps } from '@/interfaces/common/Number'
+import type { NumericProps } from '@/interfaces/common/Number'
 
 // libs
-import { ReactNumberFormat } from '@/libs/ReactNumberFormat/default'
+import { ReactNumericFormat } from '@/libs/ReactNumberFormat/numeric'
 
 import { OPTIONAL } from '@/constants/default'
 
-function NumberInput ({
+function NumericInput ({
   control,
   name,
-  format,
   type = 'tel',
   label,
   leftIconText = '',
@@ -25,11 +24,16 @@ function NumberInput ({
   helperText,
   placeholder,
   prefix,
-  mask,
+  decimalScale,
+  decimalSeparator,
+  thousandSeparator,
+  fixedDecimalScale,
+  allowLeadingZeros,
+  allowNegative,
   maxLength,
   isOptional = false,
   disabled
-}: NumberProps): JSX.Element {
+}: NumericProps): JSX.Element {
   const labelColor = useColorModeValue('gray.800', 'whiteAlpha.800')
 
   return (
@@ -44,14 +48,18 @@ function NumberInput ({
         </Flex>
           <InputGroup gap={2}>
             {!isEmpty(leftIconText) && <InputLeftAddon borderWidth={2} borderColor={invalid ? 'red.300' : 'inherit'} borderRadius='md'>{leftIconText}</InputLeftAddon>}
-            <ReactNumberFormat
+            <ReactNumericFormat
               type={type}
               color='secondaryGray.800'
-              format={format}
               maxLength={maxLength}
               placeholder={placeholder}
               prefix={prefix}
-              mask={mask}
+              decimalScale={decimalScale}
+              decimalSeparator={decimalSeparator}
+              thousandSeparator={thousandSeparator}
+              fixedDecimalScale={fixedDecimalScale}
+              allowNegative={allowNegative}
+              allowLeadingZeros={allowLeadingZeros}
               onValueChange={onChange}
               value={value?.value ?? value}
               disabled={disabled}
@@ -67,4 +75,4 @@ function NumberInput ({
   )
 }
 
-export default NumberInput
+export default NumericInput
