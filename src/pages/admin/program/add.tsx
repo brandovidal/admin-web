@@ -17,7 +17,7 @@ import { useNotification } from '@/hooks/useNotification'
 // services
 import { useCreateProgram } from '@/services/program'
 
-import { COUNTRY_OPTIONS } from '@/constants/program'
+import { COURSE_OPTIONS } from '@/constants/program'
 
 // form
 import { type SubmitHandler, useForm } from 'react-hook-form'
@@ -33,7 +33,7 @@ export default function ProgramAdd (): JSX.Element {
   const router = useRouter()
   const { showToast, showErrorToast } = useNotification()
 
-  const courseOptions = useMemo(() => COUNTRY_OPTIONS, [])
+  const courseOptions = useMemo(() => COURSE_OPTIONS, [])
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 

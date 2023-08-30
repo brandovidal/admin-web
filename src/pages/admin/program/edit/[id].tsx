@@ -18,7 +18,7 @@ import { useNotification } from '@/hooks/useNotification'
 // services
 import { useUpdateProgram } from '@/services/program'
 
-import { COUNTRY_OPTIONS } from '@/constants/program'
+import { COURSE_OPTIONS } from '@/constants/program'
 
 import { useProgramStore } from '@/store/program'
 
@@ -45,7 +45,7 @@ export default function ProgramEdit (): JSX.Element {
   const program = useProgramStore(state => state.program) as Program
   const cleanUser = useProgramStore(state => state.cleanProgram)
 
-  const courseOptions = useMemo(() => COUNTRY_OPTIONS, [])
+  const courseOptions = useMemo(() => COURSE_OPTIONS, [])
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 

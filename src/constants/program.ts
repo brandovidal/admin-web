@@ -1,22 +1,4 @@
-export const COUNTRY_OPTIONS = [
-  { label: 'Peru', value: 'PER', phoneCode: '51' },
-  { label: 'Colombia', value: 'COL', phoneCode: '57' }
-]
-
-export const MODALITY_OPTIONS = [
-  { label: 'Presencial', value: 'presentialModality' },
-  { label: 'Semi Face To Face', value: 'semiPresentialModality' },
-  { label: 'Virtual', value: 'virtualModality' }
-]
-
-export const TRAINING_OPTIONS = [
-  { label: 'Postgraduate', value: 'postgraduateTraining' },
-  { label: 'Graduate', value: 'graduateTraining' },
-  { label: 'Bachelor', value: 'bachelorTraining' },
-  { label: 'Program', value: 'programTraining' }
-]
-
-export const STATUS_OPTIONS = [
-  { label: 'Active', value: 'active' },
-  { label: 'Inactive', value: 'inactive' }
+export const COURSE_OPTIONS = [
+  { label: 'test', value: 'test', phoneCode: '64ef2921cec0fe90a05b98a1' },
+  { label: 'owner', value: 'owner', phoneCode: '64ef2921cec0fe90a05b98a2' }
 ]
