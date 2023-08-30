@@ -22,6 +22,6 @@ export interface ProgramData {
   course?: string
   startDate?: string | null
   endDate?: string | null
-  total?: number | null
+  total?: string | null
   actions?: ReactElement | null
 }
