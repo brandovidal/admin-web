@@ -24,10 +24,10 @@ const PhoneSchema = number({ required_error: 'Enter a phone.', invalid_type_erro
       .lte(999_999_999_999, 'Phone must be less than or equal to 999999999999.')
   )
 const DniSchema = union([
-  string({ required_error: 'Select your dni.', invalid_type_error: 'Select your dni.' }).trim().nullish(),
-  number({ required_error: 'Select your dni.', invalid_type_error: 'Select your dni.' }).nullish()
+  string({ required_error: 'Select your dni.', invalid_type_error: 'Valid your dni.' }).trim().nullish(),
+  number({ required_error: 'Select your dni.', invalid_type_error: 'Valid your dni.' }).nullish()
 ])
-const BirthdaySchema = date({ required_error: 'Select your birthday.', invalid_type_error: 'Select your birthday.' })
+const BirthdaySchema = date({ required_error: 'Select your birthday.', invalid_type_error: 'Valid your birthday.' })
 
 export const countryStudentSchema = object({
   country: union([SelectSchema, CountrySchema]),

@@ -94,6 +94,7 @@ export default function ProgramAdd (): JSX.Element {
   const { mutate: addProgram } = useCreateProgram({ onSuccess, onError })
 
   const useOnSubmit: SubmitHandler<RegisterProgramInput> = useCallback(data => {
+    console.log('🚀 ~ file: add.tsx:97 ~ ProgramAdd ~ data:', data)
     setIsSubmitting(true)
     addProgram(data)
   }, [addProgram])
