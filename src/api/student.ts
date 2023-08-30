@@ -24,14 +24,14 @@ export const postStudent = async (student: Student): Promise<Student> => {
 }
 
 export const updateStudent = async (student: Student): Promise<Student> => {
-  const userId = student.id ?? ''
+  const studentId = student.id ?? ''
   delete student.id
-  const response = await axios.put(`${config.apiUrl}/students/${userId}`, student)
+  const response = await axios.put(`${config.apiUrl}/students/${studentId}`, student)
   return response.data
 }
 
 export const deleteStudent = async (student: Student): Promise<Student> => {
-  const userId = student.id ?? ''
-  const response = await axios.delete(`${config.apiUrl}/students/${userId}`)
+  const studentId = student.id ?? ''
+  const response = await axios.delete(`${config.apiUrl}/students/${studentId}`)
   return response.data
 }
