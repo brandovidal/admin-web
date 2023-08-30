@@ -75,8 +75,6 @@ const ProgramAddView = ({ control, watch, setValue, alert, isSubmitting = false,
     function getTotal () {
       const amountValue = Number(amount?.floatValue ?? 0)
       const discountValue = Number(discount?.floatValue ?? 0)
-      console.log('🚀 ~ file: ProgramAdd.tsx:80 ~ getTotal ~ amountValue:', amountValue)
-      console.log('🚀 ~ file: ProgramAdd.tsx:82 ~ getTotal ~ discountValue:', discountValue)
 
       return amountValue + discountValue
     }

@@ -1,9 +1,10 @@
-import { type z, object, string, number, intersection, date } from 'zod'
+import { type z, object, string, number, intersection, date, union } from 'zod'
 
 // utils
 import { convertNumber } from '@/utils/number'
 
 import { DateSchema } from './date'
+import { NumberSchema } from './number'
 
 // schemas
 
@@ -12,6 +13,9 @@ const IdSchema = object({
 })
 const StartDateSchema = date({ required_error: 'Select your start date.', invalid_type_error: 'Valid your start date.' })
 const EndDateSchema = date({ required_error: 'Select your end date.', invalid_type_error: 'Valid your end date.' })
+const AmountSchema = number({ required_error: 'Amount is required.', invalid_type_error: 'Amount must be a number.' })
+const DiscountSchema = number({ required_error: 'Discount is required.', invalid_type_error: 'Discount must be a number.' })
+const TotalSchema = number({ required_error: 'Total is required.', invalid_type_error: 'Total must be a number.' })
 
 export const programSchema = object({
   name: string({
@@ -26,25 +30,17 @@ export const programSchema = object({
     .max(50, { message: 'Enter a maximum of 50 characters.' }),
   startDate: DateSchema(StartDateSchema),
   endDate: DateSchema(EndDateSchema),
-  amount: number({
-    required_error: 'Amount is required',
-    invalid_type_error: 'Amount must be a number'
-  }).nullish().transform(val => convertNumber(val)),
-  discount: number({
-    required_error: 'Discount is required',
-    invalid_type_error: 'Discount must be a number'
-  }).nullish().transform(val => convertNumber(val)),
-  total: number({
-    required_error: 'Total is required',
-    invalid_type_error: 'Total must be a number'
-  }).nullish().transform(val => convertNumber(val)),
+  amount: union([AmountSchema, NumberSchema]).nullish(),
+  discount: union([DiscountSchema, NumberSchema]).nullish(),
+  total: union([TotalSchema, NumberSchema]).nullish(),
   courseId: string({
     required_error: 'Course ID is required'
-  }).length(24).nullish()
+  }).length(24, { message: 'Enter 24 characters' }).nullish()
 })
 
 export const registerProgramSchema = programSchema
   .transform(data => {
+    console.log('🚀 ~ file: program.ts:43 ~ data:', data)
     return {
       ...data,
       name: data.name.trim(),

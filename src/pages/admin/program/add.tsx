@@ -95,8 +95,8 @@ export default function ProgramAdd (): JSX.Element {
 
   const useOnSubmit: SubmitHandler<RegisterProgramInput> = useCallback(data => {
     console.log('🚀 ~ file: add.tsx:97 ~ ProgramAdd ~ data:', data)
-    setIsSubmitting(true)
-    addProgram(data)
+    // setIsSubmitting(true)
+    // addProgram(data)
   }, [addProgram])
 
   const onCancel = useCallback(() => { router.back() }, [router])
