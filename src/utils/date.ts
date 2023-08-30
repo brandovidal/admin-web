@@ -56,8 +56,10 @@ export function isAfterDate (value1 = null, value2 = null, unit: dayjs.OpUnitTyp
   return dayjs(value1).isAfter(value2, unit)
 }
 
-export const getToday = () => dayjs()
+export const today = dayjs().utc()
 
-export const over1900Years = formatDate(getToday().year(START_YEAR).startOf('year'))
+export const overToday = formatDate(today)
 
-export const over18Years = formatDate(getToday().subtract(LEGAL_AGE, 'year'))
+export const over1900Years = formatDate(today.year(START_YEAR).startOf('year'))
+
+export const over18Years = formatDate(today.subtract(LEGAL_AGE, 'year'))

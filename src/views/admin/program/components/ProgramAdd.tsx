@@ -12,14 +12,13 @@ import Card from '@/components/card/Card'
 import Input from '@/common/Input/default'
 import NumberInput from '@/common/Input/number'
 import Select from '@/common/Select/default'
-import Radio from '@/common/Radio/default'
 import Date from '@/common/Date/default'
 
 // constant
-import { COUNTRY_OPTIONS, STATUS_OPTIONS, TRAINING_OPTIONS } from '@/constants/program'
+import { COUNTRY_OPTIONS } from '@/constants/program'
 import { PHONE_PREFIX } from '@/constants/default'
 
-import { over18Years, over1900Years } from '@/utils/date'
+import { overToday } from '@/utils/date'
 
 // styles
 import { Box, Button, Grid, GridItem, Heading, SimpleGrid } from '@chakra-ui/react'
@@ -27,10 +26,6 @@ import { MdChevronLeft, MdSave } from 'react-icons/md'
 
 const ProgramAddView = ({ control, watch, setValue, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ProgramViewProps): JSX.Element => {
   const countryOptions = useMemo(() => COUNTRY_OPTIONS, [])
-
-  const trainingOptions = useMemo(() => TRAINING_OPTIONS, [])
-
-  const statusOptions = useMemo(() => STATUS_OPTIONS, [])
 
   const country = watch('country', null)
   const phone = watch('phone', null)
@@ -65,69 +60,31 @@ const ProgramAddView = ({ control, watch, setValue, alert, isSubmitting = false,
           </Box>
         </GridItem>
 
-        <GridItem colSpan={{ base: 2, md: 1 }} rowSpan={{ base: 1, md: 2 }}>
+        <GridItem colSpan={{ base: 2 }}>
           <Card flexDirection='column' w='100%' px='0px'>
             <Box margin={{ base: 6, lg: 8 }}>
               <Heading as='h3' size='md' fontWeight='bold' mb={{ base: 4, md: 6 }}>
                 Personal Information
               </Heading>
 
-              <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing={{ base: 6, md: 8 }}>
-                <Input control={control} type='text' name='name' label='Name' placeholder='Enter full names' maxLength={50} helperText='Enter full names to issue your certificate' disabled={isSubmitting} />
+              <SimpleGrid columns={{ sm: 1, md: 2 }} spacing={{ base: 6, md: 8 }}>
+                <Select control={control} name='course' label='Course' options={countryOptions} placeholder='Select a course' isDisabled={isSubmitting} />
 
-                <Input control={control} type='text' name='lastname' label='Lastname' placeholder='Enter full surnames' maxLength={50} helperText='Enter full surnames to issue your certificate' disabled={isSubmitting} />
+                <Input control={control} type='text' name='name' label='Name' placeholder='Enter name' maxLength={50} disabled={isSubmitting} />
 
-                <Date control={control} name='birthday' label='Birthday' placeholder='Enter birthday' disabled={isSubmitting} minDate={over1900Years} maxDate={over18Years} />
+                <Input control={control} type='text' name='code' label='Code' placeholder='Enter code' maxLength={50} disabled={isSubmitting} />
 
-                <Select control={control} name='country' label='Country' options={countryOptions} placeholder='Select a country' isDisabled={isSubmitting} />
+                <Date control={control} name='startDate' label='Start Date' placeholder='Enter your start date' disabled={isSubmitting} maxDate={overToday} />
 
-                <NumberInput control={control} type='tel' name='phone' label='Phone' format='### ### ### ###' placeholder='987654321' leftIconText={phoneCodeText} maxLength={12} disabled={isSubmitting} />
+                <Date control={control} name='endDate' label='End Date' placeholder='Enter your end date' disabled={isSubmitting} />
 
-                <Input control={control} rules={{ required: true }} type='tel' name='dni' label='DNI' placeholder='87654321' maxLength={8} disabled={isSubmitting} />
+                <NumberInput control={control} type='tel' name='amount' label='Amount' format='#### ####.##' placeholder='9999.99' maxLength={12} disabled={isSubmitting} />
 
-                <Input control={control} type='email' name='email' label='Email' placeholder='Enter your email' maxLength={50} disabled={isSubmitting} />
+                <NumberInput control={control} type='tel' name='discount' label='Discount' format='#### ####.##' placeholder='9999.99' maxLength={12} disabled={isSubmitting} isOptional />
 
-                <Input control={control} type='tel' name='ladline' label='Ladline' placeholder='Enter your ladline' maxLength={12} disabled={isSubmitting} />
+                <NumberInput control={control} type='tel' name='total' label='Total' format='#### ####.##' placeholder='9999.99' maxLength={12} disabled={isSubmitting} />
 
-                <Input control={control} type='tel' name='ruc' label='RUC' placeholder='10876543210' maxLength={11} disabled={isSubmitting} />
-
-                <Radio control={control} name='status' label='Status' options={statusOptions} disabled={isSubmitting} />
-
-                <Input control={control} type='text' name='businessName' label='Business Name' placeholder='Enter your business name' maxLength={50} disabled={isSubmitting} />
-              </SimpleGrid>
-            </Box>
-          </Card>
-        </GridItem>
-
-        <GridItem colSpan={{ base: 2, md: 1 }}>
-          <Card flexDirection='column' w='100%' px='0px'>
-            <Box margin={{ base: 6, lg: 8 }}>
-              <Heading as='h3' size='md' fontWeight='bold' mb={{ base: 4, md: 6 }}>
-                Academic Information
-              </Heading>
-
-              <SimpleGrid columns={{ base: 1 }} spacing={{ base: 6, md: 8 }}>
-                <Radio control={control} name='training' label='Academic Formation' options={trainingOptions} disabled={isSubmitting} />
-
-                <Input control={control} type='text' name='studyCenter' label='Name' placeholder='Enter your university / institute' maxLength={50} disabled={isSubmitting} />
-              </SimpleGrid>
-            </Box>
-          </Card>
-        </GridItem>
-
-        <GridItem colSpan={{ base: 2, md: 1 }}>
-          <Card flexDirection='column' w='100%' px='0px'>
-            <Box margin={{ base: 6, lg: 8 }}>
-              <Heading as='h3' size='md' fontWeight='bold' mb={{ base: 4, md: 6 }}>
-                Employment Information
-              </Heading>
-
-              <SimpleGrid columns={{ sm: 1, lg: 2 }} spacing={{ base: 6, md: 8 }}>
-                <Input control={control} type='text' name='workplace' label='Work center (Optional)' placeholder='Enter your work center' maxLength={50} disabled={isSubmitting} />
-
-                <Input control={control} type='text' name='workPosition' label='Position (Optional)' placeholder='Enter your position' maxLength={50} disabled={isSubmitting} />
-
-                <Input control={control} type='text' name='workAddress' label='Address (Optional)' placeholder='Enter your address' maxLength={50} disabled={isSubmitting} />
+                <Input control={control} type='text' name='observation' label='Observation' placeholder='Enter your observation' maxLength={50} disabled={isSubmitting} isOptional />
               </SimpleGrid>
             </Box>
           </Card>
