@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { type z, object, string, number, date, boolean, union, intersection, ZodIssueCode } from 'zod'
 
 // utils
 import { convertNullOrNumber, convertNumber } from '@/utils/number'
@@ -9,34 +9,34 @@ import { SelectSchema } from './select'
 import { NumberSchema } from './number'
 import { DateSchema } from './date'
 
-const IdSchema = z.object({
-  id: z.string({ required_error: 'ID is required' }).length(24, { message: 'ID must be 24 characters' }).max(50, { message: 'Enter a maximum of 50 characters.' })
+const IdSchema = object({
+  id: string({ required_error: 'ID is required' }).length(24, { message: 'ID must be 24 characters' }).max(50, { message: 'Enter a maximum of 50 characters.' })
 })
-const CountrySchema = z.string({ required_error: 'Select your country.', invalid_type_error: 'Select your country.' }).trim()
-const StatusSchema = z.string({ required_error: 'Select your status.', invalid_type_error: 'Select your status.' }).trim()
-const TrainingSchema = z.string({ required_error: 'Select your training.', invalid_type_error: 'Select your training.' }).trim()
-const PhoneSchema = z.number({ required_error: 'Enter a phone.', invalid_type_error: 'Enter a phone.' })
+const CountrySchema = string({ required_error: 'Select your country.', invalid_type_error: 'Select your country.' }).trim()
+const StatusSchema = string({ required_error: 'Select your status.', invalid_type_error: 'Select your status.' }).trim()
+const TrainingSchema = string({ required_error: 'Select your training.', invalid_type_error: 'Select your training.' }).trim()
+const PhoneSchema = number({ required_error: 'Enter a phone.', invalid_type_error: 'Enter a phone.' })
   .nullish()
   .transform(val => convertNullOrNumber(val))
   .pipe(
-    z.number({ required_error: 'Enter your phone.', invalid_type_error: 'Enter a valid phone.' })
+    number({ required_error: 'Enter your phone.', invalid_type_error: 'Enter a valid phone.' })
       .gte(900_000_000, 'Phone must be greater than or equal to 900000000.')
       .lte(999_999_999_999, 'Phone must be less than or equal to 999999999999.')
   )
-const DniSchema = z.union([
-  z.string({ required_error: 'Select your dni.', invalid_type_error: 'Select your dni.' }).trim().nullish(),
-  z.number({ required_error: 'Select your dni.', invalid_type_error: 'Select your dni.' }).nullish()
+const DniSchema = union([
+  string({ required_error: 'Select your dni.', invalid_type_error: 'Select your dni.' }).trim().nullish(),
+  number({ required_error: 'Select your dni.', invalid_type_error: 'Select your dni.' }).nullish()
 ])
-const BirthdaySchema = z.date({ required_error: 'Select your birthday.', invalid_type_error: 'Select your birthday.' })
+const BirthdaySchema = date({ required_error: 'Select your birthday.', invalid_type_error: 'Select your birthday.' })
 
-export const countryStudentSchema = z.object({
-  country: z.union([SelectSchema, CountrySchema]),
+export const countryStudentSchema = object({
+  country: union([SelectSchema, CountrySchema]),
   dni: DniSchema.nullish().transform(val => convertNullOrNumber(val))
 })
   .superRefine((arg, ctx) => {
     if (arg.country === 'PER' && arg.dni === null) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: ZodIssueCode.custom,
         message: 'Enter your DNI.',
         path: ['dni']
       })
@@ -51,39 +51,39 @@ export const countryStudentSchema = z.object({
     }
   })
 
-export const studentSchema = z.object({
-  name: z.string({ required_error: 'Enter your full name.' })
+export const studentSchema = object({
+  name: string({ required_error: 'Enter your full name.' })
     .trim()
     .min(3, { message: 'Enter a minimum of 3 characters.' })
     .max(50, { message: 'Enter a maximum of 50 characters.' }),
-  lastname: z.string({ required_error: 'Enter your full name.' })
+  lastname: string({ required_error: 'Enter your full name.' })
     .trim()
     .min(3, { message: 'Enter a minimum of 3 characters.' })
     .max(50, { message: 'Enter a maximum of 50 characters.' }),
   birthday: DateSchema(BirthdaySchema),
-  phoneCode: z.string({ required_error: 'Enter your phone code.' }),
-  phone: z.union([PhoneSchema, NumberSchema]),
-  email: z.string({ required_error: 'Enter your email.' })
+  phoneCode: string({ required_error: 'Enter your phone code.' }),
+  phone: union([PhoneSchema, NumberSchema]),
+  email: string({ required_error: 'Enter your email.' })
     .trim()
     .min(5, { message: 'Enter a minimum of 5 characters.' })
     .max(50, { message: 'Enter a maximum of 50 characters.' })
     .email({ message: 'Enter a valid email address.' }),
-  ladline: z.string({ required_error: 'Enter your ladline.' }).nullish().transform(val => convertNumber(val)),
-  ruc: z.string({ required_error: 'Enter your ruc.' }).nullish().transform(val => convertNumber(val)),
-  status: z.union([StatusSchema, SelectSchema]).transform(val => convertNullOrString(val)),
-  businessName: z.string({ required_error: 'Enter your business name.' }).nullish(),
-  training: z.union([TrainingSchema, SelectSchema]).nullish().transform(val => convertNullOrString(val)),
-  postgraduateTraining: z.boolean().nullish().default(false),
-  graduateTraining: z.boolean().nullish().default(false),
-  bachelorTraining: z.boolean().nullish().default(false),
-  studentTraining: z.boolean().nullish().default(false),
-  studyCenter: z.string({ required_error: 'Enter your study center.' }).nullish(),
-  workplace: z.string({ required_error: 'Enter your workplace.' }).nullish(),
-  workPosition: z.string({ required_error: 'Enter your work position.' }).nullish(),
-  workAddress: z.string({ required_error: 'Enter your work address.' }).nullish()
+  ladline: string({ required_error: 'Enter your ladline.' }).nullish().transform(val => convertNumber(val)),
+  ruc: string({ required_error: 'Enter your ruc.' }).nullish().transform(val => convertNumber(val)),
+  status: union([StatusSchema, SelectSchema]).transform(val => convertNullOrString(val)),
+  businessName: string({ required_error: 'Enter your business name.' }).nullish(),
+  training: union([TrainingSchema, SelectSchema]).nullish().transform(val => convertNullOrString(val)),
+  postgraduateTraining: boolean().nullish().default(false),
+  graduateTraining: boolean().nullish().default(false),
+  bachelorTraining: boolean().nullish().default(false),
+  studentTraining: boolean().nullish().default(false),
+  studyCenter: string({ required_error: 'Enter your study center.' }).nullish(),
+  workplace: string({ required_error: 'Enter your workplace.' }).nullish(),
+  workPosition: string({ required_error: 'Enter your work position.' }).nullish(),
+  workAddress: string({ required_error: 'Enter your work address.' }).nullish()
 })
 
-export const registerStudentSchema = z.intersection(countryStudentSchema, studentSchema)
+export const registerStudentSchema = intersection(countryStudentSchema, studentSchema)
   .transform(arg => {
     const { training, ...data } = arg
     return {
@@ -105,7 +105,7 @@ export const registerStudentSchema = z.intersection(countryStudentSchema, studen
 
 export type RegisterStudentInput = z.infer<typeof registerStudentSchema>
 
-export const updateStudentSchema = z.intersection(countryStudentSchema, studentSchema).and(IdSchema)
+export const updateStudentSchema = intersection(countryStudentSchema, studentSchema).and(IdSchema)
   .transform(arg => {
     const { training, ...data } = arg
     return {
