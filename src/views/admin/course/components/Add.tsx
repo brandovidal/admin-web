@@ -4,13 +4,15 @@ import { useEffect } from 'react'
 import isEmpty from 'just-is-empty'
 
 // interfaces
-import type { ViewProps } from '@/interfaces/views/default'
+import type { CourseViewProps } from '@/interfaces/views/course'
 
 // common
 import Alert from '@/common/Alert/default'
 import Card from '@/components/card/Card'
 import Input from '@/common/Input/default'
 import Date from '@/common/Date/default'
+import NumericInput from '@/common/Input/numeric'
+import Radio from '@/common/Input/radio'
 
 // utils
 import { overToday } from '@/utils/date'
@@ -19,9 +21,8 @@ import { sanitize } from '@/utils/string'
 // styles
 import { Box, Button, Grid, GridItem, Heading, SimpleGrid } from '@chakra-ui/react'
 import { MdChevronLeft, MdSave } from 'react-icons/md'
-import NumericInput from '@/common/Input/numeric'
 
-const CourseAddView = ({ control, watch, setValue, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: ViewProps): JSX.Element => {
+const CourseAddView = ({ uniqueProgramOptions = [], control, watch, setValue, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: CourseViewProps): JSX.Element => {
   const name = watch('name', null)
   const amount = watch('amount', null)
   const discount = watch('discount', null)
@@ -94,6 +95,8 @@ const CourseAddView = ({ control, watch, setValue, alert, isSubmitting = false, 
                 <Input control={control} type='text' name='name' label='Name' placeholder='Enter name' maxLength={50} disabled={isSubmitting} />
 
                 <Input control={control} type='text' name='code' label='Code' placeholder='Enter code' maxLength={50} disabled />
+
+                <Radio control={control} name='uniqueProgram' label='Unique Program' optionalText="with membership" options={uniqueProgramOptions} disabled={isSubmitting} isOptional />
 
                 <Date control={control} name='startDate' label='Start Date' placeholder='Enter your start date' disabled={isSubmitting} maxDate={overToday} />
 

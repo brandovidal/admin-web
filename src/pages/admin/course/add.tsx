@@ -1,5 +1,5 @@
 // libs
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // interfaces
@@ -14,6 +14,8 @@ import CourseAddView from '@/views/admin/course/components/Add'
 // hooks
 import { useNotification } from '@/hooks/useNotification'
 
+import { UNIQUE_PROGRAM_OPTIONS } from '@/constants/course'
+
 // services
 import { useCreateCourse } from '@/services/course'
 
@@ -26,7 +28,6 @@ import { registerCourseSchema, type RegisterCourseInput } from '@/schemas/course
 
 // styles
 import { Box } from '@chakra-ui/react'
-
 export default function CourseAdd (): JSX.Element {
   const router = useRouter()
   const { showToast, showErrorToast } = useNotification()
@@ -36,6 +37,7 @@ export default function CourseAdd (): JSX.Element {
   const defaultValues = {
     name: '',
     code: '',
+    uniqueProgram: undefined,
     startDate: undefined,
     endDate: undefined,
     amount: undefined,
@@ -43,6 +45,8 @@ export default function CourseAdd (): JSX.Element {
     total: undefined,
     status: undefined
   }
+
+  const uniqueProgramOptions = useMemo(() => UNIQUE_PROGRAM_OPTIONS, [])
 
   const {
     control,
@@ -83,6 +87,7 @@ export default function CourseAdd (): JSX.Element {
     <AdminLayout navbarText='Add Course'>
       <Box pt={{ base: '28', md: '24', xl: '24' }}>
         <CourseAddView
+          uniqueProgramOptions={uniqueProgramOptions}
           control={control}
           watch={watch}
           setValue={setValue}

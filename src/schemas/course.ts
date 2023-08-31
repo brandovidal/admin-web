@@ -1,8 +1,7 @@
-import { type z, object, string, number, intersection, date, union } from 'zod'
+import { type z, object, string, number, intersection, date, union, boolean } from 'zod'
 
 import { DateSchema } from './date'
 import { NumberSchema } from './number'
-import { SelectSchema } from './select'
 
 // schemas
 
@@ -14,12 +13,9 @@ const EndDateSchema = date({ required_error: 'Select your end date.', invalid_ty
 const AmountSchema = number({ required_error: 'Amount is required.', invalid_type_error: 'Amount must be a number.' })
 const DiscountSchema = number({ required_error: 'Discount is required.', invalid_type_error: 'Discount must be a number.' })
 const TotalSchema = number({ required_error: 'Total is required.', invalid_type_error: 'Total must be a number.' })
-const CourseSchema = string({ required_error: 'Course is required.', invalid_type_error: 'Course must be a string.' })
 
 export const courseSchema = object({
-  name: string({
-    required_error: 'Name is required'
-  })
+  name: string({ required_error: 'Name is required' })
     .min(3, { message: 'Enter a minimum of 3 characters.' })
     .max(50, { message: 'Enter a maximum of 50 characters.' }),
   code: string({
@@ -27,6 +23,7 @@ export const courseSchema = object({
   })
     .min(3, { message: 'Enter a minimum of 3 characters.' })
     .max(50, { message: 'Enter a maximum of 50 characters.' }),
+  uniqueProgram: string({ required_error: 'unique program is required', invalid_type_error: 'Unique program must be a string.' }),
   startDate: DateSchema(StartDateSchema),
   endDate: DateSchema(EndDateSchema),
   amount: union([AmountSchema, NumberSchema]).nullish(),

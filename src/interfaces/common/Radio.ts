@@ -1,10 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { FieldError } from 'react-hook-form'
 
-export interface RadioOptionProps {
-  label: string
-  value: string
-}
+import type { OptionProps } from './Option'
 
 export interface RadioProps {
   control?: any
@@ -12,10 +9,11 @@ export interface RadioProps {
   label?: string
   value?: string
   helperText?: string
-  options: RadioOptionProps[]
+  options: OptionProps[]
   error?: FieldError
   invalid?: boolean
   disabled?: boolean
+  optionalText?: string
   isOptional?: boolean
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }

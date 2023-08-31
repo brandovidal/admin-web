@@ -12,7 +12,7 @@ import Card from '@/components/card/Card'
 import Input from '@/common/Input/default'
 import PatternInput from '@/common/Input/pattern'
 import Select from '@/common/Select/default'
-import Radio from '@/common/Radio/default'
+import Radio from '@/common/Input/radio'
 import Date from '@/common/Date/default'
 
 // constant

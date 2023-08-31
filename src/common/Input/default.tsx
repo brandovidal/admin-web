@@ -12,7 +12,20 @@ import { Controller } from 'react-hook-form'
 // libs
 import isEmpty from 'just-is-empty'
 
-function DefaultInput ({ control, rules, name, type = 'text', label = '', helperText = '', placeholder, maxLength, disabled = false, hasAutoComplete = true, isOptional = false }: InputProps): JSX.Element {
+function DefaultInput ({
+  control,
+  rules,
+  name,
+  type = 'text',
+  label = '',
+  helperText = '',
+  placeholder,
+  maxLength,
+  disabled = false,
+  hasAutoComplete = true,
+  isOptional = false,
+  optionalText = OPTIONAL
+}: InputProps): JSX.Element {
   const inputColor = useColorModeValue('secondaryGray.800', 'white')
   const inputBg = useColorModeValue('white', 'gray.700')
   const labelColor = useColorModeValue('gray.800', 'whiteAlpha.800')
@@ -26,7 +39,7 @@ function DefaultInput ({ control, rules, name, type = 'text', label = '', helper
         <FormControl fontSize='sm' isInvalid={invalid}>
           <Flex align={'center'} mb={2}>
             <FormLabel color={labelColor} fontWeight='medium' my={0} mr={2}>{label}</FormLabel>
-            {isOptional && (<FormHelperText color='secondaryGray.500' fontSize='sm' my={0}>({OPTIONAL})</FormHelperText>)}
+            {isOptional && (<FormHelperText color='secondaryGray.500' fontSize='sm' my={0}>({optionalText})</FormHelperText>)}
           </Flex>
           <Input
             type={type}
