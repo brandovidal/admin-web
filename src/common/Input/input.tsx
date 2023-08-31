@@ -1,5 +1,5 @@
 // styles
-import { FormControl, FormLabel, Input, Text, useColorModeValue } from '@chakra-ui/react'
+import { FormControl, FormLabel, Input as InputControl, Text, useColorModeValue } from '@chakra-ui/react'
 
 // interfaces
 import type { InputProps } from '@/interfaces/common/Input'
@@ -7,14 +7,14 @@ import type { InputProps } from '@/interfaces/common/Input'
 // libs
 import isEmpty from 'just-is-empty'
 
-const CustomInput = ({ type = 'text', label = '', value = '', placeholder, error, invalid, disabled = false, hasAutoComplete = true, onChange }: InputProps): JSX.Element => {
+const Input = ({ type = 'text', label = '', value = '', placeholder, error, invalid, disabled = false, hasAutoComplete = true, onChange }: InputProps): JSX.Element => {
   const inputColor = useColorModeValue('secondaryGray.800', 'white')
   const inputBg = useColorModeValue('white', 'gray.700')
 
   return (
     <FormControl fontSize='sm' isInvalid={invalid}>
       <FormLabel>{label}</FormLabel>
-      <Input
+      <InputControl
         type={type}
         placeholder={placeholder}
         color={inputColor}
@@ -30,4 +30,4 @@ const CustomInput = ({ type = 'text', label = '', value = '', placeholder, error
   )
 }
 
-export default CustomInput
+export default Input

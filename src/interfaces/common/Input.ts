@@ -17,5 +17,7 @@ export interface InputProps {
   isOptional?: boolean
   optionalText?: string
   hasAutoComplete?: boolean
+  w?: number | string
+  h?: number | string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }

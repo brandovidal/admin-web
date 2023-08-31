@@ -1,5 +1,5 @@
 // styles
-import { Flex, FormControl, FormHelperText, FormLabel, Input as InputControl, Text, useColorModeValue } from '@chakra-ui/react'
+import { Flex, FormControl, FormHelperText, FormLabel, Text, Textarea as TextareaControl, useColorModeValue } from '@chakra-ui/react'
 
 // interfaces
 import type { InputProps } from '@/interfaces/common/Input'
@@ -12,11 +12,10 @@ import { Controller } from 'react-hook-form'
 // libs
 import isEmpty from 'just-is-empty'
 
-function Input ({
+function Textarea ({
   control,
   rules,
   name,
-  type = 'text',
   label = '',
   helperText = '',
   placeholder,
@@ -24,6 +23,8 @@ function Input ({
   disabled = false,
   hasAutoComplete = true,
   isOptional = false,
+  w = 'full',
+  h = 24,
   optionalText = OPTIONAL
 }: InputProps): JSX.Element {
   const inputColor = useColorModeValue('secondaryGray.800', 'white')
@@ -41,8 +42,7 @@ function Input ({
             <FormLabel color={labelColor} fontWeight='medium' my={0} mr={2}>{label}</FormLabel>
             {isOptional && (<FormHelperText color='secondaryGray.500' fontSize='sm' my={0}>({optionalText})</FormHelperText>)}
           </Flex>
-          <InputControl
-            type={type}
+          <TextareaControl
             placeholder={placeholder}
             color={inputColor}
             backgroundColor={inputBg}
@@ -52,6 +52,8 @@ function Input ({
             value={value}
             maxLength={maxLength}
             disabled={disabled}
+            h={h}
+            w={w}
           />
           {!isEmpty(error?.message) && (<Text color='red.300' mt='2'>{error?.message}</Text>)}
           {!isEmpty(helperText) && (<FormHelperText color='secondaryGray.500' fontSize='sm'>{helperText}</FormHelperText>)}
@@ -61,4 +63,4 @@ function Input ({
   )
 }
 
-export default Input
+export default Textarea

@@ -1,4 +1,4 @@
-import { type z, object, string, number, intersection, date, union, boolean } from 'zod'
+import { type z, object, string, number, intersection, date, union } from 'zod'
 
 import { DateSchema } from './date'
 import { NumberSchema } from './number'
@@ -23,7 +23,7 @@ export const courseSchema = object({
   })
     .min(3, { message: 'Enter a minimum of 3 characters.' })
     .max(50, { message: 'Enter a maximum of 50 characters.' }),
-  uniqueProgram: string({ required_error: 'unique program is required', invalid_type_error: 'Unique program must be a string.' }),
+  uniqueProgram: string({ required_error: 'Unique program is required', invalid_type_error: 'Unique program must be a string.' }),
   startDate: DateSchema(StartDateSchema),
   endDate: DateSchema(EndDateSchema),
   amount: union([AmountSchema, NumberSchema]).nullish(),

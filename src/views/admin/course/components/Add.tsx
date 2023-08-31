@@ -13,6 +13,7 @@ import Input from '@/common/Input/default'
 import Date from '@/common/Date/default'
 import NumericInput from '@/common/Input/numeric'
 import Radio from '@/common/Input/radio'
+import Textarea from '@/common/Input/textarea'
 
 // utils
 import { overToday } from '@/utils/date'
@@ -88,7 +89,7 @@ const CourseAddView = ({ uniqueProgramOptions = [], control, watch, setValue, al
           <Card flexDirection='column' w='100%' px='0px'>
             <Box margin={{ base: 6, lg: 8 }}>
               <Heading as='h3' size='md' fontWeight='bold' mb={{ base: 4, md: 6 }}>
-                Personal Information
+                Add Course
               </Heading>
 
               <SimpleGrid columns={{ sm: 1, md: 2, xl: 3 }} spacing={{ base: 6, md: 8 }}>
@@ -108,7 +109,7 @@ const CourseAddView = ({ uniqueProgramOptions = [], control, watch, setValue, al
 
                 <NumericInput control={control} type='tel' name='total' label='Total' placeholder='9999.99' maxLength={12} disabled={isSubmitting} />
 
-                <Input control={control} type='text' name='observation' label='Observation' placeholder='Enter your observation' maxLength={50} disabled={isSubmitting} isOptional />
+                <Textarea control={control} name='observation' label='Observation' placeholder='Enter your observation' maxLength={100} disabled={isSubmitting} isOptional />
               </SimpleGrid>
             </Box>
           </Card>

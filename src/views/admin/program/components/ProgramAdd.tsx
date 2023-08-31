@@ -110,7 +110,7 @@ const ProgramAddView = ({ courseOptions, control, watch, setValue, alert, isSubm
           <Card flexDirection='column' w='100%' px='0px'>
             <Box margin={{ base: 6, lg: 8 }}>
               <Heading as='h3' size='md' fontWeight='bold' mb={{ base: 4, md: 6 }}>
-                Personal Information
+                Add Program
               </Heading>
 
               <SimpleGrid columns={{ sm: 1, md: 2, xl: 3 }} spacing={{ base: 6, md: 8 }}>
