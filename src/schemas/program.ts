@@ -37,13 +37,21 @@ export const programSchema = object({
     required_error: 'Course ID is required'
   }).length(24, { message: 'Enter 24 characters' }).nullish()
 })
+type ProgramInput = z.infer<typeof programSchema>
 
-function transformData (data = registerProgramSchema) {
+function transformData (arg: ProgramInput) {
+  const { ...data } = arg
   console.log('🚀 ~ file: program.ts:43 ~ transformData ~ data:', data)
+
   return {
-    ...data,
     name: data.name.trim(),
-    code: data.code.trim()
+    code: data.code.trim(),
+    startDate: data.startDate,
+    endDate: data.endDate,
+    amount: data.amount,
+    discount: data.discount,
+    total: data.total,
+    courseId: data.courseId
   }
 }
 

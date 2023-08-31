@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 
 // interfaces
 import type { AlertProps } from '@/interfaces/common/Alert'
+import type { Program } from '@/interfaces/api/Program'
 
 // Layout
 import AdminLayout from '@/layouts/admin'
@@ -19,6 +20,7 @@ import { UNIQUE_PROGRAM_OPTIONS } from '@/constants/course'
 
 // services
 import { useCreateCourse } from '@/services/course'
+import { useCreateProgram } from '@/services/program'
 
 // form
 import { useForm } from 'react-hook-form'
@@ -126,12 +128,18 @@ export default function CourseAdd (): JSX.Element {
     showErrorToast({ title: "Course can't save", description: 'Please, verify your data' })
   }
 
-  const { mutate: addCourse } = useCreateCourse({ onSuccess, onError })
+  const { mutate: createCourse } = useCreateCourse({ onSuccess, onError })
+  const { mutate: createProgram } = useCreateProgram({ onSuccess, onError })
 
   const handleOnSubmit = handleSubmit(data => {
     console.log('🚀 ~ file: add.tsx:97 ~ CourseAdd ~ data:', data)
     setIsSubmitting(true)
-    addCourse(data)
+    createCourse(data)
+
+    if (!hasUniqueProgram) {
+      const { uniqueProgram, ...program } = data
+      createProgram(program as Program)
+    }
   })
 
   const onCancel = useCallback(() => { router.back() }, [router])

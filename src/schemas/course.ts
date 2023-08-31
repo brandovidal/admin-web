@@ -32,12 +32,12 @@ export const courseSchema = object({
 })
 
 function transformData (arg = registerCourseSchema) {
-  console.log('🚀 ~ file: course.ts:43 ~ transformData ~ arg:', arg)
   const { startDate, endDate, amount, discount, total, ...data } = arg
   return {
     ...data,
     name: data.name.trim(),
-    code: data.code.trim()
+    code: data.code.trim(),
+    uniqueProgram: data.uniqueProgram === 'yes'
   }
 }
 

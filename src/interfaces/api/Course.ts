@@ -18,11 +18,6 @@ export interface Course {
   updatedAt?: string
 }
 
-export interface CourseProps extends Course {
-  amount?: NumberFormatValues
-  discount?: NumberFormatValues
-  total?: NumberFormatValues
-}
 export interface CourseData {
   name: string
   course?: string
