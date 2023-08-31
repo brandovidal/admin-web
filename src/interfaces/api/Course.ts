@@ -1,21 +1,27 @@
 import type { ReactElement } from 'react'
 
-export type CourseStatusEnumType = 'active' | 'inactive' | 'deleted' | 'banned'
+import type { NumberFormatValues } from 'react-number-format'
 
 export interface Course {
   id?: string
   name: string
   code: string
-  courseId?: string | null
+  uniqueProgram?: string | null
   startDate?: string | null
   endDate?: string | null
-  amount?: number | null
-  discount?: number | null
-  total?: number | null
+  amount?: number | NumberFormatValues | null
+  discount?: number | NumberFormatValues | null
+  total?: number | NumberFormatValues | null
   observations?: string | null
   status?: boolean | null
   createdAt?: string
   updatedAt?: string
+}
+
+export interface CourseProps extends Course {
+  amount?: NumberFormatValues
+  discount?: NumberFormatValues
+  total?: NumberFormatValues
 }
 export interface CourseData {
   name: string

@@ -1,5 +1,5 @@
 // libs
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // interfaces
@@ -13,6 +13,7 @@ import CourseAddView from '@/views/admin/course/components/Add'
 
 // hooks
 import { useNotification } from '@/hooks/useNotification'
+import { sanitize } from '@/utils/string'
 
 import { UNIQUE_PROGRAM_OPTIONS } from '@/constants/course'
 
@@ -20,7 +21,7 @@ import { UNIQUE_PROGRAM_OPTIONS } from '@/constants/course'
 import { useCreateCourse } from '@/services/course'
 
 // form
-import { type SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 // schema
@@ -28,9 +29,14 @@ import { registerCourseSchema, type RegisterCourseInput } from '@/schemas/course
 
 // styles
 import { Box } from '@chakra-ui/react'
+
+import isEmpty from 'just-is-empty'
+
 export default function CourseAdd (): JSX.Element {
   const router = useRouter()
+
   const { showToast, showErrorToast } = useNotification()
+  const [alert, setAlert] = useState<AlertProps>()
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -53,13 +59,60 @@ export default function CourseAdd (): JSX.Element {
     handleSubmit,
     watch,
     setValue,
+    trigger,
     formState: { isValid }
   } = useForm<RegisterCourseInput>({
     resolver: zodResolver(registerCourseSchema),
     defaultValues
   })
 
-  const [alert, setAlert] = useState<AlertProps>()
+  function useOnChangeName () {
+    const name = watch('name', null)
+
+    useEffect(() => {
+      function updateInput () {
+        if (isEmpty(name)) {
+          setValue('code', '')
+          return
+        }
+
+        const code = sanitize(name, '-')
+        setValue('code', code)
+        void trigger('code')
+      }
+
+      updateInput()
+
+      return () => {
+        updateInput()
+      }
+    }, [name])
+  }
+
+  function useOnChangeTotal () {
+    const amount = watch('amount', null)
+    const discount = watch('discount', null)
+
+    useEffect(() => {
+      function updateInput () {
+        const amountValue = Number(amount?.floatValue ?? 0)
+        const discountValue = Number(discount?.floatValue ?? 0)
+
+        const total = amountValue - discountValue
+
+        setValue('total', total)
+      }
+
+      updateInput()
+
+      return () => {
+        updateInput()
+      }
+    }, [amount, discount])
+  }
+
+  const uniqueProgram = watch('uniqueProgram', null)
+  const hasUniqueProgram = useMemo(() => uniqueProgram === 'yes', [uniqueProgram])
 
   const onSuccess = (): void => {
     showToast({ title: 'Course successfully created', description: 'The course has been successfully created' })
@@ -75,11 +128,11 @@ export default function CourseAdd (): JSX.Element {
 
   const { mutate: addCourse } = useCreateCourse({ onSuccess, onError })
 
-  const useOnSubmit: SubmitHandler<RegisterCourseInput> = useCallback(data => {
+  const handleOnSubmit = handleSubmit(data => {
     console.log('🚀 ~ file: add.tsx:97 ~ CourseAdd ~ data:', data)
     setIsSubmitting(true)
     addCourse(data)
-  }, [addCourse])
+  })
 
   const onCancel = useCallback(() => { router.back() }, [router])
 
@@ -89,12 +142,13 @@ export default function CourseAdd (): JSX.Element {
         <CourseAddView
           uniqueProgramOptions={uniqueProgramOptions}
           control={control}
-          watch={watch}
-          setValue={setValue}
           alert={alert}
           isDisabled={!isValid || isSubmitting}
           isSubmitting={isSubmitting}
-          onSubmit={handleSubmit(useOnSubmit)}
+          onSubmit={handleOnSubmit}
+          useOnChangeName={useOnChangeName}
+          useOnChangeTotal={useOnChangeTotal}
+          hasUniqueProgram={hasUniqueProgram}
           onCancel={onCancel} />
       </Box>
     </AdminLayout>

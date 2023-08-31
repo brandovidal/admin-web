@@ -24,8 +24,8 @@ export const courseSchema = object({
     .min(3, { message: 'Enter a minimum of 3 characters.' })
     .max(50, { message: 'Enter a maximum of 50 characters.' }),
   uniqueProgram: string({ required_error: 'Unique program is required', invalid_type_error: 'Unique program must be a string.' }),
-  startDate: DateSchema(StartDateSchema),
-  endDate: DateSchema(EndDateSchema),
+  startDate: DateSchema(StartDateSchema).nullish(),
+  endDate: DateSchema(EndDateSchema).nullish(),
   amount: union([AmountSchema, NumberSchema]).nullish(),
   discount: union([DiscountSchema, NumberSchema]).nullish(),
   total: union([TotalSchema, NumberSchema]).nullish()
@@ -33,7 +33,7 @@ export const courseSchema = object({
 
 function transformData (arg = registerCourseSchema) {
   console.log('🚀 ~ file: course.ts:43 ~ transformData ~ arg:', arg)
-  const { amount, discount, total, ...data } = arg
+  const { startDate, endDate, amount, discount, total, ...data } = arg
   return {
     ...data,
     name: data.name.trim(),

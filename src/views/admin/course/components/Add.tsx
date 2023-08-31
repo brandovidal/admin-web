@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useMemo } from 'react'
 
 // libs
 import isEmpty from 'just-is-empty'
@@ -17,53 +17,27 @@ import Textarea from '@/common/Input/textarea'
 
 // utils
 import { overToday } from '@/utils/date'
-import { sanitize } from '@/utils/string'
+
+import { NO_OP } from '@/constants/default'
 
 // styles
 import { Box, Button, Grid, GridItem, Heading, SimpleGrid } from '@chakra-ui/react'
 import { MdChevronLeft, MdSave } from 'react-icons/md'
 
-const CourseAddView = ({ uniqueProgramOptions = [], control, watch, setValue, alert, isSubmitting = false, isDisabled = false, onSubmit, onCancel }: CourseViewProps): JSX.Element => {
-  const name = watch('name', null)
-  const amount = watch('amount', null)
-  const discount = watch('discount', null)
-
-  useEffect(() => {
-    function getCode () {
-      if (isEmpty(name)) return ''
-
-      return sanitize(name, '-')
-    }
-
-    function updateCode () {
-      setValue('code', getCode())
-    }
-
-    updateCode()
-
-    return () => {
-      updateCode()
-    }
-  }, [name, setValue])
-
-  useEffect(() => {
-    function getTotal () {
-      const amountValue = Number(amount?.floatValue ?? 0)
-      const discountValue = Number(discount?.floatValue ?? 0)
-
-      return amountValue + discountValue
-    }
-
-    function updateTotal () {
-      setValue('total', getTotal())
-    }
-
-    updateTotal()
-
-    return () => {
-      updateTotal()
-    }
-  }, [amount, discount, setValue])
+const CourseAddView = ({
+  uniqueProgramOptions = [],
+  control,
+  alert,
+  isSubmitting = false,
+  isDisabled = false,
+  onSubmit = NO_OP,
+  useOnChangeName = NO_OP,
+  useOnChangeTotal = NO_OP,
+  hasUniqueProgram = false,
+  onCancel
+}: CourseViewProps): JSX.Element => {
+  useOnChangeName()
+  useOnChangeTotal()
 
   return (
     <form onSubmit={onSubmit}>
@@ -99,9 +73,9 @@ const CourseAddView = ({ uniqueProgramOptions = [], control, watch, setValue, al
 
                 <Radio control={control} name='uniqueProgram' label='Unique Program' optionalText="with membership" options={uniqueProgramOptions} disabled={isSubmitting} isOptional />
 
-                <Date control={control} name='startDate' label='Start Date' placeholder='Enter your start date' disabled={isSubmitting} maxDate={overToday} />
+                {!hasUniqueProgram && <Date control={control} name='startDate' label='Start Date' placeholder='Enter your start date' disabled={isSubmitting} maxDate={overToday} />}
 
-                <Date control={control} name='endDate' label='End Date' placeholder='Enter your end date' disabled={isSubmitting} />
+                {!hasUniqueProgram && <Date control={control} name='endDate' label='End Date' placeholder='Enter your end date' disabled={isSubmitting} />}
 
                 <NumericInput control={control} type='tel' name='amount' label='Amount' placeholder='9999.99' maxLength={12} disabled={isSubmitting} />
 
