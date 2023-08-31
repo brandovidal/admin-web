@@ -116,7 +116,26 @@ export default function CourseAdd (): JSX.Element {
   const uniqueProgram = watch('uniqueProgram', null)
   const hasUniqueProgram = useMemo(() => uniqueProgram === 'yes', [uniqueProgram])
 
-  const onSuccess = (): void => {
+  const onSuccess = ({ data }): void => {
+    console.log('🚀 ~ file: add.tsx:120 ~ onSuccess ~ data:', data)
+
+    if (hasUniqueProgram) {
+      showToast({ title: 'Course successfully created', description: 'The course has been successfully created' })
+      setIsSubmitting(false)
+
+      void router.push('/admin/course/list')
+      return
+    }
+
+    const { uniqueProgram, ...arg } = data
+
+    const program = {
+      ...arg,
+      courseId: data?.id ?? ''
+    }
+    console.log('🚀 ~ file: add.tsx:135 ~ onSuccess ~ program:', program)
+    createProgram(program as Program)
+
     showToast({ title: 'Course successfully created', description: 'The course has been successfully created' })
     setIsSubmitting(false)
 
@@ -132,14 +151,10 @@ export default function CourseAdd (): JSX.Element {
   const { mutate: createProgram } = useCreateProgram({ onSuccess, onError })
 
   const handleOnSubmit = handleSubmit(data => {
-    console.log('🚀 ~ file: add.tsx:97 ~ CourseAdd ~ data:', data)
+    console.log('🚀 ~ file: add.tsx:148 ~ handleOnSubmit ~ data:', data)
     setIsSubmitting(true)
-    createCourse(data)
 
-    if (!hasUniqueProgram) {
-      const { uniqueProgram, ...program } = data
-      createProgram(program as Program)
-    }
+    createCourse(data)
   })
 
   const onCancel = useCallback(() => { router.back() }, [router])

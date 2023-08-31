@@ -21,6 +21,7 @@ export function parseDate (value: string): string {
 }
 
 export function getDate (value?: string | Date | dayjs.Dayjs | null): dayjs.Dayjs {
+  if (isEmpty(value) || !dayjs(value).isValid()) return dayjs()
   return dayjs(value)
 }
 
@@ -28,12 +29,16 @@ export function addDate (value: string, count = 0, unit: ManipulateType = 'day')
   return getDate(value).add(count, unit)
 }
 
-export function toDate (value: string): Date {
+export function toDate (value: string): Date | string {
+  if (isEmpty(value)) return ''
+
   return getDate(value).toDate()
 }
 
-export function formatDate (date?: string | dayjs.Dayjs | null, formatDay = FORMAT_DATE): string {
-  return getDate(date).utc().format(formatDay)
+export function formatDate (value?: string | dayjs.Dayjs | null, formatDay = FORMAT_DATE): string {
+  if (isEmpty(value)) return ''
+
+  return getDate(value).utc().format(formatDay)
 }
 
 export function saveDate (value: string | Date): string {

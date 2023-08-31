@@ -2,16 +2,13 @@
 import type { Course, CourseData } from '@/interfaces/api/Course'
 
 import { formatDate } from '@/utils/date'
-import { formatNumber } from '@/utils/number'
 import { generateActions } from '@/utils/page'
 
 export const formatData = (data: Course[] = [], handleEdit: (course: Course) => void, handleDelete: (course: Course) => void): CourseData[] => {
   return data.map((course) => {
-    const { name, total, startDate, endDate } = course
+    const { name, code, uniqueProgram, createdAt } = course
 
-    const totalFormatted = formatNumber(total)
-    const startDateFormatted = formatDate(startDate)
-    const endDateFormatted = formatDate(endDate)
+    const date = formatDate(createdAt)
 
     const handleEditClick = () => {
       handleEdit(course)
@@ -22,6 +19,6 @@ export const formatData = (data: Course[] = [], handleEdit: (course: Course) => 
 
     const actions = generateActions(handleEditClick, handleDeleteClick)
 
-    return { name, total: totalFormatted, startDate: startDateFormatted, endDate: endDateFormatted, actions }
+    return { name, code, uniqueProgram, date, actions }
   })
 }

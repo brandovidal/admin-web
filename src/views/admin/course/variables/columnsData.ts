@@ -11,20 +11,16 @@ export const columns: Columns = [
     accessor: 'name'
   },
   {
-    Header: 'Course',
-    accessor: 'course'
+    Header: 'Code',
+    accessor: 'code'
   },
   {
-    Header: 'start date',
-    accessor: 'startDate'
+    Header: 'Unique Program',
+    accessor: 'uniqueProgram'
   },
   {
-    Header: 'end date',
-    accessor: 'endDate'
-  },
-  {
-    Header: 'Total',
-    accessor: 'total'
+    Header: 'Fecha creación',
+    accessor: 'date'
   },
   {
     Header: 'Actions',

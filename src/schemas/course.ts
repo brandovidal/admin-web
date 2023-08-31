@@ -31,6 +31,7 @@ export const courseSchema = object({
   total: union([TotalSchema, NumberSchema]).nullish()
 })
 
+// TODO: fix this extract all properties
 function transformData (arg = registerCourseSchema) {
   const { startDate, endDate, amount, discount, total, ...data } = arg
   return {
