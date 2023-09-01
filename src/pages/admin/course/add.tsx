@@ -27,7 +27,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 // schema
-import { registerCourseSchema, type RegisterCourseInput } from '@/schemas/course'
+import { registerCourseSchema, type RegisterCourseInput, transformDataCourse } from '@/schemas/course'
 
 // styles
 import { Box } from '@chakra-ui/react'
@@ -69,7 +69,7 @@ export default function CourseAdd (): JSX.Element {
   })
 
   function useOnChangeName () {
-    const name = watch('name', null)
+    const name = watch('name', '')
 
     useEffect(() => {
       function updateInput () {
@@ -92,8 +92,8 @@ export default function CourseAdd (): JSX.Element {
   }
 
   function useOnChangeTotal () {
-    const amount = watch('amount', null)
-    const discount = watch('discount', null)
+    const amount = watch('amount')
+    const discount = watch('discount')
 
     useEffect(() => {
       function updateInput () {
@@ -116,7 +116,7 @@ export default function CourseAdd (): JSX.Element {
   const uniqueProgram = watch('uniqueProgram', null)
   const hasUniqueProgram = useMemo(() => uniqueProgram === 'yes', [uniqueProgram])
 
-  const onSuccess = ({ data }): void => {
+  const onSuccessCourse = ({ data }): void => {
     console.log('🚀 ~ file: add.tsx:120 ~ onSuccess ~ data:', data)
 
     if (hasUniqueProgram) {
@@ -137,6 +137,11 @@ export default function CourseAdd (): JSX.Element {
     createProgram(program as Program)
 
     showToast({ title: 'Course successfully created', description: 'The course has been successfully created' })
+  }
+  const onSuccessProgram = ({ data }): void => {
+    console.log('🚀 ~ file: add.tsx:142 ~ onSuccessProgram ~ data:', data)
+
+    showToast({ title: 'Program successfully created', description: 'Program has been successfully created' })
     setIsSubmitting(false)
 
     void router.push('/admin/course/list')
@@ -147,10 +152,11 @@ export default function CourseAdd (): JSX.Element {
     showErrorToast({ title: "Course can't save", description: 'Please, verify your data' })
   }
 
-  const { mutate: createCourse } = useCreateCourse({ onSuccess, onError })
-  const { mutate: createProgram } = useCreateProgram({ onSuccess, onError })
+  const { mutate: createCourse } = useCreateCourse({ onSuccess: onSuccessCourse, onError })
+  const { mutate: createProgram } = useCreateProgram({ onSuccess: onSuccessProgram, onError })
 
-  const handleOnSubmit = handleSubmit(data => {
+  const handleOnSubmit = handleSubmit(arg => {
+    const data = transformDataCourse(arg)
     console.log('🚀 ~ file: add.tsx:148 ~ handleOnSubmit ~ data:', data)
     setIsSubmitting(true)
 

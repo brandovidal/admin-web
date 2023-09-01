@@ -31,8 +31,25 @@ export const courseSchema = object({
   total: union([TotalSchema, NumberSchema]).nullish()
 })
 
+export type CourseInput = z.infer<typeof courseSchema>
+
 // TODO: fix this extract all properties
-function transformData (arg = registerCourseSchema) {
+function transformData (data: any) {
+  const uniqueProgram = data.uniqueProgram === 'yes'
+  const startDate = uniqueProgram ? null : data.startDate
+  const endDate = uniqueProgram ? null : data.endDate
+
+  return {
+    ...data,
+    name: data.name.trim(),
+    code: data.code.trim(),
+    uniqueProgram,
+    startDate,
+    endDate
+  }
+}
+
+export function transformDataCourse (arg) {
   const { startDate, endDate, amount, discount, total, ...data } = arg
   return {
     ...data,
