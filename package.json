@@ -1,10 +1,9 @@
 {
-  "name": "nextjs-chakra-ui-skeleton",
+  "name": "panel-web",
   "version": "1.0.0",
-  "private": true,
-  "engines": {
-    "node": ">=18.16.1"
-  },
+  "repository": "git@github.com:brandovidal/panel-web.git",
+  "main": "index.js",
+  "author": "Brando Vidal",
   "scripts": {
     "dev": "NODE_ENV='development' next dev",
     "build": "next build && next export",
