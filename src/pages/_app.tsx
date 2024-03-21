@@ -13,12 +13,9 @@ import theme from '@theme/theme'
 
 import '@styles/Fonts.css'
 import '@styles/Contact.css'
-import '@styles/MiniCalendar.css'
 
 import '@styles/App.css'
 import '@styles/index.css'
-
-import 'react-calendar/dist/Calendar.css'
 
 function MyApp ({ Component, pageProps }: AppProps): JSX.Element {
   const queryClient = new QueryClient()

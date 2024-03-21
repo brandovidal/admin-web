@@ -25,7 +25,6 @@ import React from 'react'
 import { Box, Flex, Icon, Select, FormLabel, SimpleGrid, useColorModeValue } from '@chakra-ui/react'
 
 // Custom components
-import MiniCalendar from '@/components/calendar/MiniCalendar'
 import MiniStatistics from '@/components/card/MiniStatistics'
 import IconBox from '@/components/icons/IconBox'
 
@@ -139,10 +138,7 @@ export default function RTLDashboard (): JSX.Element {
 						columnsData={columnsDataComplex}
 						tableData={(tableDataComplex as unknown) as TableData[]}
 					/>
-					<SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px'>
-						<Tasks />
-						<MiniCalendar h='100%' minW='100%' selectRange={false} />
-					</SimpleGrid>
+					<Tasks />
 				</SimpleGrid>
 			</Box>
 		</RTLLayout>

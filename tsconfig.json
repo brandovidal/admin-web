@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "typeRoots": ["node_modules/@types", "src/types"],
+    "typeRoots": ["node_modules/@types", "src/types/"],
     "target": "ES2015",
     "lib": ["dom", "dom.iterable", "esnext", "es2015.iterable"],
     "allowJs": true,
@@ -43,9 +43,9 @@
       "@variables/*": ["./src/variables/*"],
       "@views/*": ["./src/views/*"]
     },
-    "types": ["@types/react", "@types/react-dom"],
+    "types": ["react", "react-dom"],
     "incremental": true
   },
-  "exclude": ["node_modules", "next.config.js", "next-env.d.ts"],
+  "exclude": ["node_modules/", "next.config.js", "next-env.d.ts", "dist/"],
   "include": ["./src", "**/*.ts", "**/*.tsx"]
 }
