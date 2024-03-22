@@ -46,6 +46,6 @@
     "types": ["react", "react-dom"],
     "incremental": true
   },
-  "exclude": ["node_modules/", "next.config.js", "next-env.d.ts", "dist/"],
+  "exclude": ["node_modules/", "next.config.js", "next-env.d.ts", ".eslintrc.js", "out/"],
   "include": ["./src", "**/*.ts", "**/*.tsx"]
 }
