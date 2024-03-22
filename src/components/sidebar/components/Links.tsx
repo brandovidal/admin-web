@@ -17,14 +17,14 @@ export function SidebarLinks(props: SidebarLinksProps) {
   //   Chakra color mode
   const router = useRouter();
 
-  let activeColor = useColorModeValue('gray.700', 'white');
-  let inactiveColor = useColorModeValue(
+  const activeColor = useColorModeValue('gray.700', 'white');
+  const inactiveColor = useColorModeValue(
     'secondaryGray.600',
     'secondaryGray.600'
   );
-  let activeIcon = useColorModeValue('brand.500', 'white');
-  let textColor = useColorModeValue('secondaryGray.500', 'white');
-  let brandColor = useColorModeValue('brand.500', 'brand.400');
+  const activeIcon = useColorModeValue('brand.500', 'white');
+  const textColor = useColorModeValue('secondaryGray.500', 'white');
+  const brandColor = useColorModeValue('brand.500', 'brand.400');
 
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName: string) => {
