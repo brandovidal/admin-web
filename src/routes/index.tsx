@@ -21,7 +21,6 @@ import MainDashboard from '@pages/admin/default'
 import NFTMarketplace from '@pages/admin/nft-marketplace'
 import Profile from '@pages/admin/profile'
 import DataTables from '@pages/admin/data-tables'
-import RTL from '@pages/rtl/rtl-default'
 import UserList from '@/pages/admin/user/list'
 import StudentList from '@/pages/admin/student/list'
 import ProgramList from '@/pages/admin/program/list'
@@ -98,13 +97,6 @@ const routes: IRoute[] = [
     path: '/sign-in',
     icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
     component: SignInCentered
-  },
-  {
-    name: 'RTL Admin',
-    layout: '/rtl',
-    path: '/rtl-default',
-    icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
-    component: RTL
   }
 ]
 
