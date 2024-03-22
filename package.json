@@ -6,15 +6,14 @@
   "author": "Brando Vidal",
   "scripts": {
     "dev": "NODE_ENV='development' next dev",
-    "build": "next build && next export",
     "start": "next start",
     "lint": "next lint",
     "lint-fix": "next lint --fix",
-    "clean-build": "rimraf out/ .next/",
-    "clean-install": "rimraf node_modules/ .next/ package-lock.json yarn.lock pnpm-lock.yaml",
-    "clean": "pnpm run clean-build && pnpm run clean-install",
-    "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build"
+    "prebuild": "pnpm run clean:build",
+    "build": "next build && next export",
+    "clean:build": "rimraf out/ .next/",
+    "clean:install": "rimraf node_modules/ .next/ package-lock.json pnpm-lock.yaml",
+    "clean": "pnpm run clean-build && pnpm run clean-install"
   },
   "dependencies": {
     "@chakra-ui/icons": "2.0.19",
