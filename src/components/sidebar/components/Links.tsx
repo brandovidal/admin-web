@@ -11,7 +11,7 @@ interface SidebarLinksProps {
   routes: IRoute[];
 }
 
-export function SidebarLinks(props: SidebarLinksProps) {
+export function SidebarLinks (props: SidebarLinksProps) {
   const { routes } = props;
 
   //   Chakra color mode
