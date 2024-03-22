@@ -23,7 +23,6 @@ import Profile from '@pages/admin/profile'
 import DataTables from '@pages/admin/data-tables'
 import UserList from '@/pages/admin/user/list'
 import StudentList from '@/pages/admin/student/list'
-import ProgramList from '@/pages/admin/program/list'
 import CourseList from '@/pages/admin/course/list'
 
 const routes: IRoute[] = [
@@ -76,13 +75,6 @@ const routes: IRoute[] = [
     path: '/course/list',
     icon: <Icon as={MdSchool} width="20px" height="20px" color="inherit" />,
     component: CourseList
-  },
-  {
-    name: 'Program',
-    layout: '/admin',
-    path: '/program/list',
-    icon: <Icon as={MdOutlinePhonelinkSetup} width="20px" height="20px" color="inherit" />,
-    component: ProgramList
   },
   {
     name: 'Profile',
