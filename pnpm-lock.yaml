@@ -113,12 +113,6 @@ dependencies:
   rimraf:
     specifier: 5.0.1
     version: 5.0.1
-  stylis:
-    specifier: 4.2.0
-    version: 4.2.0
-  stylis-plugin-rtl:
-    specifier: 2.1.1
-    version: 2.1.1(stylis@4.2.0)
   typescript:
     specifier: 5.0.4
     version: 5.0.4
@@ -2499,11 +2493,6 @@ packages:
 
   /css.escape@1.5.1:
     resolution: {integrity: sha512-YUifsXXuknHlUsmlgyY0PKzgPOr7/FjCePfHNt0jxm83wHZi44VDMQ7/fGNkjY3/jV1MC+1CmZbaHzugyeRtpg==}
-    dev: false
-
-  /cssjanus@2.1.0:
-    resolution: {integrity: sha512-kAijbny3GmdOi9k+QT6DGIXqFvL96aksNlGr4Rhk9qXDZYWUojU4bRc3IHWxdaLNOqgEZHuXoe5Wl2l7dxLW5g==}
-    engines: {node: '>=10.0.0'}
     dev: false
 
   /csstype@3.1.3:
@@ -5065,15 +5054,6 @@ packages:
     dependencies:
       client-only: 0.0.1
       react: 18.2.0
-    dev: false
-
-  /stylis-plugin-rtl@2.1.1(stylis@4.2.0):
-    resolution: {integrity: sha512-q6xIkri6fBufIO/sV55md2CbgS5c6gg9EhSVATtHHCdOnbN/jcI0u3lYhNVeuI65c4lQPo67g8xmq5jrREvzlg==}
-    peerDependencies:
-      stylis: 4.x
-    dependencies:
-      cssjanus: 2.1.0
-      stylis: 4.2.0
     dev: false
 
   /stylis@4.2.0:

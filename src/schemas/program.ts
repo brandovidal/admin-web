@@ -17,6 +17,7 @@ const TotalSchema = number({ required_error: 'Total is required.', invalid_type_
 const CourseSchema = string({ required_error: 'Course is required.', invalid_type_error: 'Course must be a string.' })
 
 export const programSchema = object({
+  id: string().optional(),
   name: string({
     required_error: 'Name is required'
   })
@@ -35,7 +36,9 @@ export const programSchema = object({
   course: union([CourseSchema, SelectSchema]).nullable(),
   courseId: string({
     required_error: 'Course ID is required'
-  }).length(24, { message: 'Enter 24 characters' }).nullish()
+  })
+    .length(24, { message: 'Enter 24 characters' })
+    .nullish()
 })
 type ProgramInput = z.infer<typeof programSchema>
 
@@ -55,12 +58,10 @@ function transformData (arg: ProgramInput) {
   }
 }
 
-export const registerProgramSchema = programSchema
-  .transform(transformData)
+export const registerProgramSchema = programSchema.transform(transformData)
 
 export type RegisterProgramInput = z.infer<typeof registerProgramSchema>
 
-export const updateProgramSchema = intersection(programSchema, IdSchema)
-  .transform(transformData)
+export const updateProgramSchema = intersection(programSchema, IdSchema).transform(transformData)
 
 export type UpdateProgramInput = z.infer<typeof updateProgramSchema>
