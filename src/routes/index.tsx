@@ -1,13 +1,10 @@
 import { Icon } from '@chakra-ui/react'
 import {
-  MdBarChart,
   MdPerson,
   MdHome,
   MdLock,
-  MdOutlineShoppingCart,
   MdPeople,
   MdContacts,
-  MdOutlinePhonelinkSetup,
   MdSchool
 } from 'react-icons/md'
 
@@ -18,9 +15,7 @@ import SignInCentered from '@pages/auth/sign-in'
 
 // Admin Imports
 import MainDashboard from '@pages/admin/default'
-import NFTMarketplace from '@pages/admin/nft-marketplace'
 import Profile from '@pages/admin/profile'
-import DataTables from '@pages/admin/data-tables'
 import UserList from '@/pages/admin/user/list'
 import StudentList from '@/pages/admin/student/list'
 import CourseList from '@/pages/admin/course/list'
@@ -32,28 +27,6 @@ const routes: IRoute[] = [
     path: '/default',
     icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
     component: MainDashboard
-  },
-  {
-    name: 'NFT Marketplace',
-    layout: '/admin',
-    path: '/nft-marketplace',
-    icon: (
-      <Icon
-        as={MdOutlineShoppingCart}
-        width="20px"
-        height="20px"
-        color="inherit"
-      />
-    ),
-    component: NFTMarketplace,
-    secondary: true
-  },
-  {
-    name: 'Data Tables',
-    layout: '/admin',
-    icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
-    path: '/data-tables',
-    component: DataTables
   },
   {
     name: 'Users',

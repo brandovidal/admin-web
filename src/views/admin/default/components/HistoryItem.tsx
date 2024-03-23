@@ -7,7 +7,7 @@ import Card from '@/components/card/Card'
 import { FaEthereum } from 'react-icons/fa'
 import { Image } from '@/components/image/Image'
 
-export default function NFT (props: { image: string, name: string, author: string, date: string, price: string | number }): JSX.Element {
+export default function HistoryItem (props: { image: string, name: string, author: string, date: string, price: string | number }): JSX.Element {
   const { image, name, author, date, price } = props
   // Chakra Color Mode
   const textColor = useColorModeValue('brands.900', 'white')
