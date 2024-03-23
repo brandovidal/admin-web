@@ -1,25 +1,3 @@
-/*!
-  _   _  ___  ____  ___ ________  _   _   _   _ ___
- | | | |/ _ \|  _ \|_ _|__  / _ \| \ | | | | | |_ _|
- | |_| | | | | |_) || |  / / | | |  \| | | | | || |
- |  _  | |_| |  _ < | | / /| |_| | |\  | | |_| || |
- |_| |_|\___/|_| \_\___/____\___/|_| \_|  \___/|___|
-
-=========================================================
-* Panel Dashboard - v1.1.0
-=========================================================
-
-* Product Page: https://www.horizon-ui.com/
-* Copyright 2022 Panel Dashboard (https://www.horizon-ui.com/)
-
-* Designed and Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
 import {
   Box,
   Flex,
@@ -48,7 +26,7 @@ import CheckTable from '@/views/admin/default/components/CheckTable'
 import ComplexTable from '@/views/admin/default/components/ComplexTable'
 import DailyTraffic from '@/views/admin/default/components/DailyTraffic'
 import PieCard from '@/views/admin/default/components/PieCard'
-import Tasks from '@/views/admin/default/components/Tasks'
+import History from '@/views/admin/default/components/History'
 import TotalSpent from '@/views/admin/default/components/TotalSpent'
 import WeeklyRevenue from '@/views/admin/default/components/WeeklyRevenue'
 
@@ -182,7 +160,7 @@ export default function UserReports (): JSX.Element {
             columnsData={columnsDataComplex}
             tableData={tableDataComplex as unknown as TableData[]}
           />
-          <Tasks />
+          <History />
         </SimpleGrid>
       </Box>
     </AdminLayout>

@@ -7,7 +7,6 @@ import {
   MdOutlineShoppingCart,
   MdPeople,
   MdContacts,
-  MdOutlinePhonelinkSetup,
   MdSchool
 } from 'react-icons/md'
 
@@ -18,7 +17,6 @@ import SignInCentered from '@pages/auth/sign-in'
 
 // Admin Imports
 import MainDashboard from '@pages/admin/default'
-import NFTMarketplace from '@pages/admin/nft-marketplace'
 import Profile from '@pages/admin/profile'
 import DataTables from '@pages/admin/data-tables'
 import UserList from '@/pages/admin/user/list'
@@ -32,21 +30,6 @@ const routes: IRoute[] = [
     path: '/default',
     icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
     component: MainDashboard
-  },
-  {
-    name: 'NFT Marketplace',
-    layout: '/admin',
-    path: '/nft-marketplace',
-    icon: (
-      <Icon
-        as={MdOutlineShoppingCart}
-        width="20px"
-        height="20px"
-        color="inherit"
-      />
-    ),
-    component: NFTMarketplace,
-    secondary: true
   },
   {
     name: 'Data Tables',
