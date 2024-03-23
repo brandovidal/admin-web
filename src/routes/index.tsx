@@ -1,10 +1,8 @@
 import { Icon } from '@chakra-ui/react'
 import {
-  MdBarChart,
   MdPerson,
   MdHome,
   MdLock,
-  MdOutlineShoppingCart,
   MdPeople,
   MdContacts,
   MdSchool
@@ -18,7 +16,6 @@ import SignInCentered from '@pages/auth/sign-in'
 // Admin Imports
 import MainDashboard from '@pages/admin/default'
 import Profile from '@pages/admin/profile'
-import DataTables from '@pages/admin/data-tables'
 import UserList from '@/pages/admin/user/list'
 import StudentList from '@/pages/admin/student/list'
 import CourseList from '@/pages/admin/course/list'
@@ -30,13 +27,6 @@ const routes: IRoute[] = [
     path: '/default',
     icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
     component: MainDashboard
-  },
-  {
-    name: 'Data Tables',
-    layout: '/admin',
-    icon: <Icon as={MdBarChart} width="20px" height="20px" color="inherit" />,
-    path: '/data-tables',
-    component: DataTables
   },
   {
     name: 'Users',
